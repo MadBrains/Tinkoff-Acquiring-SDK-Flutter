@@ -1,0 +1,70 @@
+import 'package:json_annotation/json_annotation.dart';
+
+import '../../constants.dart';
+import '../base/acquiring_request.dart';
+import '../../utils/extensions.dart';
+
+part 'remove_card_request.g.dart';
+
+/// Метод удаляет привязанную карту у покупателя
+///
+/// [RemoveCardRequest](http://static2.tinkoff.ru/acquiring/manuals/android_sdk.pdf)
+@JsonSerializable(includeIfNull: false)
+class RemoveCardRequest extends AcquiringRequest {
+  /// Создает экземпляр метода по удалению привязанной карты у покупателя
+  RemoveCardRequest(
+    this.cardId,
+    this.customerKey, {
+    this.ip,
+    String signToken,
+  }) : super(signToken) {
+    validate();
+  }
+
+  /// Преобразование json в модель
+  factory RemoveCardRequest.fromJson(Map<String, dynamic> json) =>
+      _$RemoveCardRequestFromJson(json);
+
+  @override
+  String get apiMethod => ApiMethods.removeCard;
+
+  @override
+  Map<String, dynamic> toJson() => _$RemoveCardRequestToJson(this);
+
+  @override
+  RemoveCardRequest copyWith({
+    int cardId,
+    String customerKey,
+    String ip,
+    String signToken,
+  }) {
+    return RemoveCardRequest(
+      cardId ?? this.cardId,
+      customerKey ?? this.customerKey,
+      ip: ip ?? this.ip,
+      signToken: signToken ?? this.signToken,
+    );
+  }
+
+  @override
+  void validate() {
+    assert(cardId.length <= 40);
+    assert(customerKey.length <= 36);
+
+    if (ip != null) {
+      assert(ip.length >= 7 && ip.length <= 45);
+    }
+  }
+
+  /// Идентификатор карты в системе Банка
+  @JsonKey(name: JsonKeys.cardId)
+  final int cardId;
+
+  /// Идентификатор платежа в системе банка
+  @JsonKey(name: JsonKeys.customerKey)
+  final String customerKey;
+
+  /// IP-адрес покупателя
+  @JsonKey(name: JsonKeys.ip)
+  final String ip;
+}
