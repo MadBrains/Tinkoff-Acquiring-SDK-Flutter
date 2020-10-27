@@ -21,6 +21,9 @@ class AcquiringResponse {
   factory AcquiringResponse.fromJson(Map<String, dynamic> json) =>
       _$AcquiringResponseFromJson(json);
 
+  /// Преобразование модели в json
+  Map<String, dynamic> toJson() => _$AcquiringResponseToJson(this);
+
   /// Выполнение операции
   @JsonKey(name: JsonKeys.success)
   final bool success;

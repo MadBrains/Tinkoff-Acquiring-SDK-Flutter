@@ -23,6 +23,9 @@ class AttachCardResponse extends AcquiringResponse {
     this.requestKey,
     this.rebillId,
     this.cardId,
+    this.acsUrl,
+    this.md,
+    this.paReq,
   }) : super(
           status: status,
           success: success,
@@ -36,12 +39,12 @@ class AttachCardResponse extends AcquiringResponse {
       _$AttachCardResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$AttachCardResponseToJson(this);
+
+  @override
   String toString() {
     return 'AttachCardResponse(terminalKey: $terminalKey, customerKey: $customerKey, requestKey: $requestKey, rebillId: $rebillId, cardId: $cardId, success: $success, status: $status, errorCode: $errorCode, message: $message, details: $details)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$AttachCardResponseToJson(this);
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
@@ -63,4 +66,17 @@ class AttachCardResponse extends AcquiringResponse {
   /// Идентификатор карты в системе Банка
   @JsonKey(name: JsonKeys.cardId)
   final String cardId;
+
+  /// Адрес перенаправления после аутентификации 3-D Secure
+  /// (URL обработчик на стороне мерчанта, принимающий результаты прохождения 3-D Secure)
+  @JsonKey(name: JsonKeys.acsUrl)
+  final String acsUrl;
+
+  /// Уникальный идентификатор транзакции в системе Банка (возвращается в ответе на FinishAuthorize)
+  @JsonKey(name: JsonKeys.md)
+  final String md;
+
+  /// Результат аутентификации 3-D Secure (возвращается в ответе на FinishAuthorize)
+  @JsonKey(name: JsonKeys.paReq)
+  final String paReq;
 }

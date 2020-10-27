@@ -30,12 +30,12 @@ class AddCustomerResponse extends AcquiringResponse {
       _$AddCustomerResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$AddCustomerResponseToJson(this);
+
+  @override
   String toString() {
     return 'AddCustomerResponse(terminalKey: $terminalKey, customerKey: $customerKey, success: $success, errorCode: $errorCode, message: $message, details: $details)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$AddCustomerResponseToJson(this);
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

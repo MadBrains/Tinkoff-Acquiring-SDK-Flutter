@@ -34,12 +34,12 @@ class GetStateResponse extends AcquiringResponse {
       _$GetStateResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$GetStateResponseToJson(this);
+
+  @override
   String toString() {
     return 'GetStateResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$GetStateResponseToJson(this);
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

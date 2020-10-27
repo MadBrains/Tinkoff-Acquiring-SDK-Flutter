@@ -30,12 +30,12 @@ class ResendResponse extends AcquiringResponse {
       _$ResendResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$ResendResponseToJson(this);
+
+  @override
   String toString() {
     return 'ResendResponse(terminalKey: $terminalKey, count: $count, success: $success, errorCode: $errorCode, message: $message, details: $details)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$ResendResponseToJson(this);
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

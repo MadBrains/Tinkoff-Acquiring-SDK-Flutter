@@ -36,12 +36,12 @@ class InitResponse extends AcquiringResponse {
       _$InitResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$InitResponseToJson(this);
+
+  @override
   String toString() {
     return 'InitResponse(terminalKey: $terminalKey, amount: $amount, orderId: $orderId, success: $success, status: $status, paymentId: $paymentId, errorCode: $errorCode, paymentURL: $paymentURL, message: $message, details: $details)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$InitResponseToJson(this);
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

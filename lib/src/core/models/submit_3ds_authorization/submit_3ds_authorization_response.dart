@@ -39,12 +39,12 @@ class Submit3DSAuthorizationResponse extends AcquiringResponse {
       _$Submit3DSAuthorizationResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$Submit3DSAuthorizationResponseToJson(this);
+
+  @override
   String toString() {
     return 'Submit3DSAuthorizationResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, amount: $amount, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details, rebillId: $rebillId, cardId: $cardId)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$Submit3DSAuthorizationResponseToJson(this);
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
