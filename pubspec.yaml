@@ -13,6 +13,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  meta: ^1.2.3
   http: ^0.12.2
   crypto: ^2.1.5
   crypton: ^1.1.2
