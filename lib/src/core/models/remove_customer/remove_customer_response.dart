@@ -30,12 +30,12 @@ class RemoveCustomerResponse extends AcquiringResponse {
       _$RemoveCustomerResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$RemoveCustomerResponseToJson(this);
+
+  @override
   String toString() {
     return 'RemoveCustomerResponse(terminalKey: $terminalKey, customerKey: $customerKey, success: $success, errorCode: $errorCode, message: $message, details: $details)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$RemoveCustomerResponseToJson(this);
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

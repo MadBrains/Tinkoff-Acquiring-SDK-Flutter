@@ -1,3 +1,5 @@
+import 'package:meta/meta.dart';
+
 import './constants.dart';
 import './models/add_card/add_card_request.dart';
 import './models/add_card/add_card_response.dart';
@@ -11,6 +13,8 @@ import './models/cancel/cancel_request.dart';
 import './models/cancel/cancel_response.dart';
 import './models/charge/charge_request.dart';
 import './models/charge/charge_response.dart';
+import './models/check_3ds_version/check_3ds_version_request.dart';
+import './models/check_3ds_version/check_3ds_version_response.dart';
 import './models/confirm/confirm_request.dart';
 import './models/confirm/confirm_response.dart';
 import './models/finish_authorize/finish_authorize_request.dart';
@@ -72,6 +76,32 @@ class TinkoffAcquiring {
 
   /// Позволяет использовать свой логгер или заданный
   final BaseLogger logger;
+
+  /// Создает токен, на основе [terminalKey], [password], [request]
+  ///
+  /// Можно использовать только для тестирования
+  @visibleForTesting
+  static String generateSignToken(
+    String terminalKey,
+    String password,
+    AcquiringRequest request,
+  ) {
+    final Map<String, dynamic> temp = request.toJson()
+      ..addAll(<String, dynamic>{
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.password: password,
+      });
+    final List<String> sortedKeys = List<String>.from(temp.keys)..sort();
+    final StringBuffer buffer = StringBuffer();
+
+    for (int i = 0; i < sortedKeys.length; i++) {
+      if (!Ignore.ignoredFields.contains(sortedKeys[i])) {
+        buffer.write(temp[sortedKeys[i]]);
+      }
+    }
+
+    return CryptoUtils.sha256(buffer.toString());
+  }
 
   /// Метод подготовки для привязки карты,
   /// необходимо вызвать [TinkoffAcquiring.addCard] перед методом [TinkoffAcquiring.attachCard]
@@ -189,6 +219,15 @@ class TinkoffAcquiring {
     );
   }
 
+  /// Проверяет 3DS протокол
+  Future<Check3DSVersionResponse> check3DSVersion(
+      Check3DSVersionRequest request) {
+    return _createRequest(
+      request,
+      (Map<String, dynamic> json) => Check3DSVersionResponse.fromJson(json),
+    );
+  }
+
   Future<Response> _createRequest<Response extends AcquiringResponse>(
     AcquiringRequest request,
     Response Function(Map<String, dynamic> json) response,
@@ -207,30 +246,22 @@ class TinkoffAcquiring {
 
   Map<String, dynamic> _modifyRequest(AcquiringRequest request) {
     final Map<String, dynamic> temp = request.toJson();
-    if (proxyUrl != null) {
-      return temp;
-    }
-
-    temp[JsonKeys.terminalKey] = terminalKey;
-
+    if (proxyUrl != null) return temp;
     if (request.signToken != null) {
-      return temp;
+      return temp
+        ..addAll(<String, dynamic>{
+          JsonKeys.terminalKey: terminalKey,
+        });
     }
 
-    temp[JsonKeys.password] = password;
-    final List<String> sortedKeys = List<String>.from(temp.keys);
-    sortedKeys.sort();
+    final String token = generateSignToken(terminalKey, password, request);
+    final Map<String, dynamic> _request = temp
+      ..addAll(<String, dynamic>{
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.token: token,
+      });
 
-    final StringBuffer buffer = StringBuffer();
-    for (int i = 0; i < sortedKeys.length; i++) {
-      if (!Ignore.ignoredFields.contains(sortedKeys[i])) {
-        buffer.write(temp[sortedKeys[i]]);
-      }
-    }
-    temp.remove(JsonKeys.password);
-    temp[JsonKeys.token] = CryptoUtils.sha256(buffer.toString());
-    logger.log('"$buffer": "${temp[JsonKeys.token]}"', name: 'Token');
-
-    return temp;
+    logger.log('"$_request": "$token"', name: 'Token');
+    return _request;
   }
 }

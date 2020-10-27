@@ -20,9 +20,12 @@ FinishAuthorizeResponse _$FinishAuthorizeResponseFromJson(
     paymentId: json['PaymentId'] as String,
     cardId: json['CardId'] as String,
     acsUrl: json['ACSUrl'] as String,
+    acsTransId: json['AcsTransId'] as String,
     md: json['MD'] as String,
     paReq: json['PaReq'] as String,
     rebillId: json['RebillId'] as String,
+    fallbackOnTdsV1: json['FallbackOnTdsV1'] as bool,
+    serverTransId: json['TdsServerTransID'] as String,
   );
 }
 
@@ -40,9 +43,12 @@ Map<String, dynamic> _$FinishAuthorizeResponseToJson(
       'PaymentId': instance.paymentId,
       'CardId': instance.cardId,
       'ACSUrl': instance.acsUrl,
+      'AcsTransId': instance.acsTransId,
       'MD': instance.md,
       'PaReq': instance.paReq,
       'RebillId': instance.rebillId,
+      'FallbackOnTdsV1': instance.fallbackOnTdsV1,
+      'TdsServerTransID': instance.serverTransId,
     };
 
 T _$enumDecode<T>(

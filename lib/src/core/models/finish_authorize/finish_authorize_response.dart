@@ -27,9 +27,12 @@ class FinishAuthorizeResponse extends AcquiringResponse {
     this.paymentId,
     this.cardId,
     this.acsUrl,
+    this.acsTransId,
     this.md,
     this.paReq,
     this.rebillId,
+    this.fallbackOnTdsV1,
+    this.serverTransId,
   }) : super(
           status: status,
           success: success,
@@ -43,12 +46,16 @@ class FinishAuthorizeResponse extends AcquiringResponse {
       _$FinishAuthorizeResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$FinishAuthorizeResponseToJson(this);
+
+  @override
   String toString() {
-    return 'FinishAuthorizeResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, amount: $amount, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details, cardId: $cardId, acsUrl: $acsUrl, md: $md, paReq: $paReq, rebillId: $rebillId)';
+    return 'FinishAuthorizeResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, amount: $amount, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details, cardId: $cardId, acsUrl: $acsUrl, acsTransId: $acsTransId, md: $md, paReq: $paReq, rebillId: $rebillId)';
   }
 
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$FinishAuthorizeResponseToJson(this);
+  /// Определение версии 3DS протокола
+  bool get is3DsVersion2 =>
+      serverTransId?.isNotEmpty == true && acsTransId?.isNotEmpty == true;
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
@@ -76,6 +83,10 @@ class FinishAuthorizeResponse extends AcquiringResponse {
   @JsonKey(name: JsonKeys.acsUrl)
   final String acsUrl;
 
+  /// Уникальный идентификатор транзакции, присвоенный ACS
+  @JsonKey(name: JsonKeys.acsTransId)
+  final String acsTransId;
+
   /// Уникальный идентификатор транзакции в системе Банка (возвращается в ответе на FinishAuthorize)
   @JsonKey(name: JsonKeys.md)
   final String md;
@@ -87,4 +98,13 @@ class FinishAuthorizeResponse extends AcquiringResponse {
   /// Идентификатор рекуррентного платежа в системе банка
   @JsonKey(name: JsonKeys.rebillId)
   final String rebillId;
+
+  /// Резервный вариант для 3-D Secure 1.0, если 3-D Secure 2.0 недоступен
+  @JsonKey(name: JsonKeys.fallbackOnTdsV1)
+  final bool fallbackOnTdsV1;
+
+  /// Уникальный идентификатор транзакции, генерируемый 3DS-Server,
+  /// обязательный параметр для 3DS второй версии
+  @JsonKey(name: JsonKeys.tdsServerTransId)
+  final String serverTransId;
 }

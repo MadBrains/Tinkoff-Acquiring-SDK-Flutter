@@ -7,7 +7,11 @@ import 'package:tinkoff_acquiring/tinkoff_acquiring_core.dart';
 import 'sdk_test_constant.dart';
 
 void start() {
+  final bool is3DS =
+      math.Random(DateTime.now().millisecondsSinceEpoch).nextBool();
+
   setUp(() async {
+    acquiring.logger.log(is3DS.toString(), name: 'is3DS');
     await Future<void>.delayed(const Duration(seconds: 5)).then((_) {});
     await acquiring.removeCard(RemoveCardRequest(cardId, customerKey));
     await acquiring.removeCustomer(RemoveCustomerRequest(
@@ -46,7 +50,7 @@ void start() {
     final AttachCardResponse attachCard =
         await acquiring.attachCard(AttachCardRequest(
       addCard.requestKey.toString(),
-      cardDataNo3DS,
+      is3DS ? cardData3DS : cardDataNo3DS,
     ));
     expect(attachCard.success, true);
 
@@ -79,9 +83,22 @@ void start() {
     final FinishAuthorizeResponse finishAuthorize =
         await acquiring.finishAuthorize(FinishAuthorizeRequest(
       int.parse(init.paymentId),
-      cardData: cardDataNo3DS,
+      cardData: is3DS ? cardData3DS : cardDataNo3DS,
     ));
     expect(finishAuthorize.success, true);
+
+    if (finishAuthorize.status == Status.threeDsChecking) {
+      final Check3DSVersionResponse check3DSVersion =
+          await acquiring.check3DSVersion(Check3DSVersionRequest(
+        int.parse(init.paymentId),
+        is3DS
+            ? cardData3DS
+            : is3DS
+                ? cardData3DS
+                : cardDataNo3DS,
+      ));
+      expect(check3DSVersion.success, true);
+    }
 
     final GetStateResponse getState = await acquiring.getState(GetStateRequest(
       int.parse(init.paymentId),

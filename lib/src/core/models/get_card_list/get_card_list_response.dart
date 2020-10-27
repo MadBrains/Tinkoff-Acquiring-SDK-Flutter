@@ -30,12 +30,12 @@ class GetCardListResponse extends AcquiringResponse {
       _$GetCardListResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$GetCardListResponseToJson(this);
+
+  @override
   String toString() {
     return 'GetCardListResponse(cardInfo: $cardInfo, success: $success, errorCode: $errorCode, message: $message, details: $details)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$GetCardListResponseToJson(this);
 
   /// Данные карты
   @JsonKey(name: JsonKeys.cardInfo)

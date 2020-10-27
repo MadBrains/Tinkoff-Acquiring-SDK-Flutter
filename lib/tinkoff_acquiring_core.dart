@@ -13,6 +13,8 @@ export 'src/core/models/add_customer/add_customer_request.dart';
 export 'src/core/models/add_customer/add_customer_response.dart';
 export 'src/core/models/attach_card/attach_card_request.dart';
 export 'src/core/models/attach_card/attach_card_response.dart';
+export 'src/core/models/base/acquiring_request.dart';
+export 'src/core/models/base/acquiring_response.dart';
 export 'src/core/models/cancel/cancel_request.dart';
 export 'src/core/models/cancel/cancel_response.dart';
 export 'src/core/models/charge/charge_request.dart';
@@ -36,6 +38,8 @@ export 'src/core/models/remove_customer/remove_customer_response.dart';
 export 'src/core/models/resend/resend_request.dart';
 export 'src/core/models/resend/resend_response.dart';
 export 'src/core/models/submit_3ds_authorization/submit_3ds_authorization_response.dart';
+export 'src/core/models/check_3ds_version/check_3ds_version_request.dart';
+export 'src/core/models/check_3ds_version/check_3ds_version_response.dart';
 
 export 'src/core/models/common/agent_data.dart';
 export 'src/core/models/common/card_data.dart';

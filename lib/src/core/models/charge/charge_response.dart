@@ -35,12 +35,12 @@ class ChargeResponse extends AcquiringResponse {
       _$ChargeResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$ChargeResponseToJson(this);
+
+  @override
   String toString() {
     return 'ChargeResponse(terminalKey: $terminalKey, amount: $amount, orderId: $orderId, success: $success, status: $status, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$ChargeResponseToJson(this);
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

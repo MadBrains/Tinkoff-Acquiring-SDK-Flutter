@@ -34,12 +34,12 @@ class ConfirmResponse extends AcquiringResponse {
       _$ConfirmResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$ConfirmResponseToJson(this);
+
+  @override
   String toString() {
     return 'ConfirmResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$ConfirmResponseToJson(this);
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

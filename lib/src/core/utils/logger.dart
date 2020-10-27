@@ -8,7 +8,7 @@ abstract class BaseLogger {
   /// Метод логирует сообщение
   void log(
     String message, {
-    String name,
+    String name = '',
     Object error,
     StackTrace stackTrace,
   });
@@ -22,7 +22,7 @@ class Logger extends BaseLogger {
   @override
   void log(
     String message, {
-    String name,
+    String name = '',
     Object error,
     StackTrace stackTrace,
   }) {

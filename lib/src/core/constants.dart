@@ -73,6 +73,27 @@ class JsonKeys {
   static const String failUrl = 'FailUrl';
   static const String payType = 'PayType';
   static const String cardInfo = 'CardInfo';
+  static const String version = 'Version';
+  static const String tdsServerTransId = 'TdsServerTransID';
+  static const String threeDsMethodUrl = 'ThreeDSMethodURL';
+  static const String acsTransId = 'AcsTransId';
+  static const String fallbackOnTdsV1 = 'FallbackOnTdsV1';
+}
+
+class WebViewKeys {
+  static const String threeDSServerTransId = 'threeDSServerTransID';
+  static const String threeDSMethodNotificationURL =
+      'threeDSMethodNotificationURL';
+  static const String acsTransId = 'acsTransID';
+  static const String messageVersion = 'messageVersion';
+  static const String challengeWindowSize = 'challengeWindowSize';
+  static const String messageType = 'messageType';
+  static const String threeDSCompInd = 'threeDSCompInd';
+  static const String language = 'language';
+  static const String timezone = 'timezone';
+  static const String screenHeight = 'screen_height';
+  static const String screenWidth = 'screen_width';
+  static const String cresCallbackUrl = 'cresCallbackUrl';
 }
 
 class NetworkSettings {
@@ -89,6 +110,15 @@ class NetworkSettings {
   };
 }
 
+class WebViewSettings {
+  static const String messageType = 'CReq';
+  static const String challengeWindowSize = '05';
+  static const List<String> cancelActions = <String>[
+    'cancel.do',
+    'cancel=true',
+  ];
+}
+
 class ApiMethods {
   static const String init = 'Init';
   static const String finishAuthorize = 'FinishAuthorize';
@@ -97,6 +127,8 @@ class ApiMethods {
   static const String getState = 'GetState';
   static const String resend = 'Resend';
   static const String submit3DSAuthorization = 'Submit3DSAuthorization';
+  static const String submit3DSAuthorizationV2 = 'Submit3DSAuthorizationV2';
+  static const String complete3DSMethodv2 = 'Complete3DSMethodv2';
   static const String charge = 'Charge';
   static const String addCustomer = 'AddCustomer';
   static const String getCustomer = 'GetCustomer';
@@ -105,6 +137,7 @@ class ApiMethods {
   static const String removeCard = 'RemoveCard';
   static const String addCard = 'AddCard';
   static const String attachCard = 'AttachCard';
+  static const String check3DSVersion = 'Check3dsVersion';
 }
 
 class Ignore {

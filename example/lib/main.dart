@@ -28,6 +28,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   bool threeDs = false;
+  bool threeDsV2 = false;
   Completer<String> status = Completer<String>();
 
   @override
@@ -48,6 +49,22 @@ class _MyHomePageState extends State<MyHomePage> {
                       threeDs = v;
                     });
                   },
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text('3DS V2'),
+                Switch(
+                  value: threeDsV2,
+                  onChanged: threeDs
+                      ? (bool v) {
+                          setState(() {
+                            threeDsV2 = v;
+                          });
+                        }
+                      : null,
                 ),
               ],
             ),
@@ -95,12 +112,23 @@ class _MyHomePageState extends State<MyHomePage> {
     String cardData = '';
 
     if (threeDs) {
-      cardData = CardData(
-        5411420000000002,
-        '1122',
-        '111',
-        cardHolder: 'T. TESTING',
-      ).encode(publicKey);
+      if (threeDsV2) {
+        // 3ds v2
+        cardData = CardData(
+          2202201502887108,
+          '1224',
+          '123',
+          cardHolder: 'T. TESTING',
+        ).encode(publicKey);
+      } else {
+        // 3ds v1
+        cardData = CardData(
+          5411420000000002,
+          '1122',
+          '111',
+          cardHolder: 'T. TESTING',
+        ).encode(publicKey);
+      }
     } else {
       cardData = CardData(
         4300000000000777,
@@ -124,10 +152,33 @@ class _MyHomePageState extends State<MyHomePage> {
       payType: PayType.one,
     ));
 
+    final Check3DSVersionResponse check3DSVersion =
+        await acquiring.check3DSVersion(Check3DSVersionRequest(
+      int.parse(init.paymentId),
+      cardData,
+    ));
+
+    final Completer<Map<String, String>> data =
+        Completer<Map<String, String>>();
+    if (check3DSVersion.is3DsVersion2) {
+      CollectData(
+        context: context,
+        acquiring: acquiring,
+        serverTransId: check3DSVersion.serverTransId,
+        threeDsMethodUrl: check3DSVersion.threeDsMethodUrl,
+        onFinished: (Map<String, String> v) {
+          data.complete(v);
+        },
+      );
+    } else {
+      data.complete(null);
+    }
+
     final FinishAuthorizeResponse fa =
         await acquiring.finishAuthorize(FinishAuthorizeRequest(
       int.parse(init.paymentId),
       cardData: cardData,
+      data: await data.future,
     ));
 
     if (fa.status == Status.threeDsChecking) {
@@ -137,10 +188,15 @@ class _MyHomePageState extends State<MyHomePage> {
         builder: (BuildContext context) => Scaffold(
           body: WebView3DS(
             acquiring: acquiring,
+            is3DsVersion2: check3DSVersion.is3DsVersion2,
             acsUrl: fa.acsUrl,
             md: fa.md,
             paReq: fa.paReq,
-            onLoad: (_) {},
+            version: check3DSVersion.version,
+            serverTransId: check3DSVersion.serverTransId,
+            onLoad: (bool v) {
+              acquiring.logger.log('WebView load: $v');
+            },
             onFinished: (Submit3DSAuthorizationResponse v) {
               Navigator.of(context).pop();
               completer.complete(v);

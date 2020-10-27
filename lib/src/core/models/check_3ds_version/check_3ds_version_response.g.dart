@@ -1,44 +1,36 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'attach_card_response.dart';
+part of 'check_3ds_version_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AttachCardResponse _$AttachCardResponseFromJson(Map<String, dynamic> json) {
-  return AttachCardResponse(
+Check3DSVersionResponse _$Check3DSVersionResponseFromJson(
+    Map<String, dynamic> json) {
+  return Check3DSVersionResponse(
     status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
     success: json['Success'] as bool,
     errorCode: json['ErrorCode'] as String,
     message: json['Message'] as String,
     details: json['Details'] as String,
-    terminalKey: json['TerminalKey'] as String,
-    customerKey: json['CustomerKey'] as String,
-    requestKey: json['RequestKey'] as String,
-    rebillId: json['RebillId'] as int,
-    cardId: json['CardId'] as String,
-    acsUrl: json['ACSUrl'] as String,
-    md: json['MD'] as String,
-    paReq: json['PaReq'] as String,
+    version: json['Version'] as String,
+    serverTransId: json['TdsServerTransID'] as String,
+    threeDsMethodUrl: json['ThreeDSMethodURL'] as String,
   );
 }
 
-Map<String, dynamic> _$AttachCardResponseToJson(AttachCardResponse instance) =>
+Map<String, dynamic> _$Check3DSVersionResponseToJson(
+        Check3DSVersionResponse instance) =>
     <String, dynamic>{
       'Success': instance.success,
       'Status': _$StatusEnumMap[instance.status],
       'ErrorCode': instance.errorCode,
       'Message': instance.message,
       'Details': instance.details,
-      'TerminalKey': instance.terminalKey,
-      'CustomerKey': instance.customerKey,
-      'RequestKey': instance.requestKey,
-      'RebillId': instance.rebillId,
-      'CardId': instance.cardId,
-      'ACSUrl': instance.acsUrl,
-      'MD': instance.md,
-      'PaReq': instance.paReq,
+      'Version': instance.version,
+      'TdsServerTransID': instance.serverTransId,
+      'ThreeDSMethodURL': instance.threeDsMethodUrl,
     };
 
 T _$enumDecode<T>(

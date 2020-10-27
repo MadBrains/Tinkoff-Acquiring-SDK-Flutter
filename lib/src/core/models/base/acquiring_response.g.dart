@@ -16,6 +16,15 @@ AcquiringResponse _$AcquiringResponseFromJson(Map<String, dynamic> json) {
   );
 }
 
+Map<String, dynamic> _$AcquiringResponseToJson(AcquiringResponse instance) =>
+    <String, dynamic>{
+      'Success': instance.success,
+      'Status': _$StatusEnumMap[instance.status],
+      'ErrorCode': instance.errorCode,
+      'Message': instance.message,
+      'Details': instance.details,
+    };
+
 T _$enumDecode<T>(
   Map<T, dynamic> enumValues,
   dynamic source, {

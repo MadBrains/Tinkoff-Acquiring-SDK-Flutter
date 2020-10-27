@@ -74,7 +74,15 @@ void start() {
   //   expect(value.runtimeType, FinishAuthorizeResponse);
   // });
 
-  // TODO fix list Response
+  test('check3DSVersion', () async {
+    final Check3DSVersionResponse value =
+        await acquiring.check3DSVersion(Check3DSVersionRequest(
+      700000021787,
+      cardData3DS,
+    ));
+    expect(value.runtimeType, Check3DSVersionResponse);
+  });
+
   test('getCardList', () async {
     final GetCardListResponse value =
         await acquiring.getCardList(GetCardListRequest(

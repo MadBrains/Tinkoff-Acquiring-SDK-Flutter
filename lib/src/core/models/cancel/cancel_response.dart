@@ -36,12 +36,12 @@ class CancelResponse extends AcquiringResponse {
       _$CancelResponseFromJson(json);
 
   @override
+  Map<String, dynamic> toJson() => _$CancelResponseToJson(this);
+
+  @override
   String toString() {
     return 'CancelResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details, originalAmount: $originalAmount, newAmount: $newAmount)';
   }
-
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$CancelResponseToJson(this);
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
