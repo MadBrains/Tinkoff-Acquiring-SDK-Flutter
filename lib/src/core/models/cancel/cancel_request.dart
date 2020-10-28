@@ -34,6 +34,15 @@ class CancelRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$CancelRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.amount: amount,
+        JsonKeys.ip: ip,
+        JsonKeys.receipt: receipt,
+      };
+
+  @override
   CancelRequest copyWith({
     int paymentId,
     int amount,

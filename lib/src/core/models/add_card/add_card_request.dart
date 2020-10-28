@@ -34,6 +34,16 @@ class AddCardRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$AddCardRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.customerKey: customerKey,
+        JsonKeys.checkType: checkType,
+        JsonKeys.description: description,
+        JsonKeys.payForm: payForm,
+        JsonKeys.ip: ip,
+      };
+
+  @override
   AddCardRequest copyWith({
     String customerKey,
     CheckType checkType,

@@ -32,6 +32,14 @@ class RemoveCardRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$RemoveCardRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.cardId: cardId,
+        JsonKeys.customerKey: customerKey,
+        JsonKeys.ip: ip,
+      };
+
+  @override
   RemoveCardRequest copyWith({
     int cardId,
     String customerKey,

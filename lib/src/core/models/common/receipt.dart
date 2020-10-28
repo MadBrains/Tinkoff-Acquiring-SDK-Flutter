@@ -1,8 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
-import 'items.dart';
+import '../../utils/comparer.dart';
 import '../enums/taxation.dart';
+import 'items.dart';
 
 part 'receipt.g.dart';
 
@@ -10,7 +11,7 @@ part 'receipt.g.dart';
 ///
 /// [Receipt](https://oplata.tinkoff.ru/develop/api/payments/init-request/#Receipt)
 @JsonSerializable(includeIfNull: false)
-class Receipt {
+class Receipt with Comparer {
   /// Создает экземпляр данных чека
   Receipt(
     this.taxation,
@@ -23,6 +24,15 @@ class Receipt {
   /// Преобразование json в модель
   factory Receipt.fromJson(Map<String, dynamic> json) =>
       _$ReceiptFromJson(json);
+
+  @override
+  Map<String, Object> get equals => <String, Object>{
+        JsonKeys.taxation: taxation,
+        JsonKeys.items: items,
+        JsonKeys.email: email,
+        JsonKeys.phone: phone,
+        JsonKeys.emailCompany: emailCompany,
+      };
 
   /// Преобразование модели в json
   Map<String, dynamic> toJson() => _$ReceiptToJson(this);

@@ -37,9 +37,12 @@ class GetStateResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$GetStateResponseToJson(this);
 
   @override
-  String toString() {
-    return 'GetStateResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.orderId: orderId,
+        JsonKeys.paymentId: paymentId,
+      };
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

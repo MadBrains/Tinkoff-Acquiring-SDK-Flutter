@@ -87,7 +87,6 @@ void start() {
     final GetCardListResponse value =
         await acquiring.getCardList(GetCardListRequest(
       customerKey,
-      // requestKey: requestKey,
       ip: ip,
     ));
     expect(value.runtimeType, GetCardListResponse);

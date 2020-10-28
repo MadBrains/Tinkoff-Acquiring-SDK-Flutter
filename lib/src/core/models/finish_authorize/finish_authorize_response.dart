@@ -49,9 +49,21 @@ class FinishAuthorizeResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$FinishAuthorizeResponseToJson(this);
 
   @override
-  String toString() {
-    return 'FinishAuthorizeResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, amount: $amount, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details, cardId: $cardId, acsUrl: $acsUrl, acsTransId: $acsTransId, md: $md, paReq: $paReq, rebillId: $rebillId)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.amount: amount,
+        JsonKeys.orderId: orderId,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.cardId: cardId,
+        JsonKeys.acsUrl: acsUrl,
+        JsonKeys.acsTransId: acsTransId,
+        JsonKeys.md: md,
+        JsonKeys.paReq: paReq,
+        JsonKeys.rebillId: rebillId,
+        JsonKeys.fallbackOnTdsV1: fallbackOnTdsV1,
+        JsonKeys.tdsServerTransId: serverTransId,
+      };
 
   /// Определение версии 3DS протокола
   bool get is3DsVersion2 =>

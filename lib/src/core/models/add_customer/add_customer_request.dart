@@ -32,6 +32,15 @@ class AddCustomerRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$AddCustomerRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.customerKey: customerKey,
+        JsonKeys.email: email,
+        JsonKeys.phone: phone,
+        JsonKeys.ip: ip,
+      };
+
+  @override
   AddCustomerRequest copyWith({
     String customerKey,
     String email,

@@ -53,6 +53,22 @@ class FinishAuthorizeRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$FinishAuthorizeRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.cardData: cardData,
+        JsonKeys.encryptedPaymentData: encryptedPaymentData,
+        JsonKeys.amount: amount,
+        JsonKeys.data: data,
+        JsonKeys.infoEmail: infoEmail,
+        JsonKeys.ip: ip,
+        JsonKeys.phone: phone,
+        JsonKeys.sendEmail: sendEmail,
+        JsonKeys.route: route,
+        JsonKeys.source: source,
+      };
+
+  @override
   FinishAuthorizeRequest copyWith({
     String cardData,
     String encryptedPaymentData,

@@ -33,9 +33,10 @@ class GetCardListResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$GetCardListResponseToJson(this);
 
   @override
-  String toString() {
-    return 'GetCardListResponse(cardInfo: $cardInfo, success: $success, errorCode: $errorCode, message: $message, details: $details)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.cardInfo: cardInfo,
+      };
 
   /// Данные карты
   @JsonKey(name: JsonKeys.cardInfo)

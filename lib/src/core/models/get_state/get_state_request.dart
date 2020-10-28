@@ -31,6 +31,13 @@ class GetStateRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$GetStateRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.ip: ip,
+      };
+
+  @override
   GetStateRequest copyWith({
     int paymentId,
     String ip,

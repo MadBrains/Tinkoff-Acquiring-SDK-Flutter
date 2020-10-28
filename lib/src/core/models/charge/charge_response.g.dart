@@ -13,9 +13,9 @@ ChargeResponse _$ChargeResponseFromJson(Map<String, dynamic> json) {
     errorCode: json['ErrorCode'] as String,
     message: json['Message'] as String,
     details: json['Details'] as String,
+    terminalKey: json['TerminalKey'] as String,
     orderId: json['OrderId'] as String,
     paymentId: json['PaymentId'] as String,
-    terminalKey: json['TerminalKey'] as String,
     amount: json['Amount'] as int,
   );
 }

@@ -31,6 +31,13 @@ class Check3DSVersionRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$Check3DSVersionRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.cardData: cardData,
+      };
+
+  @override
   Check3DSVersionRequest copyWith({
     int paymentId,
     String cardData,

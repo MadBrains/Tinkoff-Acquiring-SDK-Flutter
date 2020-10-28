@@ -20,7 +20,7 @@ Acquiring SDK allows you to integrate [Tinkoff Internet Acquiring][acquiring] in
 Add this to your package's pubspec.yaml file:
 ```yaml
 dependencies:
-  tinkoff_acquiring: 1.0.1
+  tinkoff_acquiring: 1.0.2
 ```
 
 ## Before usage

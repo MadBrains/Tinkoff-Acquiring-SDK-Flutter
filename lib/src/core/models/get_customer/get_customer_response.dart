@@ -35,9 +35,13 @@ class GetCustomerResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$GetCustomerResponseToJson(this);
 
   @override
-  String toString() {
-    return 'GetCustomerResponse(terminalKey: $terminalKey, customerKey: $customerKey, email: $email, phone: $phone, success: $success, errorCode: $errorCode, message: $message, details: $details)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.customerKey: customerKey,
+        JsonKeys.email: email,
+        JsonKeys.phone: phone,
+      };
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

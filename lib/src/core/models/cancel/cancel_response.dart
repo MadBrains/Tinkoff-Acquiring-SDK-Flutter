@@ -39,9 +39,14 @@ class CancelResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$CancelResponseToJson(this);
 
   @override
-  String toString() {
-    return 'CancelResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details, originalAmount: $originalAmount, newAmount: $newAmount)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.orderId: orderId,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.originalAmount: originalAmount,
+        JsonKeys.newAmount: newAmount,
+      };
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

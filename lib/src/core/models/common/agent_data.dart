@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
+import '../../utils/comparer.dart';
 import '../enums/agent_sign.dart';
 
 part 'agent_data.g.dart';
@@ -9,7 +10,7 @@ part 'agent_data.g.dart';
 ///
 /// [AgentData](https://oplata.tinkoff.ru/develop/api/payments/init-request/#AgentData)
 @JsonSerializable(includeIfNull: false)
-class AgentData {
+class AgentData with Comparer {
   /// Создает экземпляр данных агента
   AgentData({
     this.agentSign,
@@ -25,6 +26,18 @@ class AgentData {
   /// Преобразование json в модель
   factory AgentData.fromJson(Map<String, dynamic> json) =>
       _$AgentDataFromJson(json);
+
+  @override
+  Map<String, Object> get equals => <String, Object>{
+        JsonKeys.agentSign: agentSign,
+        JsonKeys.operationName: operationName,
+        JsonKeys.phones: phones,
+        JsonKeys.receiverPhones: receiverPhones,
+        JsonKeys.transferPhones: transferPhones,
+        JsonKeys.operatorName: operatorName,
+        JsonKeys.operatorAddress: operatorAddress,
+        JsonKeys.operatorInn: operatorInn,
+      };
 
   /// Преобразование модели в json
   Map<String, dynamic> toJson() => _$AgentDataToJson(this);

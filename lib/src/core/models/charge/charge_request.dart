@@ -38,6 +38,16 @@ class ChargeRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$ChargeRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.rebillId: rebillId,
+        JsonKeys.sendEmail: sendEmail,
+        JsonKeys.infoEmail: infoEmail,
+        JsonKeys.ip: ip,
+      };
+
+  @override
   ChargeRequest copyWith({
     int paymentId,
     int rebillId,

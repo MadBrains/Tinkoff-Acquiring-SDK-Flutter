@@ -74,10 +74,12 @@ class JsonKeys {
   static const String payType = 'PayType';
   static const String cardInfo = 'CardInfo';
   static const String version = 'Version';
-  static const String tdsServerTransId = 'TdsServerTransID';
+  static const String tdsServerTransId = 'TdsServerTransId';
+  static const String tdsServerTransID = 'TdsServerTransID';
   static const String threeDsMethodUrl = 'ThreeDSMethodURL';
   static const String acsTransId = 'AcsTransId';
   static const String fallbackOnTdsV1 = 'FallbackOnTdsV1';
+  static const String count = 'Count';
 }
 
 class WebViewKeys {

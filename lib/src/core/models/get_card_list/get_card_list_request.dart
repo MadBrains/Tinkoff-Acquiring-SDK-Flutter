@@ -30,6 +30,13 @@ class GetCardListRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$GetCardListRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.customerKey: customerKey,
+        JsonKeys.ip: ip,
+      };
+
+  @override
   GetCardListRequest copyWith({
     String customerKey,
     String ip,

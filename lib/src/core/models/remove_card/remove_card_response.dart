@@ -36,9 +36,13 @@ class RemoveCardResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$RemoveCardResponseToJson(this);
 
   @override
-  String toString() {
-    return 'RemoveCardResponse(terminalKey: $terminalKey, customerKey: $customerKey, cardId: $cardId, success: $success, cardStatus: $cardStatus, errorCode: $errorCode, message: $message, details: $details)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.customerKey: customerKey,
+        JsonKeys.cardId: cardId,
+        JsonKeys.status: cardStatus,
+      };
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
