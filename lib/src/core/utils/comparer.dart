@@ -2,6 +2,8 @@
 
 import 'package:collection/collection.dart';
 
+import '../utils/extensions.dart';
+
 /// `Runtime` генератор [hashCode], [==] и [toString]
 ///
 /// Использует `Jenkins Hash Functions` и `Deep Comparison`
@@ -21,7 +23,7 @@ mixin Comparer {
           _equals(other.equals.values.toList(), equals.values.toList());
 
   @override
-  String toString() => '($runtimeType: $equals)';
+  String toString() => '$runtimeType:(${equals.toNormalizeString()})';
 
   static const DeepCollectionEquality _equality = DeepCollectionEquality();
 
