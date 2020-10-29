@@ -42,9 +42,17 @@ class AttachCardResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$AttachCardResponseToJson(this);
 
   @override
-  String toString() {
-    return 'AttachCardResponse(terminalKey: $terminalKey, customerKey: $customerKey, requestKey: $requestKey, rebillId: $rebillId, cardId: $cardId, success: $success, status: $status, errorCode: $errorCode, message: $message, details: $details)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.customerKey: customerKey,
+        JsonKeys.requestKey: requestKey,
+        JsonKeys.rebillId: rebillId,
+        JsonKeys.cardId: cardId,
+        JsonKeys.acsUrl: acsUrl,
+        JsonKeys.md: md,
+        JsonKeys.paReq: paReq,
+      };
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

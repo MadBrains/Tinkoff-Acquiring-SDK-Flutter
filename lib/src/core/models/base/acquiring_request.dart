@@ -1,11 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
+import '../../utils/comparer.dart';
 
 /// Базовый класс создания запроса Acquiring API
-abstract class AcquiringRequest {
+abstract class AcquiringRequest with Comparer {
   /// Конструктор базового класса для запросов
   AcquiringRequest(this.signToken);
+
+  @override
+  Map<String, Object> get equals => <String, Object>{
+        JsonKeys.token: signToken,
+      };
 
   /// Метод запроса
   String get apiMethod;

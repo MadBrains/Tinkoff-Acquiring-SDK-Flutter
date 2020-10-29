@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
+import '../../utils/comparer.dart';
 import '../enums/card_status.dart';
 import '../enums/card_type.dart';
 
@@ -8,7 +9,7 @@ part 'card_info.g.dart';
 
 /// Данные карты
 @JsonSerializable()
-class CardInfo {
+class CardInfo with Comparer {
   /// Данные карты
   CardInfo({
     this.pan,
@@ -24,9 +25,14 @@ class CardInfo {
       _$CardInfoFromJson(json);
 
   @override
-  String toString() {
-    return 'GetCardListResponse(pan: $pan, cardId: $cardId, rebillId: $rebillId, cardType: $cardType, expDate: $expDate, status: $status)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        JsonKeys.pan: pan,
+        JsonKeys.cardId: cardId,
+        JsonKeys.rebillId: rebillId,
+        JsonKeys.cardType: cardType,
+        JsonKeys.expDate: expDate,
+        JsonKeys.status: status,
+      };
 
   /// Преобразование модели в json
   Map<String, dynamic> toJson() => _$CardInfoToJson(this);

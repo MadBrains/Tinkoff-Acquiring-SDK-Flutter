@@ -41,10 +41,29 @@ class InitRequest extends AcquiringRequest {
       _$InitRequestFromJson(json);
 
   @override
+  String get apiMethod => ApiMethods.init;
+
+  @override
   Map<String, dynamic> toJson() => _$InitRequestToJson(this);
 
   @override
-  String get apiMethod => ApiMethods.init;
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.orderId: orderId,
+        JsonKeys.amount: amount,
+        JsonKeys.ip: ip,
+        JsonKeys.description: description,
+        JsonKeys.language: language,
+        JsonKeys.recurrent: recurrent,
+        JsonKeys.customerKey: customerKey,
+        JsonKeys.redirectDueDate: redirectDueDate,
+        JsonKeys.notificationUrl: notificationUrl,
+        JsonKeys.successUrl: successUrl,
+        JsonKeys.failUrl: failUrl,
+        JsonKeys.payType: payType,
+        JsonKeys.receipt: receipt,
+        JsonKeys.data: data,
+      };
 
   @override
   InitRequest copyWith({

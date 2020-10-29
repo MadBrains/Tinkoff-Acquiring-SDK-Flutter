@@ -261,7 +261,7 @@ class TinkoffAcquiring {
         JsonKeys.token: token,
       });
 
-    logger.log('"$_request": "$token"', name: 'Token');
+    logger.log('$_request', name: 'Token');
     return _request;
   }
 }

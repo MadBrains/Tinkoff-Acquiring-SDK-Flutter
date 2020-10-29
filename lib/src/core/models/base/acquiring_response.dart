@@ -2,12 +2,13 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
 import '../enums/status.dart';
+import '../../utils/comparer.dart';
 
 part 'acquiring_response.g.dart';
 
 /// Базовый класс ответа Acquiring API
 @JsonSerializable()
-class AcquiringResponse {
+class AcquiringResponse with Comparer {
   /// Базовый класс ответа Acquiring API
   AcquiringResponse({
     this.success,
@@ -20,6 +21,15 @@ class AcquiringResponse {
   /// Преобразование json в модель
   factory AcquiringResponse.fromJson(Map<String, dynamic> json) =>
       _$AcquiringResponseFromJson(json);
+
+  @override
+  Map<String, Object> get equals => <String, Object>{
+        JsonKeys.success: success,
+        JsonKeys.status: status,
+        JsonKeys.errorCode: errorCode,
+        JsonKeys.message: message,
+        JsonKeys.details: details,
+      };
 
   /// Преобразование модели в json
   Map<String, dynamic> toJson() => _$AcquiringResponseToJson(this);

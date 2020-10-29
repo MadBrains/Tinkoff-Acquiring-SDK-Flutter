@@ -37,9 +37,12 @@ class Check3DSVersionResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$Check3DSVersionResponseToJson(this);
 
   @override
-  String toString() {
-    return 'Check3DSVersionResponse(version: $version, serverTransId: $serverTransId, threeDsMethodUrl: $threeDsMethodUrl, success: $success, status: $status, errorCode: $errorCode, message: $message, details: $details)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.version: version,
+        JsonKeys.tdsServerTransID: serverTransId,
+        JsonKeys.threeDsMethodUrl: threeDsMethodUrl,
+      };
 
   /// Определение версии 3DS протокола
   bool get is3DsVersion2 => serverTransId?.isNotEmpty == true;
@@ -50,7 +53,7 @@ class Check3DSVersionResponse extends AcquiringResponse {
 
   /// Уникальный идентификатор транзакции, генерируемый 3DS-Server,
   /// обязательный параметр для 3DS второй версии
-  @JsonKey(name: JsonKeys.tdsServerTransId)
+  @JsonKey(name: JsonKeys.tdsServerTransID)
   final String serverTransId;
 
   /// Дополнительный параметр для 3DS второй версии,

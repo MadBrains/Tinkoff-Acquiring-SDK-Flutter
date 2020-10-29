@@ -1,11 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
-import 'agent_data.dart';
-import 'supplier_info.dart';
+import '../../utils/comparer.dart';
 import '../enums/payment_method.dart';
 import '../enums/payment_object.dart';
 import '../enums/tax.dart';
+import 'agent_data.dart';
+import 'supplier_info.dart';
 
 part 'items.g.dart';
 
@@ -13,7 +14,7 @@ part 'items.g.dart';
 ///
 /// [Items](https://oplata.tinkoff.ru/develop/api/payments/init-request/#Items)
 @JsonSerializable(includeIfNull: false)
-class Items {
+class Items with Comparer {
   /// Создает экземпляр массива позиций чека с информацией о товарах.
   Items(
     this.name,
@@ -31,6 +32,21 @@ class Items {
 
   /// Преобразование json в модель
   factory Items.fromJson(Map<String, dynamic> json) => _$ItemsFromJson(json);
+
+  @override
+  Map<String, Object> get equals => <String, Object>{
+        JsonKeys.name: name,
+        JsonKeys.quantity: quantity,
+        JsonKeys.amount: amount,
+        JsonKeys.price: price,
+        JsonKeys.tax: tax,
+        JsonKeys.paymentMethod: paymentMethod,
+        JsonKeys.paymentObject: paymentObject,
+        JsonKeys.ean13: ean13,
+        JsonKeys.shopCode: shopCode,
+        JsonKeys.agentData: agentData,
+        JsonKeys.supplierInfo: supplierInfo,
+      };
 
   /// Преобразование модели в json
   Map<String, dynamic> toJson() => _$ItemsToJson(this);

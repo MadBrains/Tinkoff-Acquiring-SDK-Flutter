@@ -18,9 +18,9 @@ class ChargeResponse extends AcquiringResponse {
     String errorCode,
     String message,
     String details,
+    this.terminalKey,
     this.orderId,
     this.paymentId,
-    this.terminalKey,
     this.amount,
   }) : super(
           status: status,
@@ -38,9 +38,13 @@ class ChargeResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$ChargeResponseToJson(this);
 
   @override
-  String toString() {
-    return 'ChargeResponse(terminalKey: $terminalKey, amount: $amount, orderId: $orderId, success: $success, status: $status, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.orderId: orderId,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.amount: amount,
+      };
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

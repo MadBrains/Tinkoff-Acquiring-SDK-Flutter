@@ -39,9 +39,14 @@ class InitResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$InitResponseToJson(this);
 
   @override
-  String toString() {
-    return 'InitResponse(terminalKey: $terminalKey, amount: $amount, orderId: $orderId, success: $success, status: $status, paymentId: $paymentId, errorCode: $errorCode, paymentURL: $paymentURL, message: $message, details: $details)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.amount: amount,
+        JsonKeys.orderId: orderId,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.paymentUrl: paymentURL,
+      };
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

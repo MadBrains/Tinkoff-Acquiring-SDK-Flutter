@@ -42,9 +42,15 @@ class Submit3DSAuthorizationResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$Submit3DSAuthorizationResponseToJson(this);
 
   @override
-  String toString() {
-    return 'Submit3DSAuthorizationResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, amount: $amount, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details, rebillId: $rebillId, cardId: $cardId)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.amount: amount,
+        JsonKeys.orderId: orderId,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.rebillId: rebillId,
+        JsonKeys.cardId: cardId,
+      };
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

@@ -33,9 +33,11 @@ class ResendResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$ResendResponseToJson(this);
 
   @override
-  String toString() {
-    return 'ResendResponse(terminalKey: $terminalKey, count: $count, success: $success, errorCode: $errorCode, message: $message, details: $details)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.customerKey: count,
+      };
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
@@ -43,6 +45,6 @@ class ResendResponse extends AcquiringResponse {
   final String terminalKey;
 
   /// Количество сообщений, отправляемых повторно
-  @JsonKey(name: 'Count')
+  @JsonKey(name: JsonKeys.count)
   final int count;
 }

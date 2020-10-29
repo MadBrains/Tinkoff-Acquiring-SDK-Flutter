@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
+import '../../utils/comparer.dart';
 
 part 'supplier_info.g.dart';
 
@@ -8,7 +9,7 @@ part 'supplier_info.g.dart';
 ///
 /// [AgentData](https://oplata.tinkoff.ru/develop/api/payments/init-request/#SupplierInfo)
 @JsonSerializable(includeIfNull: false)
-class SupplierInfo {
+class SupplierInfo with Comparer {
   /// Создает экземпляр данных поставщика платежного агента
   SupplierInfo(
     this.phones,
@@ -19,6 +20,13 @@ class SupplierInfo {
   /// Преобразование json в модель
   factory SupplierInfo.fromJson(Map<String, dynamic> json) =>
       _$SupplierInfoFromJson(json);
+
+  @override
+  Map<String, Object> get equals => <String, Object>{
+        JsonKeys.phones: phones,
+        JsonKeys.name: name,
+        JsonKeys.inn: inn,
+      };
 
   /// Преобразование модели в json
   Map<String, dynamic> toJson() => _$SupplierInfoToJson(this);

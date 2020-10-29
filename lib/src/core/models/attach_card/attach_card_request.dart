@@ -32,6 +32,14 @@ class AttachCardRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$AttachCardRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.requestKey: requestKey,
+        JsonKeys.cardData: cardData,
+        JsonKeys.data: data,
+      };
+
+  @override
   AttachCardRequest copyWith({
     String requestKey,
     String cardData,

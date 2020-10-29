@@ -25,7 +25,7 @@ FinishAuthorizeResponse _$FinishAuthorizeResponseFromJson(
     paReq: json['PaReq'] as String,
     rebillId: json['RebillId'] as String,
     fallbackOnTdsV1: json['FallbackOnTdsV1'] as bool,
-    serverTransId: json['TdsServerTransID'] as String,
+    serverTransId: json['TdsServerTransId'] as String,
   );
 }
 
@@ -48,7 +48,7 @@ Map<String, dynamic> _$FinishAuthorizeResponseToJson(
       'PaReq': instance.paReq,
       'RebillId': instance.rebillId,
       'FallbackOnTdsV1': instance.fallbackOnTdsV1,
-      'TdsServerTransID': instance.serverTransId,
+      'TdsServerTransId': instance.serverTransId,
     };
 
 T _$enumDecode<T>(

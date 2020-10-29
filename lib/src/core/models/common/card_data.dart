@@ -2,11 +2,12 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
 import '../../utils/crypto_utils.dart';
+import '../../utils/comparer.dart';
 
 /// Данные карты
 ///
 /// [CardData](https://oplata.tinkoff.ru/develop/api/payments/finishAuthorize-request/#CardData)
-class CardData {
+class CardData with Comparer {
   /// Создает экземпляр данных кард
   CardData(
     this.pan,
@@ -16,6 +17,16 @@ class CardData {
     this.eci,
     this.cavv,
   });
+
+  @override
+  Map<String, Object> get equals => <String, Object>{
+        JsonKeys.pan: pan,
+        JsonKeys.expDate: expDate,
+        JsonKeys.cvv: cvv,
+        JsonKeys.cardHolder: cardHolder,
+        JsonKeys.eci: eci,
+        JsonKeys.cavv: cavv,
+      };
 
   /// Номер карты
   @JsonKey(name: JsonKeys.pan)
@@ -47,11 +58,6 @@ class CardData {
   /// Используется и является обязательным для Apple Pay или Google Pay
   @JsonKey(name: JsonKeys.cavv)
   final String cavv;
-
-  @override
-  String toString() {
-    return 'CardData{pan: $pan, expDate: $expDate, cardHolder: $cardHolder, cvv: $cvv, eci: $eci, cavv: $cavv}';
-  }
 
   /// Метод шифрует данные карты
   String encode(String publicKey) {

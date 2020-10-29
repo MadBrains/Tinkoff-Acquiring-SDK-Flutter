@@ -40,6 +40,15 @@ class ConfirmRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$ConfirmRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.paymentId: paymentId,
+        JsonKeys.amount: amount,
+        JsonKeys.ip: ip,
+        JsonKeys.receipt: receipt,
+      };
+
+  @override
   ConfirmRequest copyWith({
     int paymentId,
     int amount,

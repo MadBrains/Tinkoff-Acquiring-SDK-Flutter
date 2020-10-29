@@ -37,9 +37,12 @@ class ConfirmResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$ConfirmResponseToJson(this);
 
   @override
-  String toString() {
-    return 'ConfirmResponse(terminalKey: $terminalKey, orderId: $orderId, success: $success, status: $status, paymentId: $paymentId, errorCode: $errorCode, message: $message, details: $details)';
-  }
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+        JsonKeys.terminalKey: terminalKey,
+        JsonKeys.orderId: orderId,
+        JsonKeys.paymentId: paymentId,
+      };
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

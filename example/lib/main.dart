@@ -113,10 +113,14 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (threeDs) {
       if (threeDsV2) {
-        // 3ds v2
+        // a. Issuer not enrolled 2201382000000062/1220/any
+        // b. Card not enrolled, Attempt 2201382000000039/1220/any
+        // c. Card enrolled, frictionless 2201382000000013/1220/any
+        // d. Restricted, 2201382000000005/1220/any
+        // e. Challenge(пароль на ACS 1qwezxc), 2201382000000047/1220/any
         cardData = CardData(
-          2202201502887108,
-          '1224',
+          2201382000000047,
+          '1220',
           '123',
           cardHolder: 'T. TESTING',
         ).encode(publicKey);
@@ -181,35 +185,40 @@ class _MyHomePageState extends State<MyHomePage> {
       data: await data.future,
     ));
 
+    final Completer<Submit3DSAuthorizationResponse> webView =
+        Completer<Submit3DSAuthorizationResponse>();
     if (fa.status == Status.threeDsChecking) {
-      final Completer<Submit3DSAuthorizationResponse> completer =
-          Completer<Submit3DSAuthorizationResponse>();
       Navigator.of(context).push(MaterialPageRoute<void>(
         builder: (BuildContext context) => Scaffold(
           body: WebView3DS(
             acquiring: acquiring,
-            is3DsVersion2: check3DSVersion.is3DsVersion2,
+            is3DsVersion2: fa.is3DsVersion2 || check3DSVersion.is3DsVersion2,
+            serverTransId: fa.serverTransId ?? check3DSVersion.serverTransId,
             acsUrl: fa.acsUrl,
             md: fa.md,
             paReq: fa.paReq,
+            acsTransId: fa.acsTransId,
             version: check3DSVersion.version,
-            serverTransId: check3DSVersion.serverTransId,
             onLoad: (bool v) {
               acquiring.logger.log('WebView load: $v');
             },
             onFinished: (Submit3DSAuthorizationResponse v) {
               Navigator.of(context).pop();
-              completer.complete(v);
+              webView.complete(v);
             },
           ),
         ),
       ));
-
-      return completer.future.then((Submit3DSAuthorizationResponse v) {
-        return v.status.toString();
-      });
     } else {
-      return fa.status.toString();
+      webView.complete(null);
     }
+
+    return webView.future.then((_) async {
+      final GetStateResponse getState = await acquiring.getState(
+        GetStateRequest(int.parse(init.paymentId)),
+      );
+
+      return getState.status.toString();
+    });
   }
 }

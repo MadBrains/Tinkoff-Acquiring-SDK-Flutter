@@ -28,6 +28,11 @@ class ResendRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$ResendRequestToJson(this);
 
   @override
+  Map<String, Object> get equals => <String, Object>{
+        ...super.equals,
+      };
+
+  @override
   ResendRequest copyWith({
     String signToken,
   }) {
