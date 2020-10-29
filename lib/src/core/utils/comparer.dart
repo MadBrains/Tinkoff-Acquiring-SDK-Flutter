@@ -23,7 +23,7 @@ mixin Comparer {
           _equals(other.equals.values.toList(), equals.values.toList());
 
   @override
-  String toString() => '$runtimeType:(${equals.toNormalizeString()})';
+  String toString() => '$runtimeType(${equals.toNormalizeString()})';
 
   static const DeepCollectionEquality _equality = DeepCollectionEquality();
 
