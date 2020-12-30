@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:typed_data';
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -147,15 +146,18 @@ class _WebViewCollect extends StatelessWidget {
       },
       onPageFinished: (String url) async {
         if (url == notificationsUrl) {
-          final Window win = WidgetsBinding.instance.window;
+          final double screenHeight = MediaQuery.of(context).size.height *
+              MediaQuery.of(context).devicePixelRatio;
+          final double screenWidth = MediaQuery.of(context).size.width *
+              MediaQuery.of(context).devicePixelRatio;
+
           onFinished(<String, String>{
             WebViewKeys.threeDSCompInd: 'Y',
             WebViewKeys.language:
                 Localizations.localeOf(context).toLanguageTag(),
             WebViewKeys.timezone: '${DateTime.now().timeZoneOffset.inMinutes}',
-            WebViewKeys.screenHeight:
-                win.physicalSize.height.toStringAsFixed(0),
-            WebViewKeys.screenWidth: win.physicalSize.width.toStringAsFixed(0),
+            WebViewKeys.screenHeight: screenHeight.toStringAsFixed(0),
+            WebViewKeys.screenWidth: screenWidth.toStringAsFixed(0),
             WebViewKeys.cresCallbackUrl: termUrl,
           });
         }
