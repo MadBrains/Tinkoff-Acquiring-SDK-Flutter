@@ -12,10 +12,10 @@ part 'check_3ds_version_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class Check3DSVersionRequest extends AcquiringRequest {
   /// Создает экземпляр метода по проверки 3DS протокола
-  Check3DSVersionRequest(
-    this.paymentId,
-    this.cardData, {
-    String signToken,
+  Check3DSVersionRequest({
+    required this.paymentId,
+    required this.cardData,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -31,7 +31,7 @@ class Check3DSVersionRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$Check3DSVersionRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.paymentId: paymentId,
         JsonKeys.cardData: cardData,
@@ -39,13 +39,13 @@ class Check3DSVersionRequest extends AcquiringRequest {
 
   @override
   Check3DSVersionRequest copyWith({
-    int paymentId,
-    String cardData,
-    String signToken,
+    int? paymentId,
+    String? cardData,
+    String? signToken,
   }) {
     return Check3DSVersionRequest(
-      paymentId ?? this.paymentId,
-      cardData ?? this.cardData,
+      paymentId: paymentId ?? this.paymentId,
+      cardData: cardData ?? this.cardData,
       signToken: signToken ?? this.signToken,
     );
   }

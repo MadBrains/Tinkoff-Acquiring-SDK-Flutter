@@ -13,9 +13,9 @@ part 'receipt.g.dart';
 @JsonSerializable(includeIfNull: false)
 class Receipt with Comparer {
   /// Создает экземпляр данных чека
-  Receipt(
-    this.taxation,
-    this.items, {
+  Receipt({
+    required this.taxation,
+    required this.items,
     this.email,
     this.phone,
     this.emailCompany,
@@ -26,7 +26,7 @@ class Receipt with Comparer {
       _$ReceiptFromJson(json);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         JsonKeys.taxation: taxation,
         JsonKeys.items: items,
         JsonKeys.email: email,
@@ -43,25 +43,29 @@ class Receipt with Comparer {
       items[i].validate();
     }
 
-    if (email != null || phone != null) {
-      assert((email != null) ^ (phone != null));
+    final String? _email = email;
+    final String? _phone = phone;
+    if (_email != null || _phone != null) {
+      assert((_email != null) ^ (_phone != null));
 
-      if (email != null) {
+      if (_email != null) {
         final bool match =
             RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-                .hasMatch(email);
-        assert(email.length <= 100 && match);
+                .hasMatch(_email);
+        assert(_email.length <= 100 && match);
       }
-      if (phone != null) {
-        final bool match = RegExp(r'^\+[0-9](?:[\d]*)$').hasMatch(phone);
-        assert(phone.length <= 19 && match);
+      if (_phone != null) {
+        final bool match = RegExp(r'^\+[0-9](?:[\d]*)$').hasMatch(_phone);
+        assert(_phone.length <= 19 && match);
       }
     }
-    if (emailCompany != null) {
+
+    final String? _emailCompany = emailCompany;
+    if (_emailCompany != null) {
       final bool match =
           RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-              .hasMatch(emailCompany);
-      assert(emailCompany.length <= 100 && match);
+              .hasMatch(_emailCompany);
+      assert(_emailCompany.length <= 100 && match);
     }
   }
 
@@ -69,7 +73,7 @@ class Receipt with Comparer {
   ///
   /// Пример: `a@test.ru`
   @JsonKey(name: JsonKeys.email)
-  final String email;
+  final String? email;
 
   /// Телефон покупателя
   ///
@@ -77,13 +81,13 @@ class Receipt with Comparer {
   ///
   /// Пример: `+71234567890`
   @JsonKey(name: JsonKeys.phone)
-  final String phone;
+  final String? phone;
 
   /// Электронная почта продавца
   ///
   /// Пример: `a@test.ru`
   @JsonKey(name: JsonKeys.emailCompany)
-  final String emailCompany;
+  final String? emailCompany;
 
   /// Система налогообложения:
   /// 1. osn — общая

@@ -12,13 +12,13 @@ part 'add_card_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class AddCardRequest extends AcquiringRequest {
   /// Создает экземпляр метода по привязки карты к покупателю
-  AddCardRequest(
-    this.customerKey, {
+  AddCardRequest({
+    required this.customerKey,
     this.checkType,
     this.description,
     this.payForm,
     this.ip,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -34,7 +34,7 @@ class AddCardRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$AddCardRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.customerKey: customerKey,
         JsonKeys.checkType: checkType,
@@ -45,15 +45,15 @@ class AddCardRequest extends AcquiringRequest {
 
   @override
   AddCardRequest copyWith({
-    String customerKey,
-    CheckType checkType,
-    String description,
-    String payForm,
-    String ip,
-    String signToken,
+    String? customerKey,
+    CheckType? checkType,
+    String? description,
+    String? payForm,
+    String? ip,
+    String? signToken,
   }) {
     return AddCardRequest(
-      customerKey ?? this.customerKey,
+      customerKey: customerKey ?? this.customerKey,
       checkType: checkType ?? this.checkType,
       description: description ?? this.description,
       payForm: payForm ?? this.payForm,
@@ -65,11 +65,13 @@ class AddCardRequest extends AcquiringRequest {
   @override
   void validate() {
     assert(customerKey.length <= 36);
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
-    if (description != null) {
-      assert(description.length <= 250);
+    final String? _description = description;
+    if (_description != null) {
+      assert(_description.length <= 250);
     }
   }
 
@@ -89,17 +91,17 @@ class AddCardRequest extends AcquiringRequest {
   /// Если карта не поддерживает 3DS, выполняется списание и последующая отмена на произвольную сумму от 100 до 199 копеек.
   /// Клиент будет перенаправлен на страницу для ввода списанной суммы, где должен корректно указать случайную сумму
   @JsonKey(name: JsonKeys.checkType)
-  final CheckType checkType;
+  final CheckType? checkType;
 
   /// Описание/название карты
   @JsonKey(name: JsonKeys.description)
-  final String description;
+  final String? description;
 
   /// Название шаблона формы привязки
   @JsonKey(name: JsonKeys.payForm)
-  final String payForm;
+  final String? payForm;
 
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 }

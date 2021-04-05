@@ -12,10 +12,10 @@ part 'get_customer_response.g.dart';
 class GetCustomerResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на получению данных покупателя
   GetCustomerResponse({
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.terminalKey,
     this.customerKey,
     this.email,
@@ -35,7 +35,7 @@ class GetCustomerResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$GetCustomerResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.customerKey: customerKey,
@@ -46,17 +46,17 @@ class GetCustomerResponse extends AcquiringResponse {
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
   @JsonKey(name: JsonKeys.terminalKey)
-  final String terminalKey;
+  final String? terminalKey;
 
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.customerKey)
-  final String customerKey;
+  final String? customerKey;
 
   /// Электронная почта покупателя
   ///
   /// Пример: `a@test.ru`
   @JsonKey(name: JsonKeys.email)
-  final String email;
+  final String? email;
 
   /// Телефон покупателя
   ///
@@ -64,5 +64,5 @@ class GetCustomerResponse extends AcquiringResponse {
   ///
   /// Пример: `+71234567890`
   @JsonKey(name: JsonKeys.phone)
-  final String phone;
+  final String? phone;
 }

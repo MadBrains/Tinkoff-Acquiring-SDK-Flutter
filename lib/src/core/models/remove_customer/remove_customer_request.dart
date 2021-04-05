@@ -11,10 +11,10 @@ part 'remove_customer_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class RemoveCustomerRequest extends AcquiringRequest {
   /// Создает экземпляр метода по удалению данных покупателя
-  RemoveCustomerRequest(
-    this.customerKey, {
+  RemoveCustomerRequest({
+    required this.customerKey,
     this.ip,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -30,7 +30,7 @@ class RemoveCustomerRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$RemoveCustomerRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.customerKey: customerKey,
         JsonKeys.ip: ip,
@@ -38,12 +38,12 @@ class RemoveCustomerRequest extends AcquiringRequest {
 
   @override
   RemoveCustomerRequest copyWith({
-    String customerKey,
-    String ip,
-    String signToken,
+    String? customerKey,
+    String? ip,
+    String? signToken,
   }) {
     return RemoveCustomerRequest(
-      customerKey ?? this.customerKey,
+      customerKey: customerKey ?? this.customerKey,
       ip: ip ?? this.ip,
       signToken: signToken ?? this.signToken,
     );
@@ -53,8 +53,9 @@ class RemoveCustomerRequest extends AcquiringRequest {
   void validate() {
     assert(customerKey.length <= 36);
 
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
   }
 
@@ -64,5 +65,5 @@ class RemoveCustomerRequest extends AcquiringRequest {
 
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 }

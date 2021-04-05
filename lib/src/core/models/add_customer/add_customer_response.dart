@@ -12,10 +12,10 @@ part 'add_customer_response.g.dart';
 class AddCustomerResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на регистрацию покупателя
   AddCustomerResponse({
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.terminalKey,
     this.customerKey,
   }) : super(
@@ -33,7 +33,7 @@ class AddCustomerResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$AddCustomerResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.customerKey: customerKey,
@@ -42,9 +42,9 @@ class AddCustomerResponse extends AcquiringResponse {
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
   @JsonKey(name: JsonKeys.terminalKey)
-  final String terminalKey;
+  final String? terminalKey;
 
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.customerKey)
-  final String customerKey;
+  final String? customerKey;
 }

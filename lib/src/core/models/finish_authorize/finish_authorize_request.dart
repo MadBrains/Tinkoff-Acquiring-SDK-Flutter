@@ -1,10 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
+import '../../utils/extensions.dart';
 import '../base/acquiring_request.dart';
 import '../enums/route.dart';
 import '../enums/source.dart';
-import '../../utils/extensions.dart';
 
 part 'finish_authorize_request.g.dart';
 
@@ -25,8 +25,8 @@ part 'finish_authorize_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class FinishAuthorizeRequest extends AcquiringRequest {
   /// Создает экземпляр метода подтверждение платежа передачей реквизитов
-  FinishAuthorizeRequest(
-    this.paymentId, {
+  FinishAuthorizeRequest({
+    required this.paymentId,
     this.cardData,
     this.encryptedPaymentData,
     this.amount,
@@ -37,7 +37,7 @@ class FinishAuthorizeRequest extends AcquiringRequest {
     this.sendEmail,
     this.route,
     this.source,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -53,7 +53,7 @@ class FinishAuthorizeRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$FinishAuthorizeRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.paymentId: paymentId,
         JsonKeys.cardData: cardData,
@@ -70,21 +70,21 @@ class FinishAuthorizeRequest extends AcquiringRequest {
 
   @override
   FinishAuthorizeRequest copyWith({
-    String cardData,
-    String encryptedPaymentData,
-    int amount,
-    Map<String, String> data,
-    String infoEmail,
-    String ip,
-    int paymentId,
-    String phone,
-    bool sendEmail,
-    Route route,
-    Source source,
-    String signToken,
+    String? cardData,
+    String? encryptedPaymentData,
+    int? amount,
+    Map<String, String>? data,
+    String? infoEmail,
+    String? ip,
+    int? paymentId,
+    String? phone,
+    bool? sendEmail,
+    Route? route,
+    Source? source,
+    String? signToken,
   }) {
     return FinishAuthorizeRequest(
-      paymentId ?? this.paymentId,
+      paymentId: paymentId ?? this.paymentId,
       cardData: cardData ?? this.cardData,
       encryptedPaymentData: encryptedPaymentData ?? this.encryptedPaymentData,
       amount: amount ?? this.amount,
@@ -112,28 +112,35 @@ class FinishAuthorizeRequest extends AcquiringRequest {
       assert(source != null);
     }
 
-    if (amount != null) {
-      assert(amount.length <= 10);
+    final int? _amount = amount;
+    if (_amount != null) {
+      assert(_amount.length <= 10);
     }
 
-    if (phone != null) {
-      final bool match = RegExp(r'^\+[0-9](?:[\d]*)$').hasMatch(phone);
-      assert(phone.length <= 19 && match);
+    final String? _phone = phone;
+    if (_phone != null) {
+      final bool match = RegExp(r'^\+[0-9](?:[\d]*)$').hasMatch(_phone);
+      assert(_phone.length <= 19 && match);
     }
 
-    if (sendEmail == true) {
+    final bool? _sendEmail = sendEmail;
+    final String? _infoEmail = infoEmail;
+    if (_sendEmail == true) {
       final bool match =
           RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
               .hasMatch(infoEmail ?? '');
-      assert(infoEmail != null && infoEmail.length <= 100 && match);
+      assert(_infoEmail != null && _infoEmail.length <= 100 && match);
     }
 
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
 
-    if (route != null) {
-      assert(source != null && source != Source.cards);
+    final Route? _route = route;
+    final Source? _source = source;
+    if (_route != null) {
+      assert(_source != null && _source != Source.cards);
     }
   }
 
@@ -141,19 +148,21 @@ class FinishAuthorizeRequest extends AcquiringRequest {
   ///
   /// Не используется и не является обязательным, если передается [encryptedPaymentData]
   @JsonKey(name: JsonKeys.cardData)
-  final String cardData;
+  final String? cardData;
 
   /// Данные карт
   ///
   /// Используется и является обязательным только для Apple Pay или Google Pay
+  ///
+  /// Примечание: можно воспользоваться пакетом [mad_pay](https://pub.dev/packages/mad_pay)
   @JsonKey(name: JsonKeys.encryptedPaymentData)
-  final String encryptedPaymentData;
+  final String? encryptedPaymentData;
 
   /// Сумма в копейках
   ///
   /// Пример: `140000` == `1400.00 рублей`
   @JsonKey(name: JsonKeys.amount)
-  final int amount;
+  final int? amount;
 
   /// Дополнительные параметры платежа в формате "ключ":"значение" (не более 20 пар).
   ///
@@ -168,15 +177,15 @@ class FinishAuthorizeRequest extends AcquiringRequest {
   /// Заполнить данными последней сохраненной карты. Применяется, если параметр "DefaultCard" не передан, передан с некорректным значением или в значении null.
   /// По умолчанию возможность сохранения карт на платежной форме может быть отключена. Для активации обратитесь в службу технической поддержки.
   @JsonKey(name: JsonKeys.data)
-  final Map<String, String> data;
+  final Map<String, String>? data;
 
   /// Email для отправки информации об оплате
   @JsonKey(name: JsonKeys.infoEmail)
-  final String infoEmail;
+  final String? infoEmail;
 
   /// IP-адрес клиента
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 
   /// Уникальный идентификатор транзакции в системе Банка, полученный в ответе на вызов метода `Init`
   @JsonKey(name: JsonKeys.paymentId)
@@ -188,23 +197,23 @@ class FinishAuthorizeRequest extends AcquiringRequest {
   ///
   /// Пример: `+71234567890`
   @JsonKey(name: JsonKeys.phone)
-  final String phone;
+  final String? phone;
 
   /// Информация на почту:
   /// 1. true – отправлять клиенту информацию на почту об оплате
   /// 2. false – не отправлять
   @JsonKey(name: JsonKeys.sendEmail)
-  final bool sendEmail;
+  final bool? sendEmail;
 
   /// Способ платежа. Возможные значения: ACQ
   ///
   /// Используется и является обязательным для Apple Pay или Google Pay
   @JsonKey(name: JsonKeys.route)
-  final Route route;
+  final Route? route;
 
   /// Источник платежа.
   ///
   /// Используется и является обязательным для Apple Pay или Google Pay
   @JsonKey(name: JsonKeys.source)
-  final Source source;
+  final Source? source;
 }

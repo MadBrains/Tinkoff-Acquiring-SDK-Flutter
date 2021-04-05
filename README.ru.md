@@ -18,7 +18,7 @@ Acquiring SDK позволяет интегрировать [Интернет-Э
 Для подключения добавьте в файл Pubspec зависимости:
 ```yaml
 dependencies:
-  tinkoff_acquiring: 1.0.2
+  tinkoff_acquiring: 2.0.0
 ```
 
 ## Подготовка к работе
@@ -36,10 +36,20 @@ SDK позволяет настроить режим работы (debug/prod), 
 Чтобы настроить режим работы, установите параметры:
 ```dart
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
-  terminalKey: terminalKey,
-  password: password,
-  debug: true,
-  proxyUrl: 'https://server.com/'
+  TinkoffAcquiringConfig(
+    terminalKey: terminalKey,
+    password: password,
+    debug: false,
+  ),
+);
+```
+
+Если вы хотите использовать proxy, то воспользуйтесь следующим конструктором:
+```dart
+final TinkoffAcquiring acquiring = TinkoffAcquiring(
+  TinkoffAcquiringConfig.proxy(
+    proxyUrl: 'https://server.com/'
+  ),
 );
 ```
 

@@ -12,10 +12,10 @@ part 'remove_customer_response.g.dart';
 class RemoveCustomerResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на удаление данных покупателя
   RemoveCustomerResponse({
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.terminalKey,
     this.customerKey,
   }) : super(
@@ -33,7 +33,7 @@ class RemoveCustomerResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$RemoveCustomerResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.customerKey: customerKey,
@@ -42,9 +42,9 @@ class RemoveCustomerResponse extends AcquiringResponse {
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
   @JsonKey(name: JsonKeys.terminalKey)
-  final String terminalKey;
+  final String? terminalKey;
 
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.customerKey)
-  final String customerKey;
+  final String? customerKey;
 }

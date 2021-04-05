@@ -9,20 +9,20 @@ part of 'finish_authorize_request.dart';
 FinishAuthorizeRequest _$FinishAuthorizeRequestFromJson(
     Map<String, dynamic> json) {
   return FinishAuthorizeRequest(
-    json['PaymentId'] as int,
-    cardData: json['CardData'] as String,
-    encryptedPaymentData: json['EncryptedPaymentData'] as String,
-    amount: json['Amount'] as int,
-    data: (json['DATA'] as Map<String, dynamic>)?.map(
+    paymentId: json['PaymentId'] as int,
+    cardData: json['CardData'] as String?,
+    encryptedPaymentData: json['EncryptedPaymentData'] as String?,
+    amount: json['Amount'] as int?,
+    data: (json['DATA'] as Map<String, dynamic>?)?.map(
       (k, e) => MapEntry(k, e as String),
     ),
-    infoEmail: json['InfoEmail'] as String,
-    ip: json['IP'] as String,
-    phone: json['Phone'] as String,
-    sendEmail: json['SendEmail'] as bool,
+    infoEmail: json['InfoEmail'] as String?,
+    ip: json['IP'] as String?,
+    phone: json['Phone'] as String?,
+    sendEmail: json['SendEmail'] as bool?,
     route: _$enumDecodeNullable(_$RouteEnumMap, json['Route']),
     source: _$enumDecodeNullable(_$SourceEnumMap, json['Source']),
-    signToken: json['Token'] as String,
+    signToken: json['Token'] as String?,
   );
 }
 
@@ -43,7 +43,7 @@ Map<String, dynamic> _$FinishAuthorizeRequestToJson(
   writeNotNull('DATA', instance.data);
   writeNotNull('InfoEmail', instance.infoEmail);
   writeNotNull('IP', instance.ip);
-  writeNotNull('PaymentId', instance.paymentId);
+  val['PaymentId'] = instance.paymentId;
   writeNotNull('Phone', instance.phone);
   writeNotNull('SendEmail', instance.sendEmail);
   writeNotNull('Route', _$RouteEnumMap[instance.route]);
@@ -51,36 +51,41 @@ Map<String, dynamic> _$FinishAuthorizeRequestToJson(
   return val;
 }
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
 }
 
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
   dynamic source, {
-  T unknownValue,
+  K? unknownValue,
 }) {
   if (source == null) {
     return null;
   }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
 const _$RouteEnumMap = {

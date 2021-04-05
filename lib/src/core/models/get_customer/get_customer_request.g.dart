@@ -8,9 +8,9 @@ part of 'get_customer_request.dart';
 
 GetCustomerRequest _$GetCustomerRequestFromJson(Map<String, dynamic> json) {
   return GetCustomerRequest(
-    json['CustomerKey'] as String,
-    ip: json['IP'] as String,
-    signToken: json['Token'] as String,
+    customerKey: json['CustomerKey'] as String,
+    ip: json['IP'] as String?,
+    signToken: json['Token'] as String?,
   );
 }
 
@@ -24,7 +24,7 @@ Map<String, dynamic> _$GetCustomerRequestToJson(GetCustomerRequest instance) {
   }
 
   writeNotNull('Token', instance.signToken);
-  writeNotNull('CustomerKey', instance.customerKey);
+  val['CustomerKey'] = instance.customerKey;
   writeNotNull('IP', instance.ip);
   return val;
 }

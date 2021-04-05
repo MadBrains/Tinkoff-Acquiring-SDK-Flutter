@@ -15,11 +15,11 @@ part 'submit_3ds_authorization_response.g.dart';
 class Submit3DSAuthorizationResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на прохождение 3-D Secure
   Submit3DSAuthorizationResponse({
-    Status status,
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    Status? status,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.terminalKey,
     this.amount,
     this.orderId,
@@ -42,7 +42,7 @@ class Submit3DSAuthorizationResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$Submit3DSAuthorizationResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.amount: amount,
@@ -55,25 +55,25 @@ class Submit3DSAuthorizationResponse extends AcquiringResponse {
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
   @JsonKey(name: JsonKeys.terminalKey)
-  final String terminalKey;
+  final String? terminalKey;
 
   /// Идентификатор заказа в системе продавца
   @JsonKey(name: JsonKeys.orderId)
-  final String orderId;
+  final String? orderId;
 
   /// Сумма в копейках
   @JsonKey(name: JsonKeys.amount)
-  final int amount;
+  final int? amount;
 
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.paymentId)
-  final String paymentId;
+  final String? paymentId;
 
   /// Идентификатор рекуррентного платежа в системе банка
   @JsonKey(name: JsonKeys.rebillId)
-  final int rebillId;
+  final int? rebillId;
 
   /// Идентификатор карты в системе банка. Передается только для сохраненной карты
   @JsonKey(name: JsonKeys.cardId)
-  final String cardId;
+  final String? cardId;
 }

@@ -6,16 +6,20 @@ import 'package:tinkoff_acquiring/tinkoff_acquiring_core.dart';
 
 import 'sdk_test_constant.dart';
 
+int _parsePaymentId(String? paymentId) {
+  return int.parse(paymentId!);
+}
+
 void start() {
   final bool is3DS =
       math.Random(DateTime.now().millisecondsSinceEpoch).nextBool();
 
   setUp(() async {
-    acquiring.logger.log(is3DS.toString(), name: 'is3DS');
     await Future<void>.delayed(const Duration(seconds: 5)).then((_) {});
-    await acquiring.removeCard(RemoveCardRequest(cardId, customerKey));
+    await acquiring.removeCard(
+        RemoveCardRequest(cardId: cardId, customerKey: customerKey));
     await acquiring.removeCustomer(RemoveCustomerRequest(
-      customerKey,
+      customerKey: customerKey,
       ip: ip,
     ));
   });
@@ -23,7 +27,7 @@ void start() {
   test('complex', () async {
     final AddCustomerResponse addConsumer =
         await acquiring.addCustomer(AddCustomerRequest(
-      customerKey,
+      customerKey: customerKey,
       email: email,
       phone: phone,
       ip: ip,
@@ -32,14 +36,14 @@ void start() {
 
     final GetCustomerResponse getCustomer =
         await acquiring.getCustomer(GetCustomerRequest(
-      customerKey,
+      customerKey: customerKey,
       ip: ip,
     ));
     expect(getCustomer.success, true);
     expect(phone, getCustomer.phone);
 
     final AddCardResponse addCard = await acquiring.addCard(AddCardRequest(
-      customerKey,
+      customerKey: customerKey,
       checkType: CheckType.no,
       description: description,
       payForm: payForm,
@@ -49,22 +53,22 @@ void start() {
 
     final AttachCardResponse attachCard =
         await acquiring.attachCard(AttachCardRequest(
-      addCard.requestKey.toString(),
-      is3DS ? cardData3DS : cardDataNo3DS,
+      requestKey: addCard.requestKey.toString(),
+      cardData: is3DS ? cardData3DS : cardDataNo3DS,
     ));
     expect(attachCard.success, true);
 
     final GetCardListResponse getCardList =
         await acquiring.getCardList(GetCardListRequest(
-      customerKey,
+      customerKey: customerKey,
       ip: ip,
     ));
-    expect(getCardList.cardInfo.first.status, CardStatus.active);
+    expect(getCardList.cardInfo?.first.status, CardStatus.active);
 
     /*------------------------Normal------------------------*/
 
     final InitResponse init = await acquiring.init(InitRequest(
-      (orderId +
+      orderId: (orderId +
               math.Random(DateTime.now().millisecondsSinceEpoch)
                   .nextInt(100000))
           .toString(),
@@ -82,7 +86,7 @@ void start() {
 
     final FinishAuthorizeResponse finishAuthorize =
         await acquiring.finishAuthorize(FinishAuthorizeRequest(
-      int.parse(init.paymentId),
+      paymentId: _parsePaymentId(init.paymentId),
       cardData: is3DS ? cardData3DS : cardDataNo3DS,
     ));
     expect(finishAuthorize.success, true);
@@ -90,8 +94,8 @@ void start() {
     if (finishAuthorize.status == Status.threeDsChecking) {
       final Check3DSVersionResponse check3DSVersion =
           await acquiring.check3DSVersion(Check3DSVersionRequest(
-        int.parse(init.paymentId),
-        is3DS
+        paymentId: _parsePaymentId(init.paymentId),
+        cardData: is3DS
             ? cardData3DS
             : is3DS
                 ? cardData3DS
@@ -101,14 +105,14 @@ void start() {
     }
 
     final GetStateResponse getState = await acquiring.getState(GetStateRequest(
-      int.parse(init.paymentId),
+      paymentId: _parsePaymentId(init.paymentId),
       ip: ip,
     ));
     expect(getState.success, true);
 
     if (getState.status == Status.authorized) {
       final ConfirmResponse value = await acquiring.confirm(ConfirmRequest(
-        int.parse(getState.paymentId),
+        paymentId: _parsePaymentId(getState.paymentId),
         amount: amount,
         ip: ip,
       ));
@@ -118,7 +122,7 @@ void start() {
     /*------------------------Cancel------------------------*/
 
     final InitResponse init2 = await acquiring.init(InitRequest(
-      (orderId +
+      orderId: (orderId +
               math.Random(DateTime.now().millisecondsSinceEpoch)
                   .nextInt(100000))
           .toString(),
@@ -128,7 +132,7 @@ void start() {
     expect(init2.success, true);
 
     final CancelResponse cancel = await acquiring.cancel(CancelRequest(
-      int.parse(init2.paymentId),
+      paymentId: _parsePaymentId(init2.paymentId),
       amount: amount,
     ));
     expect(cancel.success, true);
@@ -136,7 +140,7 @@ void start() {
     /*------------------------Recurrent------------------------*/
 
     final InitResponse init3 = await acquiring.init(InitRequest(
-      (orderId +
+      orderId: (orderId +
               math.Random(DateTime.now().millisecondsSinceEpoch)
                   .nextInt(100000))
           .toString(),
@@ -148,13 +152,13 @@ void start() {
 
     final FinishAuthorizeResponse finishAuthorize2 =
         await acquiring.finishAuthorize(FinishAuthorizeRequest(
-      int.parse(init3.paymentId),
+      paymentId: _parsePaymentId(init3.paymentId),
       cardData: cardDataNo3DS,
     ));
     expect(finishAuthorize2.success, true);
 
     final InitResponse init4 = await acquiring.init(InitRequest(
-      (orderId +
+      orderId: (orderId +
               math.Random(DateTime.now().millisecondsSinceEpoch)
                   .nextInt(100000))
           .toString(),
@@ -164,8 +168,8 @@ void start() {
     expect(init4.success, true);
 
     final ChargeResponse value = await acquiring.charge(ChargeRequest(
-      int.parse(init4.paymentId),
-      int.parse(finishAuthorize2.rebillId),
+      paymentId: _parsePaymentId(init4.paymentId),
+      rebillId: _parsePaymentId(finishAuthorize2.rebillId),
     ));
     expect(value.success, true);
   }, timeout: const Timeout(Duration(seconds: 300)));

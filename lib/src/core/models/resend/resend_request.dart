@@ -12,7 +12,7 @@ part 'resend_request.g.dart';
 class ResendRequest extends AcquiringRequest {
   /// Создает экземпляр метода по отправки неотправленых уведомлений
   ResendRequest({
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -28,13 +28,13 @@ class ResendRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$ResendRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
       };
 
   @override
   ResendRequest copyWith({
-    String signToken,
+    String? signToken,
   }) {
     return ResendRequest(
       signToken: signToken ?? this.signToken,

@@ -9,9 +9,9 @@ part of 'check_3ds_version_request.dart';
 Check3DSVersionRequest _$Check3DSVersionRequestFromJson(
     Map<String, dynamic> json) {
   return Check3DSVersionRequest(
-    json['PaymentId'] as int,
-    json['CardData'] as String,
-    signToken: json['Token'] as String,
+    paymentId: json['PaymentId'] as int,
+    cardData: json['CardData'] as String,
+    signToken: json['Token'] as String?,
   );
 }
 
@@ -26,7 +26,7 @@ Map<String, dynamic> _$Check3DSVersionRequestToJson(
   }
 
   writeNotNull('Token', instance.signToken);
-  writeNotNull('PaymentId', instance.paymentId);
-  writeNotNull('CardData', instance.cardData);
+  val['PaymentId'] = instance.paymentId;
+  val['CardData'] = instance.cardData;
   return val;
 }

@@ -8,14 +8,13 @@ part of 'get_card_list_response.dart';
 
 GetCardListResponse _$GetCardListResponseFromJson(Map<String, dynamic> json) {
   return GetCardListResponse(
-    success: json['Success'] as bool,
-    errorCode: json['ErrorCode'] as String,
-    message: json['Message'] as String,
-    details: json['Details'] as String,
-    cardInfo: (json['CardInfo'] as List)
-        ?.map((e) =>
-            e == null ? null : CardInfo.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    success: json['Success'] as bool?,
+    errorCode: json['ErrorCode'] as String?,
+    message: json['Message'] as String?,
+    details: json['Details'] as String?,
+    cardInfo: (json['CardInfo'] as List<dynamic>?)
+        ?.map((e) => CardInfo.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 

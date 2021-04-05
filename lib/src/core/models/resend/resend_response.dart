@@ -12,10 +12,10 @@ part 'resend_response.g.dart';
 class ResendResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на отправку неотправленных уведомлений
   ResendResponse({
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.terminalKey,
     this.count,
   }) : super(
@@ -33,7 +33,7 @@ class ResendResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$ResendResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.customerKey: count,
@@ -42,9 +42,9 @@ class ResendResponse extends AcquiringResponse {
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
   @JsonKey(name: JsonKeys.terminalKey)
-  final String terminalKey;
+  final String? terminalKey;
 
   /// Количество сообщений, отправляемых повторно
   @JsonKey(name: JsonKeys.count)
-  final int count;
+  final int? count;
 }

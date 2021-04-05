@@ -8,14 +8,14 @@ part of 'get_customer_response.dart';
 
 GetCustomerResponse _$GetCustomerResponseFromJson(Map<String, dynamic> json) {
   return GetCustomerResponse(
-    success: json['Success'] as bool,
-    errorCode: json['ErrorCode'] as String,
-    message: json['Message'] as String,
-    details: json['Details'] as String,
-    terminalKey: json['TerminalKey'] as String,
-    customerKey: json['CustomerKey'] as String,
-    email: json['Email'] as String,
-    phone: json['Phone'] as String,
+    success: json['Success'] as bool?,
+    errorCode: json['ErrorCode'] as String?,
+    message: json['Message'] as String?,
+    details: json['Details'] as String?,
+    terminalKey: json['TerminalKey'] as String?,
+    customerKey: json['CustomerKey'] as String?,
+    email: json['Email'] as String?,
+    phone: json['Phone'] as String?,
   );
 }
 

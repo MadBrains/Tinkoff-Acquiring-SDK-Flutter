@@ -8,13 +8,13 @@ part of 'confirm_request.dart';
 
 ConfirmRequest _$ConfirmRequestFromJson(Map<String, dynamic> json) {
   return ConfirmRequest(
-    json['PaymentId'] as int,
-    amount: json['Amount'] as int,
-    ip: json['IP'] as String,
+    paymentId: json['PaymentId'] as int,
+    amount: json['Amount'] as int?,
+    ip: json['IP'] as String?,
     receipt: json['Receipt'] == null
         ? null
         : Receipt.fromJson(json['Receipt'] as Map<String, dynamic>),
-    signToken: json['Token'] as String,
+    signToken: json['Token'] as String?,
   );
 }
 
@@ -28,7 +28,7 @@ Map<String, dynamic> _$ConfirmRequestToJson(ConfirmRequest instance) {
   }
 
   writeNotNull('Token', instance.signToken);
-  writeNotNull('PaymentId', instance.paymentId);
+  val['PaymentId'] = instance.paymentId;
   writeNotNull('Amount', instance.amount);
   writeNotNull('IP', instance.ip);
   writeNotNull('Receipt', instance.receipt);

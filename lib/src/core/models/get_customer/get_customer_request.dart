@@ -11,10 +11,10 @@ part 'get_customer_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class GetCustomerRequest extends AcquiringRequest {
   /// Создает экземпляр метода по получению данных покупателя
-  GetCustomerRequest(
-    this.customerKey, {
+  GetCustomerRequest({
+    required this.customerKey,
     this.ip,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -30,7 +30,7 @@ class GetCustomerRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$GetCustomerRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.customerKey: customerKey,
         JsonKeys.ip: ip,
@@ -38,12 +38,12 @@ class GetCustomerRequest extends AcquiringRequest {
 
   @override
   GetCustomerRequest copyWith({
-    String customerKey,
-    String ip,
-    String signToken,
+    String? customerKey,
+    String? ip,
+    String? signToken,
   }) {
     return GetCustomerRequest(
-      customerKey ?? this.customerKey,
+      customerKey: customerKey ?? this.customerKey,
       ip: ip ?? this.ip,
       signToken: signToken ?? this.signToken,
     );
@@ -53,8 +53,9 @@ class GetCustomerRequest extends AcquiringRequest {
   void validate() {
     assert(customerKey.length <= 36);
 
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
   }
 
@@ -64,5 +65,5 @@ class GetCustomerRequest extends AcquiringRequest {
 
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 }

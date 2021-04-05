@@ -28,7 +28,7 @@ class AgentData with Comparer {
       _$AgentDataFromJson(json);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         JsonKeys.agentSign: agentSign,
         JsonKeys.operationName: operationName,
         JsonKeys.phones: phones,
@@ -44,43 +44,54 @@ class AgentData with Comparer {
 
   /// Метод проверяет валидность данных
   void validate() {
+    final String? _operationName = operationName;
     if (agentSign == AgentSign.bankPayingAgent ||
         agentSign == AgentSign.bankPayingSubagent) {
-      assert(operationName != null);
-      assert(operationName.length <= 64);
+      assert(_operationName != null && _operationName.length <= 64);
     }
+
+    final List<String>? _phones = phones;
     if (agentSign == AgentSign.bankPayingAgent ||
         agentSign == AgentSign.bankPayingSubagent ||
         agentSign == AgentSign.payingAgent ||
         agentSign == AgentSign.payingSubagent) {
-      assert(phones != null);
-      assert(phones.isNotEmpty && phones.length <= 19);
+      assert(_phones != null && _phones.isNotEmpty && _phones.length <= 19);
     }
+
+    final List<String>? _receiverPhones = receiverPhones;
     if (agentSign == AgentSign.payingAgent ||
         agentSign == AgentSign.payingSubagent) {
-      assert(receiverPhones != null);
-      assert(receiverPhones.isNotEmpty && receiverPhones.length <= 19);
+      assert(_receiverPhones != null &&
+          _receiverPhones.isNotEmpty &&
+          _receiverPhones.length <= 19);
     }
+
+    final List<String>? _transferPhones = transferPhones;
     if (agentSign == AgentSign.bankPayingAgent ||
         agentSign == AgentSign.bankPayingSubagent) {
-      assert(transferPhones != null);
-      assert(transferPhones.isNotEmpty && transferPhones.length <= 19);
+      assert(_transferPhones != null &&
+          _transferPhones.isNotEmpty &&
+          _transferPhones.length <= 19);
     }
+
+    final String? _operatorName = operatorName;
     if (agentSign == AgentSign.bankPayingAgent ||
         agentSign == AgentSign.bankPayingSubagent) {
-      assert(operatorName != null);
-      assert(operatorName.length <= 64);
+      assert(_operatorName != null && _operatorName.length <= 64);
     }
+
+    final String? _operatorAddress = operatorAddress;
     if (agentSign == AgentSign.bankPayingAgent ||
         agentSign == AgentSign.bankPayingSubagent) {
-      assert(operatorAddress != null);
-      assert(operatorAddress.length <= 243);
+      assert(_operatorAddress != null && _operatorAddress.length <= 243);
     }
+
+    final String? _operatorInn = operatorInn;
     if (agentSign == AgentSign.bankPayingAgent ||
         agentSign == AgentSign.bankPayingSubagent) {
-      assert(operatorInn != null);
-      assert(operatorInn.length >= 10);
-      assert(operatorInn.length <= 12);
+      assert(_operatorInn != null &&
+          _operatorInn.length >= 10 &&
+          _operatorInn.length <= 12);
     }
   }
 
@@ -93,11 +104,11 @@ class AgentData with Comparer {
   /// 6. commission_agent – комиссионер
   /// 7. another – другой тип агента
   @JsonKey(name: JsonKeys.agentSign)
-  final AgentSign agentSign;
+  final AgentSign? agentSign;
 
   /// Наименование операции
   @JsonKey(name: JsonKeys.operationName)
-  final String operationName;
+  final String? operationName;
 
   /// Телефоны платежного агента
   ///
@@ -105,7 +116,7 @@ class AgentData with Comparer {
   ///
   /// Пример: [`+71234567890`]
   @JsonKey(name: JsonKeys.phones)
-  final List<String> phones;
+  final List<String>? phones;
 
   /// Телефоны оператора по приему платежей
   ///
@@ -113,7 +124,7 @@ class AgentData with Comparer {
   ///
   /// Пример: [`+71234567890`, `+79876543211`]
   @JsonKey(name: JsonKeys.receiverPhones)
-  final List<String> receiverPhones;
+  final List<String>? receiverPhones;
 
   /// Телефоны оператора перевода
   ///
@@ -121,17 +132,17 @@ class AgentData with Comparer {
   ///
   /// Пример: [`+71234567890`, `+79876543211`, `+79998886655`]
   @JsonKey(name: JsonKeys.transferPhones)
-  final List<String> transferPhones;
+  final List<String>? transferPhones;
 
   /// Наименование оператора перевода
   @JsonKey(name: JsonKeys.operatorName)
-  final String operatorName;
+  final String? operatorName;
 
   /// Адрес оператора перевода
   @JsonKey(name: JsonKeys.operatorAddress)
-  final String operatorAddress;
+  final String? operatorAddress;
 
   /// ИНН оператора перевода
   @JsonKey(name: JsonKeys.operatorInn)
-  final String operatorInn;
+  final String? operatorInn;
 }

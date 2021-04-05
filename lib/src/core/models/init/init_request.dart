@@ -1,11 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
+import '../../utils/extensions.dart';
 import '../base/acquiring_request.dart';
 import '../common/receipt.dart';
 import '../enums/language.dart';
 import '../enums/pay_type.dart';
-import '../../utils/extensions.dart';
 
 part 'init_request.g.dart';
 
@@ -16,8 +16,8 @@ part 'init_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class InitRequest extends AcquiringRequest {
   /// Создает экземпляр метода создании платежа
-  InitRequest(
-    this.orderId, {
+  InitRequest({
+    required this.orderId,
     this.amount,
     this.ip,
     this.description,
@@ -31,7 +31,7 @@ class InitRequest extends AcquiringRequest {
     this.payType,
     this.receipt,
     this.data,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -47,7 +47,7 @@ class InitRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$InitRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.orderId: orderId,
         JsonKeys.amount: amount,
@@ -67,24 +67,24 @@ class InitRequest extends AcquiringRequest {
 
   @override
   InitRequest copyWith({
-    int amount,
-    String orderId,
-    String ip,
-    String description,
-    Language language,
-    String recurrent,
-    String customerKey,
-    String redirectDueDate,
-    String notificationUrl,
-    String successUrl,
-    String failUrl,
-    PayType payType,
-    Receipt receipt,
-    Map<String, String> data,
-    String signToken,
+    int? amount,
+    String? orderId,
+    String? ip,
+    String? description,
+    Language? language,
+    String? recurrent,
+    String? customerKey,
+    String? redirectDueDate,
+    String? notificationUrl,
+    String? successUrl,
+    String? failUrl,
+    PayType? payType,
+    Receipt? receipt,
+    Map<String, String>? data,
+    String? signToken,
   }) {
     return InitRequest(
-      orderId ?? this.orderId,
+      orderId: orderId ?? this.orderId,
       amount: amount ?? this.amount,
       ip: ip ?? this.ip,
       description: description ?? this.description,
@@ -106,33 +106,36 @@ class InitRequest extends AcquiringRequest {
   void validate() {
     assert(orderId.length <= 20);
 
-    if (amount != null) {
-      assert(amount.length <= 10);
+    final int? _amount = amount;
+    if (_amount != null) {
+      assert(_amount.length <= 10);
     }
 
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
 
-    if (description != null) {
-      assert(description.length <= 250);
+    final String? _description = description;
+    if (_description != null) {
+      assert(_description.length <= 250);
     }
 
-    if (recurrent != null) {
-      assert(recurrent.length <= 1);
-      assert(customerKey.length <= 36);
+    final String? _recurrent = recurrent;
+    final String? _customerKey = customerKey;
+    if (_recurrent != null) {
+      assert(_recurrent.length <= 1);
+      assert(_customerKey != null && _customerKey.length <= 36);
     }
 
-    if (receipt != null) {
-      receipt.validate();
-    }
+    receipt?.validate();
   }
 
   /// Сумма в копейках
   ///
   /// Пример: `140000` == `1400.00 рублей`
   @JsonKey(name: JsonKeys.amount)
-  final int amount;
+  final int? amount;
 
   /// Идентификатор заказа в системе продавца
   @JsonKey(name: JsonKeys.orderId)
@@ -140,24 +143,24 @@ class InitRequest extends AcquiringRequest {
 
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 
   /// Описание заказа
   @JsonKey(name: JsonKeys.description)
-  final String description;
+  final String? description;
 
   /// Язык платежной формы
   ///
   /// 1. ru — русский
   /// 2. en — английский
   @JsonKey(name: JsonKeys.language)
-  final Language language;
+  final Language? language;
 
   /// Идентификатор родительского платежа
   ///
   /// Передается со значением Y
   @JsonKey(name: JsonKeys.recurrent)
-  final String recurrent;
+  final String? recurrent;
 
   /// Идентификатор покупателя в системе продавца.
   /// Передается вместе с `cardId` в параметре [data].
@@ -169,38 +172,38 @@ class InitRequest extends AcquiringRequest {
   ///
   /// Также необходим для сохранения карт на платежной форме (платежи в один клик).
   @JsonKey(name: JsonKeys.customerKey)
-  final String customerKey;
+  final String? customerKey;
 
   /// Cрок жизни ссылки (не более 90 дней)
   ///
   /// Временная метка по стандарту ISO8601 в формате YYYY-MM-DDThh:mm:ss±hh:mm
   @JsonKey(name: JsonKeys.redirectDueDate)
-  final String redirectDueDate;
+  final String? redirectDueDate;
 
   /// Адрес для получения http нотификаций
   @JsonKey(name: JsonKeys.notificationUrl)
-  final String notificationUrl;
+  final String? notificationUrl;
 
   /// Страница успеха
   @JsonKey(name: JsonKeys.successUrl)
-  final String successUrl;
+  final String? successUrl;
 
   /// Страница ошибки
   @JsonKey(name: JsonKeys.failUrl)
-  final String failUrl;
+  final String? failUrl;
 
   /// Тип оплаты
   ///
   /// 1. one (O) — одностадийная
   /// 2. two (T) — двухстадийная
   @JsonKey(name: JsonKeys.payType)
-  final PayType payType;
+  final PayType? payType;
 
   /// Данные чека.
   ///
   /// См. Структура объекта [Receipt]
   @JsonKey(name: JsonKeys.receipt)
-  Receipt receipt;
+  final Receipt? receipt;
 
   /// Дополнительные параметры платежа в формате "ключ":"значение" (не более 20 пар).
   ///
@@ -215,5 +218,5 @@ class InitRequest extends AcquiringRequest {
   /// Заполнить данными последней сохраненной карты. Применяется, если параметр "DefaultCard" не передан, передан с некорректным значением или в значении null.
   /// По умолчанию возможность сохранения карт на платежной форме может быть отключена. Для активации обратитесь в службу технической поддержки.
   @JsonKey(name: JsonKeys.data)
-  final Map<String, String> data;
+  final Map<String, String>? data;
 }

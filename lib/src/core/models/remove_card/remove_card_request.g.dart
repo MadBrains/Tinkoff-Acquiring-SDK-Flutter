@@ -8,10 +8,10 @@ part of 'remove_card_request.dart';
 
 RemoveCardRequest _$RemoveCardRequestFromJson(Map<String, dynamic> json) {
   return RemoveCardRequest(
-    json['CardId'] as int,
-    json['CustomerKey'] as String,
-    ip: json['IP'] as String,
-    signToken: json['Token'] as String,
+    cardId: json['CardId'] as int,
+    customerKey: json['CustomerKey'] as String,
+    ip: json['IP'] as String?,
+    signToken: json['Token'] as String?,
   );
 }
 
@@ -25,8 +25,8 @@ Map<String, dynamic> _$RemoveCardRequestToJson(RemoveCardRequest instance) {
   }
 
   writeNotNull('Token', instance.signToken);
-  writeNotNull('CardId', instance.cardId);
-  writeNotNull('CustomerKey', instance.customerKey);
+  val['CardId'] = instance.cardId;
+  val['CustomerKey'] = instance.customerKey;
   writeNotNull('IP', instance.ip);
   return val;
 }

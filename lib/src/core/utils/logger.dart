@@ -6,8 +6,8 @@ abstract class BaseLogger {
   const BaseLogger();
 
   /// Метод логирует сообщение
-  void log(
-    String message, {
+  void log({
+    required String message,
     String name = '',
     Object error,
     StackTrace stackTrace,
@@ -20,11 +20,11 @@ class Logger extends BaseLogger {
   const Logger();
 
   @override
-  void log(
-    String message, {
+  void log({
+    required String message,
     String name = '',
-    Object error,
-    StackTrace stackTrace,
+    Object? error,
+    StackTrace? stackTrace,
   }) {
     dev.log(message, name: name, error: error, stackTrace: stackTrace);
   }

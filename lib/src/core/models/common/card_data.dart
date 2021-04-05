@@ -1,25 +1,25 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
-import '../../utils/crypto_utils.dart';
 import '../../utils/comparer.dart';
+import '../../utils/crypto_utils.dart';
 
 /// Данные карты
 ///
 /// [CardData](https://oplata.tinkoff.ru/develop/api/payments/finishAuthorize-request/#CardData)
 class CardData with Comparer {
   /// Создает экземпляр данных кард
-  CardData(
-    this.pan,
-    this.expDate,
-    this.cvv, {
+  CardData({
+    required this.pan,
+    required this.expDate,
+    required this.cvv,
     this.cardHolder,
     this.eci,
     this.cavv,
   });
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         JsonKeys.pan: pan,
         JsonKeys.expDate: expDate,
         JsonKeys.cvv: cvv,
@@ -40,7 +40,7 @@ class CardData with Comparer {
 
   /// Имя и фамилия держателя карты (как на карте)
   @JsonKey(name: JsonKeys.cardHolder)
-  final String cardHolder;
+  final String? cardHolder;
 
   /// Код защиты
   @JsonKey(name: JsonKeys.cvv)
@@ -51,13 +51,13 @@ class CardData with Comparer {
   ///
   /// Используется и является обязательным для Apple Pay или Google Pay.
   @JsonKey(name: JsonKeys.eci)
-  final String eci;
+  final String? eci;
 
   /// Cardholder Authentication Verification Value или Accountholder Authentication Value.
   ///
   /// Используется и является обязательным для Apple Pay или Google Pay
   @JsonKey(name: JsonKeys.cavv)
-  final String cavv;
+  final String? cavv;
 
   /// Метод шифрует данные карты
   String encode(String publicKey) {

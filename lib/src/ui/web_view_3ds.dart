@@ -7,64 +7,59 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../core/constants.dart';
-import '../core/tinkoff_acquiring.dart';
 import '../core/models/submit_3ds_authorization/submit_3ds_authorization_response.dart';
+import '../core/tinkoff_acquiring_config.dart';
 import '../core/utils/crypto_utils.dart';
 
 /// WebView для прохождения 3-D Secure
 class WebView3DS extends StatefulWidget {
   /// Конструктор WebView для прохождения 3-D Secure
   const WebView3DS({
-    Key key,
-    @required this.onFinished,
-    @required this.onLoad,
-    @required this.acquiring,
-    @required this.is3DsVersion2,
-    @required this.acsUrl,
+    Key? key,
+    required this.onFinished,
+    required this.onLoad,
+    required this.config,
+    required this.is3DsVersion2,
+    required this.acsUrl,
     this.md,
     this.paReq,
     this.acsTransId,
     this.version,
     this.serverTransId,
-  })  : assert(onFinished != null),
-        assert(onLoad != null),
-        assert(acquiring != null),
-        assert(is3DsVersion2 != null),
-        assert(acsUrl != null),
-        super(key: key);
+  }) : super(key: key);
 
   /// Конфигуратор SDK
-  final TinkoffAcquiring acquiring;
+  final TinkoffAcquiringConfig config;
 
   /// URL обработчик на стороне мерчанта, принимающий результаты прохождения 3-D Secure
   final String acsUrl;
 
   /// Уникальный идентификатор транзакции, присвоенный ACS
-  final String acsTransId;
+  final String? acsTransId;
 
   /// Уникальный идентификатор транзакции в системе Банка (возвращается в ответе на FinishAuthorize)
-  final String md;
+  final String? md;
 
   /// Результат аутентификации 3-D Secure (возвращается в ответе на FinishAuthorize)
-  final String paReq;
+  final String? paReq;
 
   /// Проверка 3DS версии протокола
   final bool is3DsVersion2;
 
   /// Версия протокола 3DS
-  final String version;
+  final String? version;
 
   /// Уникальный идентификатор транзакции, генерируемый 3DS-Server,
   /// обязательный параметр для 3DS второй версии
-  final String serverTransId;
+  final String? serverTransId;
 
   /// Результат 3-D Secure
-  final void Function(Submit3DSAuthorizationResponse) onFinished;
+  final void Function(Submit3DSAuthorizationResponse?) onFinished;
 
   /// Загрузка 3-D Secure
   final void Function(bool) onLoad;
 
-  String get _termUrl => Uri.encodeFull((acquiring.debug
+  String get _termUrl => Uri.encodeFull((config.debug
           ? NetworkSettings.apiUrlDebug
           : NetworkSettings.apiUrlRelease) +
       (is3DsVersion2
@@ -73,9 +68,10 @@ class WebView3DS extends StatefulWidget {
 
   String get _createCreq {
     final Map<String, String> params = <String, String>{
-      WebViewKeys.threeDSServerTransId: serverTransId,
-      WebViewKeys.acsTransId: acsTransId,
-      WebViewKeys.messageVersion: version,
+      if (serverTransId != null)
+        WebViewKeys.threeDSServerTransId: serverTransId!,
+      if (acsTransId != null) WebViewKeys.acsTransId: acsTransId!,
+      if (version != null) WebViewKeys.messageVersion: version!,
       WebViewKeys.challengeWindowSize: WebViewSettings.challengeWindowSize,
       WebViewKeys.messageType: WebViewSettings.messageType,
     };
@@ -167,20 +163,21 @@ class _WebView3DSState extends State<WebView3DS> {
 
   Future<void> _response() async {
     final String rawResponse =
-        await _controller.future.then((WebViewController v) async {
+        await _controller.future.then<String>((WebViewController v) async {
       final String document =
           await v.evaluateJavascript('document.documentElement.innerHTML');
-      final String response = RegExp('{.+}').firstMatch(document).group(0);
-      return response.replaceAll(RegExp('\\"').pattern, '"');
+      final String? response = RegExp('{.+}').firstMatch(document)?.group(0);
+
+      return response?.replaceAll(RegExp('\\"').pattern, '"') ?? document;
     });
 
-    widget.acquiring.logger.log(rawResponse, name: 'RawResponse');
+    widget.config.logger.log(message: rawResponse, name: 'RawResponse');
 
     final Submit3DSAuthorizationResponse response =
         Submit3DSAuthorizationResponse.fromJson(
             jsonDecode(rawResponse) as Map<String, dynamic>);
 
-    widget.acquiring.logger.log(response.toString(), name: 'Response');
+    widget.config.logger.log(message: response.toString(), name: 'Response');
     widget.onFinished(response);
   }
 }
