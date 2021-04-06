@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
-import '../base/acquiring_request.dart';
 import '../../utils/extensions.dart';
+import '../base/acquiring_request.dart';
 
 part 'charge_request.g.dart';
 
@@ -16,13 +16,13 @@ part 'charge_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class ChargeRequest extends AcquiringRequest {
   /// Создает экземпляр метода автоплатежа
-  ChargeRequest(
-    this.paymentId,
-    this.rebillId, {
+  ChargeRequest({
+    required this.paymentId,
+    required this.rebillId,
     this.sendEmail,
     this.infoEmail,
     this.ip,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -38,7 +38,7 @@ class ChargeRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$ChargeRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.paymentId: paymentId,
         JsonKeys.rebillId: rebillId,
@@ -49,16 +49,16 @@ class ChargeRequest extends AcquiringRequest {
 
   @override
   ChargeRequest copyWith({
-    int paymentId,
-    int rebillId,
-    bool sendEmail,
-    String infoEmail,
-    String ip,
-    String signToken,
+    int? paymentId,
+    int? rebillId,
+    bool? sendEmail,
+    String? infoEmail,
+    String? ip,
+    String? signToken,
   }) {
     return ChargeRequest(
-      paymentId ?? this.paymentId,
-      rebillId ?? this.rebillId,
+      paymentId: paymentId ?? this.paymentId,
+      rebillId: rebillId ?? this.rebillId,
       sendEmail: sendEmail ?? this.sendEmail,
       infoEmail: infoEmail ?? this.infoEmail,
       ip: ip ?? this.ip,
@@ -71,15 +71,18 @@ class ChargeRequest extends AcquiringRequest {
     assert(paymentId.length <= 20);
     assert(rebillId.length <= 20);
 
-    if (sendEmail == true) {
+    final bool? _sendEmail = sendEmail;
+    final String? _infoEmail = infoEmail;
+    if (_sendEmail == true) {
       final bool match =
           RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-              .hasMatch(infoEmail ?? '');
-      assert(infoEmail != null && infoEmail.length <= 100 && match);
+              .hasMatch(_infoEmail ?? '');
+      assert(_infoEmail != null && _infoEmail.length <= 100 && match);
     }
 
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
   }
 
@@ -93,13 +96,13 @@ class ChargeRequest extends AcquiringRequest {
 
   /// Получение покупателем уведомлений на электронную почту
   @JsonKey(name: JsonKeys.sendEmail)
-  final bool sendEmail;
+  final bool? sendEmail;
 
   /// Электронная почта покупателя
   @JsonKey(name: JsonKeys.infoEmail)
-  final String infoEmail;
+  final String? infoEmail;
 
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 }

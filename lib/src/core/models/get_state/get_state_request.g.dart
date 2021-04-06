@@ -8,9 +8,9 @@ part of 'get_state_request.dart';
 
 GetStateRequest _$GetStateRequestFromJson(Map<String, dynamic> json) {
   return GetStateRequest(
-    json['PaymentId'] as int,
-    ip: json['IP'] as String,
-    signToken: json['Token'] as String,
+    paymentId: json['PaymentId'] as int,
+    ip: json['IP'] as String?,
+    signToken: json['Token'] as String?,
   );
 }
 
@@ -24,7 +24,7 @@ Map<String, dynamic> _$GetStateRequestToJson(GetStateRequest instance) {
   }
 
   writeNotNull('Token', instance.signToken);
-  writeNotNull('PaymentId', instance.paymentId);
+  val['PaymentId'] = instance.paymentId;
   writeNotNull('IP', instance.ip);
   return val;
 }

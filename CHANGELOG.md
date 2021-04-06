@@ -1,3 +1,9 @@
+# 2.0.0
+
+* Null safe migration
+* Edit models constructors
+* Add `TinkoffAcquiringConfig`
+
 # 1.0.3
 
 * Fix CollectData

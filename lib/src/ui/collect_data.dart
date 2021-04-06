@@ -6,23 +6,19 @@ import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import '../core/constants.dart';
-import '../core/tinkoff_acquiring.dart';
+import '../core/tinkoff_acquiring_config.dart';
 import '../core/utils/crypto_utils.dart';
 
 /// Сбор данных для прохождения 3-D Secure 2.0 Collect
 class CollectData {
   /// Конструктор cбора данных для прохождения 3-D Secure 2.0 Collect
   CollectData({
-    @required this.context,
-    @required this.onFinished,
-    @required this.acquiring,
-    @required this.serverTransId,
-    @required this.threeDsMethodUrl,
-  })  : assert(context != null),
-        assert(onFinished != null),
-        assert(acquiring != null),
-        assert(serverTransId != null),
-        assert(threeDsMethodUrl != null) {
+    required this.context,
+    required this.onFinished,
+    required this.config,
+    required this.serverTransId,
+    required this.threeDsMethodUrl,
+  }) {
     _showDialog(context);
   }
 
@@ -30,7 +26,7 @@ class CollectData {
   final BuildContext context;
 
   /// Конфигуратор SDK
-  final TinkoffAcquiring acquiring;
+  final TinkoffAcquiringConfig config;
 
   /// Уникальный идентификатор транзакции, генерируемый 3DS-Server,
   /// обязательный параметр для 3DS второй версии
@@ -43,12 +39,14 @@ class CollectData {
   /// Результат проверки
   final void Function(Map<String, String>) onFinished;
 
-  OverlayEntry _overlayEntry;
+  late OverlayEntry _overlayEntry;
 
   void _showDialog(BuildContext context) {
-    final OverlayState overlayState = Overlay.of(context, rootOverlay: true);
+    final OverlayState? overlayState = Overlay.of(context, rootOverlay: true);
     _overlayEntry = _createOverlayEntry();
-    overlayState.insert(_overlayEntry);
+    if (overlayState != null) {
+      overlayState.insert(_overlayEntry);
+    }
   }
 
   void _hideDialog() {
@@ -65,7 +63,7 @@ class CollectData {
           width: 1,
           height: 1,
           child: _WebViewCollect(
-            acquiring: acquiring,
+            config: config,
             serverTransId: serverTransId,
             threeDsMethodUrl: threeDsMethodUrl,
             onFinished: (Map<String, String> map) {
@@ -81,28 +79,24 @@ class CollectData {
 
 class _WebViewCollect extends StatelessWidget {
   const _WebViewCollect({
-    Key key,
-    @required this.onFinished,
-    @required this.acquiring,
-    @required this.serverTransId,
-    @required this.threeDsMethodUrl,
-  })  : assert(onFinished != null),
-        assert(acquiring != null),
-        assert(serverTransId != null),
-        assert(threeDsMethodUrl != null),
-        super(key: key);
+    Key? key,
+    required this.onFinished,
+    required this.config,
+    required this.serverTransId,
+    required this.threeDsMethodUrl,
+  }) : super(key: key);
 
-  final TinkoffAcquiring acquiring;
+  final TinkoffAcquiringConfig config;
   final String serverTransId;
   final String threeDsMethodUrl;
   final void Function(Map<String, String>) onFinished;
 
-  String get termUrl => Uri.encodeFull((acquiring.debug
+  String get termUrl => Uri.encodeFull((config.debug
           ? NetworkSettings.apiUrlDebug
           : NetworkSettings.apiUrlRelease) +
       ApiMethods.submit3DSAuthorizationV2);
 
-  String get notificationsUrl => Uri.encodeFull((acquiring.debug
+  String get notificationsUrl => Uri.encodeFull((config.debug
           ? NetworkSettings.apiUrlDebug
           : NetworkSettings.apiUrlRelease) +
       ApiMethods.complete3DSMethodv2);

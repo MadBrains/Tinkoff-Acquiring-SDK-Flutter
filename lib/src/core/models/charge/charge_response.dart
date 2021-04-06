@@ -13,11 +13,11 @@ part 'charge_response.g.dart';
 class ChargeResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на автоплатеж
   ChargeResponse({
-    Status status,
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    Status? status,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.terminalKey,
     this.orderId,
     this.paymentId,
@@ -38,7 +38,7 @@ class ChargeResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$ChargeResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.orderId: orderId,
@@ -49,17 +49,17 @@ class ChargeResponse extends AcquiringResponse {
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
   @JsonKey(name: JsonKeys.terminalKey)
-  final String terminalKey;
+  final String? terminalKey;
 
   /// Сумма в копейках
   @JsonKey(name: JsonKeys.amount)
-  final int amount;
+  final int? amount;
 
   /// Идентификатор заказа в системе продавца
   @JsonKey(name: JsonKeys.orderId)
-  final String orderId;
+  final String? orderId;
 
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.paymentId)
-  final String paymentId;
+  final String? paymentId;
 }

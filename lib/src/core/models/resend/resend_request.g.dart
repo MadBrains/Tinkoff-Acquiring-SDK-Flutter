@@ -8,7 +8,7 @@ part of 'resend_request.dart';
 
 ResendRequest _$ResendRequestFromJson(Map<String, dynamic> json) {
   return ResendRequest(
-    signToken: json['Token'] as String,
+    signToken: json['Token'] as String?,
   );
 }
 

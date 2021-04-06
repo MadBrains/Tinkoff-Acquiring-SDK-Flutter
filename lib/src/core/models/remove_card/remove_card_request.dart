@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
-import '../base/acquiring_request.dart';
 import '../../utils/extensions.dart';
+import '../base/acquiring_request.dart';
 
 part 'remove_card_request.g.dart';
 
@@ -12,11 +12,11 @@ part 'remove_card_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class RemoveCardRequest extends AcquiringRequest {
   /// Создает экземпляр метода по удалению привязанной карты у покупателя
-  RemoveCardRequest(
-    this.cardId,
-    this.customerKey, {
+  RemoveCardRequest({
+    required this.cardId,
+    required this.customerKey,
     this.ip,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -32,7 +32,7 @@ class RemoveCardRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$RemoveCardRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.cardId: cardId,
         JsonKeys.customerKey: customerKey,
@@ -41,14 +41,14 @@ class RemoveCardRequest extends AcquiringRequest {
 
   @override
   RemoveCardRequest copyWith({
-    int cardId,
-    String customerKey,
-    String ip,
-    String signToken,
+    int? cardId,
+    String? customerKey,
+    String? ip,
+    String? signToken,
   }) {
     return RemoveCardRequest(
-      cardId ?? this.cardId,
-      customerKey ?? this.customerKey,
+      cardId: cardId ?? this.cardId,
+      customerKey: customerKey ?? this.customerKey,
       ip: ip ?? this.ip,
       signToken: signToken ?? this.signToken,
     );
@@ -59,8 +59,9 @@ class RemoveCardRequest extends AcquiringRequest {
     assert(cardId.length <= 40);
     assert(customerKey.length <= 36);
 
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
   }
 
@@ -74,5 +75,5 @@ class RemoveCardRequest extends AcquiringRequest {
 
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 }

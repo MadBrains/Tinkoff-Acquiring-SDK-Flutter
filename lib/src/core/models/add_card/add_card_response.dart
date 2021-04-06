@@ -12,10 +12,10 @@ part 'add_card_response.g.dart';
 class AddCardResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на привязку карты к покупателю
   AddCardResponse({
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.terminalKey,
     this.customerKey,
     this.requestKey,
@@ -35,7 +35,7 @@ class AddCardResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$AddCardResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.customerKey: customerKey,
@@ -46,18 +46,18 @@ class AddCardResponse extends AcquiringResponse {
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
   @JsonKey(name: JsonKeys.terminalKey)
-  final String terminalKey;
+  final String? terminalKey;
 
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.customerKey)
-  final String customerKey;
+  final String? customerKey;
 
   /// Идентификатор запроса на привязку карты
   @JsonKey(name: JsonKeys.requestKey)
-  final String requestKey;
+  final String? requestKey;
 
   /// Ссылка на страницу привязки карты.
   /// На данную страницу необходимо переадресовать клиента для привязки карты
   @JsonKey(name: JsonKeys.paymentUrl)
-  final String paymentURL;
+  final String? paymentURL;
 }

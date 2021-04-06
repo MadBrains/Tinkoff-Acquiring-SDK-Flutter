@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ],
             ),
             const Padding(padding: EdgeInsets.only(bottom: 20)),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 if (status.isCompleted) reset();
                 status.complete(_pay());
@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 if (!snapshot.hasError &&
                     snapshot.hasData &&
                     snapshot.connectionState == ConnectionState.done) {
-                  return Text(snapshot.data);
+                  return Text(snapshot.data ?? 'null');
                 } else {
                   return const CircularProgressIndicator();
                 }
@@ -113,42 +113,46 @@ class _MyHomePageState extends State<MyHomePage> {
 
     if (threeDs) {
       if (threeDsV2) {
-        // a. Issuer not enrolled 2201382000000062/1220/any
-        // b. Card not enrolled, Attempt 2201382000000039/1220/any
-        // c. Card enrolled, frictionless 2201382000000013/1220/any
+        // a. Issuer not enrolled 2201382000000062/1224/any
+        // b. Card not enrolled, Attempt 2201382000000039/1224/any
+        // c. Card enrolled, frictionless 2201382000000013/1224/any
         // d. Restricted, 2201382000000005/1220/any
-        // e. Challenge(пароль на ACS 1qwezxc), 2201382000000047/1220/any
+        // e. Challenge(пароль на ACS 1qwezxc), 2201382000000047/1224/any
         cardData = CardData(
-          2201382000000047,
-          '1220',
-          '123',
+          pan: 2201382000000047,
+          expDate: '1224',
+          cvv: '123',
           cardHolder: 'T. TESTING',
         ).encode(publicKey);
       } else {
         // 3ds v1
         cardData = CardData(
-          5411420000000002,
-          '1122',
-          '111',
+          pan: 5411420000000002,
+          expDate: '1122',
+          cvv: '111',
           cardHolder: 'T. TESTING',
         ).encode(publicKey);
       }
     } else {
       cardData = CardData(
-        4300000000000777,
-        '1122',
-        '111',
+        pan: 4300000000000777,
+        expDate: '1122',
+        cvv: '111',
         cardHolder: 'T. TESTING',
       ).encode(publicKey);
     }
 
     final TinkoffAcquiring acquiring = TinkoffAcquiring(
-      terminalKey: terminalKey,
-      password: password,
+      TinkoffAcquiringConfig(
+        terminalKey: terminalKey,
+        password: password,
+      ),
     );
 
     final InitResponse init = await acquiring.init(InitRequest(
-      (99 + math.Random(DateTime.now().millisecondsSinceEpoch).nextInt(100000))
+      orderId: (99 +
+              math.Random(DateTime.now().millisecondsSinceEpoch)
+                  .nextInt(100000))
           .toString(),
       customerKey: customerKey,
       amount: amount,
@@ -158,8 +162,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final Check3DSVersionResponse check3DSVersion =
         await acquiring.check3DSVersion(Check3DSVersionRequest(
-      int.parse(init.paymentId),
-      cardData,
+      paymentId: int.parse(init.paymentId!),
+      cardData: cardData,
     ));
 
     final Completer<Map<String, String>> data =
@@ -167,42 +171,42 @@ class _MyHomePageState extends State<MyHomePage> {
     if (check3DSVersion.is3DsVersion2) {
       CollectData(
         context: context,
-        acquiring: acquiring,
-        serverTransId: check3DSVersion.serverTransId,
-        threeDsMethodUrl: check3DSVersion.threeDsMethodUrl,
+        config: acquiring.config,
+        serverTransId: check3DSVersion.serverTransId!,
+        threeDsMethodUrl: check3DSVersion.threeDsMethodUrl!,
         onFinished: (Map<String, String> v) {
           data.complete(v);
         },
       );
     } else {
-      data.complete(null);
+      data.complete(<String, String>{});
     }
 
     final FinishAuthorizeResponse fa =
         await acquiring.finishAuthorize(FinishAuthorizeRequest(
-      int.parse(init.paymentId),
+      paymentId: int.parse(init.paymentId!),
       cardData: cardData,
       data: await data.future,
     ));
 
-    final Completer<Submit3DSAuthorizationResponse> webView =
-        Completer<Submit3DSAuthorizationResponse>();
+    final Completer<Submit3DSAuthorizationResponse?> webView =
+        Completer<Submit3DSAuthorizationResponse?>();
     if (fa.status == Status.threeDsChecking) {
       Navigator.of(context).push(MaterialPageRoute<void>(
         builder: (BuildContext context) => Scaffold(
           body: WebView3DS(
-            acquiring: acquiring,
+            config: acquiring.config,
             is3DsVersion2: fa.is3DsVersion2 || check3DSVersion.is3DsVersion2,
             serverTransId: fa.serverTransId ?? check3DSVersion.serverTransId,
-            acsUrl: fa.acsUrl,
+            acsUrl: fa.acsUrl!,
             md: fa.md,
             paReq: fa.paReq,
             acsTransId: fa.acsTransId,
             version: check3DSVersion.version,
             onLoad: (bool v) {
-              acquiring.logger.log('WebView load: $v');
+              debugPrint('WebView load: $v');
             },
-            onFinished: (Submit3DSAuthorizationResponse v) {
+            onFinished: (Submit3DSAuthorizationResponse? v) {
               Navigator.of(context).pop();
               webView.complete(v);
             },
@@ -215,7 +219,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return webView.future.then((_) async {
       final GetStateResponse getState = await acquiring.getState(
-        GetStateRequest(int.parse(init.paymentId)),
+        GetStateRequest(
+          paymentId: int.parse(init.paymentId!),
+        ),
       );
 
       return getState.status.toString();

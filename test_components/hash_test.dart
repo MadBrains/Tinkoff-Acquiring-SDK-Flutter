@@ -8,7 +8,7 @@ class _TestWithComparer with Comparer {
   final List<Object> a;
 
   @override
-  Map<String, Object> get equals => <String, Object>{'a': a};
+  Map<String, Object?> get equals => <String, Object?>{'a': a};
 }
 
 class _TestWithoutComparer {

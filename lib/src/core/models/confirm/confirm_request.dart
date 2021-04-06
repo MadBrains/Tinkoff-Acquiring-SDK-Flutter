@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
+import '../../utils/extensions.dart';
 import '../base/acquiring_request.dart';
 import '../common/receipt.dart';
-import '../../utils/extensions.dart';
 
 part 'confirm_request.g.dart';
 
@@ -19,12 +19,12 @@ part 'confirm_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class ConfirmRequest extends AcquiringRequest {
   /// Создает экземпляр метода подтверждения платежа
-  ConfirmRequest(
-    this.paymentId, {
+  ConfirmRequest({
+    required this.paymentId,
     this.amount,
     this.ip,
     this.receipt,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -40,7 +40,7 @@ class ConfirmRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$ConfirmRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.paymentId: paymentId,
         JsonKeys.amount: amount,
@@ -50,14 +50,14 @@ class ConfirmRequest extends AcquiringRequest {
 
   @override
   ConfirmRequest copyWith({
-    int paymentId,
-    int amount,
-    String ip,
-    Receipt receipt,
-    String signToken,
+    int? paymentId,
+    int? amount,
+    String? ip,
+    Receipt? receipt,
+    String? signToken,
   }) {
     return ConfirmRequest(
-      paymentId ?? this.paymentId,
+      paymentId: paymentId ?? this.paymentId,
       amount: amount ?? this.amount,
       ip: ip ?? this.ip,
       receipt: receipt ?? this.receipt,
@@ -69,12 +69,14 @@ class ConfirmRequest extends AcquiringRequest {
   void validate() {
     assert(paymentId.length <= 20);
 
-    if (amount != null) {
-      assert(amount.length <= 10);
+    final int? _amount = amount;
+    if (_amount != null) {
+      assert(_amount.length <= 10);
     }
 
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
   }
 
@@ -86,11 +88,11 @@ class ConfirmRequest extends AcquiringRequest {
   ///
   /// Пример: `140000` == `1400.00 рублей`
   @JsonKey(name: JsonKeys.amount)
-  final int amount;
+  final int? amount;
 
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 
   /// Массив данных чека.
   ///
@@ -98,5 +100,5 @@ class ConfirmRequest extends AcquiringRequest {
   ///
   /// Имеет приоритет над данными, переданными в методе `Init`
   @JsonKey(name: JsonKeys.receipt)
-  final Receipt receipt;
+  final Receipt? receipt;
 }

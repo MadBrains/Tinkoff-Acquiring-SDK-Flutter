@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
+import '../../utils/extensions.dart';
 import '../base/acquiring_request.dart';
 import '../common/receipt.dart';
-import '../../utils/extensions.dart';
 
 part 'cancel_request.g.dart';
 
@@ -13,12 +13,12 @@ part 'cancel_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class CancelRequest extends AcquiringRequest {
   /// Создает экземпляр метода по отмене платежа
-  CancelRequest(
-    this.paymentId, {
+  CancelRequest({
+    required this.paymentId,
     this.amount,
     this.ip,
     this.receipt,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -34,7 +34,7 @@ class CancelRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$CancelRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.paymentId: paymentId,
         JsonKeys.amount: amount,
@@ -44,14 +44,14 @@ class CancelRequest extends AcquiringRequest {
 
   @override
   CancelRequest copyWith({
-    int paymentId,
-    int amount,
-    String ip,
-    Receipt receipt,
-    String signToken,
+    int? paymentId,
+    int? amount,
+    String? ip,
+    Receipt? receipt,
+    String? signToken,
   }) {
     return CancelRequest(
-      paymentId ?? this.paymentId,
+      paymentId: paymentId ?? this.paymentId,
       amount: amount ?? this.amount,
       ip: ip ?? this.ip,
       receipt: receipt ?? this.receipt,
@@ -63,12 +63,14 @@ class CancelRequest extends AcquiringRequest {
   void validate() {
     assert(paymentId.length <= 20);
 
-    if (amount != null) {
-      assert(amount.length <= 10);
+    final int? _amount = amount;
+    if (_amount != null) {
+      assert(_amount.length <= 10);
     }
 
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
   }
 
@@ -80,11 +82,11 @@ class CancelRequest extends AcquiringRequest {
   ///
   /// Пример: `140000` == `1400.00 рублей`
   @JsonKey(name: JsonKeys.amount)
-  final int amount;
+  final int? amount;
 
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 
   /// Массив данных чека.
   /// В чеке указываются данные товаров, подлежащих возврату
@@ -93,5 +95,5 @@ class CancelRequest extends AcquiringRequest {
   ///
   /// Имеет приоритет над данными, переданными в методе `Init`
   @JsonKey(name: JsonKeys.receipt)
-  final Receipt receipt;
+  final Receipt? receipt;
 }

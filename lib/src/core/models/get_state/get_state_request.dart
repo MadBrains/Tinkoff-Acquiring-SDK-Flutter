@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../../constants.dart';
-import '../base/acquiring_request.dart';
 import '../../utils/extensions.dart';
+import '../base/acquiring_request.dart';
 
 part 'get_state_request.g.dart';
 
@@ -12,10 +12,10 @@ part 'get_state_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class GetStateRequest extends AcquiringRequest {
   /// Создает экземпляр метода по получению статуса платежа
-  GetStateRequest(
-    this.paymentId, {
+  GetStateRequest({
+    required this.paymentId,
     this.ip,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -31,7 +31,7 @@ class GetStateRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$GetStateRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.paymentId: paymentId,
         JsonKeys.ip: ip,
@@ -39,12 +39,12 @@ class GetStateRequest extends AcquiringRequest {
 
   @override
   GetStateRequest copyWith({
-    int paymentId,
-    String ip,
-    String signToken,
+    int? paymentId,
+    String? ip,
+    String? signToken,
   }) {
     return GetStateRequest(
-      paymentId ?? this.paymentId,
+      paymentId: paymentId ?? this.paymentId,
       ip: ip ?? this.ip,
       signToken: signToken ?? this.signToken,
     );
@@ -54,8 +54,9 @@ class GetStateRequest extends AcquiringRequest {
   void validate() {
     assert(paymentId.length <= 20);
 
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
   }
 
@@ -65,5 +66,5 @@ class GetStateRequest extends AcquiringRequest {
 
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 }

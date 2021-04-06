@@ -13,11 +13,11 @@ part 'check_3ds_version_response.g.dart';
 class Check3DSVersionResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера по проверки 3DS протокола
   Check3DSVersionResponse({
-    Status status,
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    Status? status,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.version,
     this.serverTransId,
     this.threeDsMethodUrl,
@@ -37,7 +37,7 @@ class Check3DSVersionResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$Check3DSVersionResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.version: version,
         JsonKeys.tdsServerTransID: serverTransId,
@@ -49,15 +49,15 @@ class Check3DSVersionResponse extends AcquiringResponse {
 
   /// Версия протокола 3DS
   @JsonKey(name: JsonKeys.version)
-  final String version;
+  final String? version;
 
   /// Уникальный идентификатор транзакции, генерируемый 3DS-Server,
   /// обязательный параметр для 3DS второй версии
   @JsonKey(name: JsonKeys.tdsServerTransID)
-  final String serverTransId;
+  final String? serverTransId;
 
   /// Дополнительный параметр для 3DS второй версии,
   /// который позволяет пройти этап по сбору данных браузера ACS-ом
   @JsonKey(name: JsonKeys.threeDsMethodUrl)
-  final String threeDsMethodUrl;
+  final String? threeDsMethodUrl;
 }

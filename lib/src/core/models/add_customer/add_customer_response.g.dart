@@ -8,12 +8,12 @@ part of 'add_customer_response.dart';
 
 AddCustomerResponse _$AddCustomerResponseFromJson(Map<String, dynamic> json) {
   return AddCustomerResponse(
-    success: json['Success'] as bool,
-    errorCode: json['ErrorCode'] as String,
-    message: json['Message'] as String,
-    details: json['Details'] as String,
-    terminalKey: json['TerminalKey'] as String,
-    customerKey: json['CustomerKey'] as String,
+    success: json['Success'] as bool?,
+    errorCode: json['ErrorCode'] as String?,
+    message: json['Message'] as String?,
+    details: json['Details'] as String?,
+    terminalKey: json['TerminalKey'] as String?,
+    customerKey: json['CustomerKey'] as String?,
   );
 }
 

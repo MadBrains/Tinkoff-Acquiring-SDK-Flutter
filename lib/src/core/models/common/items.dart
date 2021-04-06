@@ -16,12 +16,12 @@ part 'items.g.dart';
 @JsonSerializable(includeIfNull: false)
 class Items with Comparer {
   /// Создает экземпляр массива позиций чека с информацией о товарах.
-  Items(
-    this.name,
-    this.quantity,
-    this.amount,
-    this.price,
-    this.tax, {
+  Items({
+    required this.name,
+    required this.quantity,
+    required this.amount,
+    required this.price,
+    required this.tax,
     this.paymentMethod,
     this.paymentObject,
     this.ean13,
@@ -34,7 +34,7 @@ class Items with Comparer {
   factory Items.fromJson(Map<String, dynamic> json) => _$ItemsFromJson(json);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         JsonKeys.name: name,
         JsonKeys.quantity: quantity,
         JsonKeys.amount: amount,
@@ -56,19 +56,24 @@ class Items with Comparer {
     assert(quantity.length <= 8);
     assert(amount.length <= 10);
     assert(price.length <= 10);
-    if (ean13 != null) {
-      assert(ean13.length <= 20);
+
+    final String? _ean13 = ean13;
+    if (_ean13 != null) {
+      assert(_ean13.length <= 20);
     }
-    if (shopCode != null) {
-      assert(shopCode.length <= 64);
+
+    final String? _shopCode = shopCode;
+    if (_shopCode != null) {
+      assert(_shopCode.length <= 64);
     }
-    if (supplierInfo != null) {
-      assert(agentData != null && agentData.agentSign != null);
-      supplierInfo.validate();
+
+    final SupplierInfo? _supplierInfo = supplierInfo;
+    if (_supplierInfo != null) {
+      assert(agentData?.agentSign != null);
+      _supplierInfo.validate();
     }
-    if (agentData != null) {
-      agentData.validate();
-    }
+
+    agentData?.validate();
   }
 
   /// Наименование товара
@@ -104,7 +109,7 @@ class Items with Comparer {
   /// 6. credit — передача в кредит
   /// 7. credit_payment — оплата кредита
   @JsonKey(name: JsonKeys.paymentMethod)
-  final PaymentMethod paymentMethod;
+  final PaymentMethod? paymentMethod;
 
   /// Признак предмета расчета
   /// 1. commodity — товар
@@ -121,7 +126,7 @@ class Items with Comparer {
   /// 12. composite — составной предмет расчета
   /// 13. another — иной предмет расчета
   @JsonKey(name: JsonKeys.paymentObject)
-  final PaymentObject paymentObject;
+  final PaymentObject? paymentObject;
 
   /// Ставка НДС:
   /// 1. none — без НДС
@@ -135,19 +140,19 @@ class Items with Comparer {
 
   /// Маркировка товара
   @JsonKey(name: JsonKeys.ean13)
-  final String ean13;
+  final String? ean13;
 
   /// Код магазина
   @JsonKey(name: JsonKeys.shopCode)
-  final String shopCode;
+  final String? shopCode;
 
   /// Данные агента
   ///
   /// Используется при работе по агентской схеме
   @JsonKey(name: JsonKeys.agentData)
-  final AgentData agentData;
+  final AgentData? agentData;
 
   /// Данные поставщика платежного агента
   @JsonKey(name: JsonKeys.supplierInfo)
-  final SupplierInfo supplierInfo;
+  final SupplierInfo? supplierInfo;
 }

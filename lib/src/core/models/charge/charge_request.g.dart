@@ -8,12 +8,12 @@ part of 'charge_request.dart';
 
 ChargeRequest _$ChargeRequestFromJson(Map<String, dynamic> json) {
   return ChargeRequest(
-    json['PaymentId'] as int,
-    json['RebillId'] as int,
-    sendEmail: json['SendEmail'] as bool,
-    infoEmail: json['InfoEmail'] as String,
-    ip: json['IP'] as String,
-    signToken: json['Token'] as String,
+    paymentId: json['PaymentId'] as int,
+    rebillId: json['RebillId'] as int,
+    sendEmail: json['SendEmail'] as bool?,
+    infoEmail: json['InfoEmail'] as String?,
+    ip: json['IP'] as String?,
+    signToken: json['Token'] as String?,
   );
 }
 
@@ -27,8 +27,8 @@ Map<String, dynamic> _$ChargeRequestToJson(ChargeRequest instance) {
   }
 
   writeNotNull('Token', instance.signToken);
-  writeNotNull('PaymentId', instance.paymentId);
-  writeNotNull('RebillId', instance.rebillId);
+  val['PaymentId'] = instance.paymentId;
+  val['RebillId'] = instance.rebillId;
   writeNotNull('SendEmail', instance.sendEmail);
   writeNotNull('InfoEmail', instance.infoEmail);
   writeNotNull('IP', instance.ip);

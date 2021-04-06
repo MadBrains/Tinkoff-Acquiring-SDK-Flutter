@@ -13,10 +13,10 @@ part 'get_card_list_response.g.dart';
 class GetCardListResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на список привязанных карт у покупателя
   GetCardListResponse({
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.cardInfo,
   }) : super(
           success: success,
@@ -33,12 +33,12 @@ class GetCardListResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$GetCardListResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.cardInfo: cardInfo,
       };
 
   /// Данные карты
   @JsonKey(name: JsonKeys.cardInfo)
-  final List<CardInfo> cardInfo;
+  final List<CardInfo>? cardInfo;
 }

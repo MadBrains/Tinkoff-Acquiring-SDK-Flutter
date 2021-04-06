@@ -8,17 +8,17 @@ part of 'items.dart';
 
 Items _$ItemsFromJson(Map<String, dynamic> json) {
   return Items(
-    json['Name'] as String,
-    json['Quantity'] as String,
-    json['Amount'] as String,
-    json['Price'] as String,
-    _$enumDecodeNullable(_$TaxEnumMap, json['Tax']),
+    name: json['Name'] as String,
+    quantity: json['Quantity'] as String,
+    amount: json['Amount'] as String,
+    price: json['Price'] as String,
+    tax: _$enumDecode(_$TaxEnumMap, json['Tax']),
     paymentMethod:
         _$enumDecodeNullable(_$PaymentMethodEnumMap, json['PaymentMethod']),
     paymentObject:
         _$enumDecodeNullable(_$PaymentObjectEnumMap, json['PaymentObject']),
-    ean13: json['Ean13'] as String,
-    shopCode: json['ShopCode'] as String,
+    ean13: json['Ean13'] as String?,
+    shopCode: json['ShopCode'] as String?,
     agentData: json['AgentData'] == null
         ? null
         : AgentData.fromJson(json['AgentData'] as Map<String, dynamic>),
@@ -29,7 +29,12 @@ Items _$ItemsFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$ItemsToJson(Items instance) {
-  final val = <String, dynamic>{};
+  final val = <String, dynamic>{
+    'Name': instance.name,
+    'Quantity': instance.quantity,
+    'Amount': instance.amount,
+    'Price': instance.price,
+  };
 
   void writeNotNull(String key, dynamic value) {
     if (value != null) {
@@ -37,13 +42,9 @@ Map<String, dynamic> _$ItemsToJson(Items instance) {
     }
   }
 
-  writeNotNull('Name', instance.name);
-  writeNotNull('Quantity', instance.quantity);
-  writeNotNull('Amount', instance.amount);
-  writeNotNull('Price', instance.price);
   writeNotNull('PaymentMethod', _$PaymentMethodEnumMap[instance.paymentMethod]);
   writeNotNull('PaymentObject', _$PaymentObjectEnumMap[instance.paymentObject]);
-  writeNotNull('Tax', _$TaxEnumMap[instance.tax]);
+  val['Tax'] = _$TaxEnumMap[instance.tax];
   writeNotNull('Ean13', instance.ean13);
   writeNotNull('ShopCode', instance.shopCode);
   writeNotNull('AgentData', instance.agentData);
@@ -51,36 +52,30 @@ Map<String, dynamic> _$ItemsToJson(Items instance) {
   return val;
 }
 
-T _$enumDecode<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
+K _$enumDecode<K, V>(
+  Map<K, V> enumValues,
+  Object? source, {
+  K? unknownValue,
 }) {
   if (source == null) {
-    throw ArgumentError('A value must be provided. Supported values: '
-        '${enumValues.values.join(', ')}');
+    throw ArgumentError(
+      'A value must be provided. Supported values: '
+      '${enumValues.values.join(', ')}',
+    );
   }
 
-  final value = enumValues.entries
-      .singleWhere((e) => e.value == source, orElse: () => null)
-      ?.key;
-
-  if (value == null && unknownValue == null) {
-    throw ArgumentError('`$source` is not one of the supported values: '
-        '${enumValues.values.join(', ')}');
-  }
-  return value ?? unknownValue;
-}
-
-T _$enumDecodeNullable<T>(
-  Map<T, dynamic> enumValues,
-  dynamic source, {
-  T unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<T>(enumValues, source, unknownValue: unknownValue);
+  return enumValues.entries.singleWhere(
+    (e) => e.value == source,
+    orElse: () {
+      if (unknownValue == null) {
+        throw ArgumentError(
+          '`$source` is not one of the supported values: '
+          '${enumValues.values.join(', ')}',
+        );
+      }
+      return MapEntry(unknownValue, enumValues.values.first);
+    },
+  ).key;
 }
 
 const _$TaxEnumMap = {
@@ -91,6 +86,17 @@ const _$TaxEnumMap = {
   Tax.vat110: 'vat110',
   Tax.vat120: 'vat120',
 };
+
+K? _$enumDecodeNullable<K, V>(
+  Map<K, V> enumValues,
+  dynamic source, {
+  K? unknownValue,
+}) {
+  if (source == null) {
+    return null;
+  }
+  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
+}
 
 const _$PaymentMethodEnumMap = {
   PaymentMethod.fullPayment: 'full_payment',

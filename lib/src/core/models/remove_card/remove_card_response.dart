@@ -13,10 +13,10 @@ part 'remove_card_response.g.dart';
 class RemoveCardResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера по удалению привязанной карты у покупателя
   RemoveCardResponse({
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.terminalKey,
     this.customerKey,
     this.cardId,
@@ -36,7 +36,7 @@ class RemoveCardResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$RemoveCardResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.customerKey: customerKey,
@@ -47,20 +47,20 @@ class RemoveCardResponse extends AcquiringResponse {
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
   @JsonKey(name: JsonKeys.terminalKey)
-  final String terminalKey;
+  final String? terminalKey;
 
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.customerKey)
-  final String customerKey;
+  final String? customerKey;
 
   /// Идентификатор карты в системе Банка
   @JsonKey(name: JsonKeys.cardId)
-  final String cardId;
+  final String? cardId;
 
   /// Статус карты:
   /// 1. A - активная
   /// 2. I - неактивная
   /// 3. D - удалена
   @JsonKey(name: JsonKeys.status, unknownEnumValue: CardStatus.notExist)
-  final CardStatus cardStatus;
+  final CardStatus? cardStatus;
 }

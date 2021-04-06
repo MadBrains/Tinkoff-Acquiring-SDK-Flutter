@@ -9,8 +9,8 @@ abstract class AcquiringRequest with Comparer {
   AcquiringRequest(this.signToken);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
-        JsonKeys.token: signToken,
+  Map<String, Object?> get equals => <String, Object?>{
+        if (signToken != null) JsonKeys.token: signToken,
       };
 
   /// Метод запроса
@@ -27,5 +27,5 @@ abstract class AcquiringRequest with Comparer {
 
   /// Опциональный параметр: готовая подпись запроса
   @JsonKey(name: JsonKeys.token)
-  final String signToken;
+  final String? signToken;
 }

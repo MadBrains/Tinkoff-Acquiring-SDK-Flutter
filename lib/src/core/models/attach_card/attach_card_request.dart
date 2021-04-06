@@ -12,11 +12,11 @@ part 'attach_card_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class AttachCardRequest extends AcquiringRequest {
   /// Создает экземпляр метода по привязки карты к покупателю
-  AttachCardRequest(
-    this.requestKey,
-    this.cardData, {
+  AttachCardRequest({
+    required this.requestKey,
+    required this.cardData,
     this.data,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -32,7 +32,7 @@ class AttachCardRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$AttachCardRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.requestKey: requestKey,
         JsonKeys.cardData: cardData,
@@ -41,14 +41,14 @@ class AttachCardRequest extends AcquiringRequest {
 
   @override
   AttachCardRequest copyWith({
-    String requestKey,
-    String cardData,
-    Map<String, String> data,
-    String signToken,
+    String? requestKey,
+    String? cardData,
+    Map<String, String>? data,
+    String? signToken,
   }) {
     return AttachCardRequest(
-      requestKey ?? this.requestKey,
-      cardData ?? this.cardData,
+      requestKey: requestKey ?? this.requestKey,
+      cardData: cardData ?? this.cardData,
       data: data ?? this.data,
       signToken: signToken ?? this.signToken,
     );
@@ -78,5 +78,5 @@ class AttachCardRequest extends AcquiringRequest {
   /// Заполнить данными последней сохраненной карты. Применяется, если параметр "DefaultCard" не передан, передан с некорректным значением или в значении null.
   /// По умолчанию возможность сохранения карт на платежной форме может быть отключена. Для активации обратитесь в службу технической поддержки.
   @JsonKey(name: JsonKeys.data)
-  final Map<String, String> data;
+  final Map<String, String>? data;
 }

@@ -13,11 +13,11 @@ part 'attach_card_response.g.dart';
 class AttachCardResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера по завершению привязки карты к покупателю
   AttachCardResponse({
-    Status status,
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    Status? status,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.terminalKey,
     this.customerKey,
     this.requestKey,
@@ -42,7 +42,7 @@ class AttachCardResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$AttachCardResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.customerKey: customerKey,
@@ -57,34 +57,34 @@ class AttachCardResponse extends AcquiringResponse {
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
   @JsonKey(name: JsonKeys.terminalKey)
-  final String terminalKey;
+  final String? terminalKey;
 
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.customerKey)
-  final String customerKey;
+  final String? customerKey;
 
   /// Идентификатор запроса на привязку карты
   @JsonKey(name: JsonKeys.requestKey)
-  final String requestKey;
+  final String? requestKey;
 
   /// Идентификатор рекуррентного платежа в системе банка
   @JsonKey(name: JsonKeys.rebillId)
-  final int rebillId;
+  final int? rebillId;
 
   /// Идентификатор карты в системе Банка
   @JsonKey(name: JsonKeys.cardId)
-  final String cardId;
+  final String? cardId;
 
   /// Адрес перенаправления после аутентификации 3-D Secure
   /// (URL обработчик на стороне мерчанта, принимающий результаты прохождения 3-D Secure)
   @JsonKey(name: JsonKeys.acsUrl)
-  final String acsUrl;
+  final String? acsUrl;
 
   /// Уникальный идентификатор транзакции в системе Банка (возвращается в ответе на FinishAuthorize)
   @JsonKey(name: JsonKeys.md)
-  final String md;
+  final String? md;
 
   /// Результат аутентификации 3-D Secure (возвращается в ответе на FinishAuthorize)
   @JsonKey(name: JsonKeys.paReq)
-  final String paReq;
+  final String? paReq;
 }

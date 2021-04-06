@@ -13,11 +13,11 @@ part 'get_state_response.g.dart';
 class GetStateResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на получение статуса платежа
   GetStateResponse({
-    Status status,
-    bool success,
-    String errorCode,
-    String message,
-    String details,
+    Status? status,
+    bool? success,
+    String? errorCode,
+    String? message,
+    String? details,
     this.terminalKey,
     this.orderId,
     this.paymentId,
@@ -37,7 +37,7 @@ class GetStateResponse extends AcquiringResponse {
   Map<String, dynamic> toJson() => _$GetStateResponseToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.orderId: orderId,
@@ -47,13 +47,13 @@ class GetStateResponse extends AcquiringResponse {
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
   @JsonKey(name: JsonKeys.terminalKey)
-  final String terminalKey;
+  final String? terminalKey;
 
   /// Идентификатор заказа в системе продавца
   @JsonKey(name: JsonKeys.orderId)
-  final String orderId;
+  final String? orderId;
 
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.paymentId)
-  final String paymentId;
+  final String? paymentId;
 }

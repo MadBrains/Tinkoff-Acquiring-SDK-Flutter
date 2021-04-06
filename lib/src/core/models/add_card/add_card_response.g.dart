@@ -8,14 +8,14 @@ part of 'add_card_response.dart';
 
 AddCardResponse _$AddCardResponseFromJson(Map<String, dynamic> json) {
   return AddCardResponse(
-    success: json['Success'] as bool,
-    errorCode: json['ErrorCode'] as String,
-    message: json['Message'] as String,
-    details: json['Details'] as String,
-    terminalKey: json['TerminalKey'] as String,
-    customerKey: json['CustomerKey'] as String,
-    requestKey: json['RequestKey'] as String,
-    paymentURL: json['PaymentURL'] as String,
+    success: json['Success'] as bool?,
+    errorCode: json['ErrorCode'] as String?,
+    message: json['Message'] as String?,
+    details: json['Details'] as String?,
+    terminalKey: json['TerminalKey'] as String?,
+    customerKey: json['CustomerKey'] as String?,
+    requestKey: json['RequestKey'] as String?,
+    paymentURL: json['PaymentURL'] as String?,
   );
 }
 

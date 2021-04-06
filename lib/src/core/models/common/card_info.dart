@@ -25,7 +25,7 @@ class CardInfo with Comparer {
       _$CardInfoFromJson(json);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         JsonKeys.pan: pan,
         JsonKeys.cardId: cardId,
         JsonKeys.rebillId: rebillId,
@@ -39,31 +39,31 @@ class CardInfo with Comparer {
 
   /// Номер карты маскированный
   @JsonKey(name: JsonKeys.pan)
-  final String pan;
+  final String? pan;
 
   /// Идентификатор карты в системе Банка
   @JsonKey(name: JsonKeys.cardId)
-  final String cardId;
+  final String? cardId;
 
   /// Идентификатор рекуррентного платежа в системе банка
   @JsonKey(name: JsonKeys.rebillId)
-  final String rebillId;
+  final String? rebillId;
 
   /// Карта:
   /// * 0 — списания
   /// * 1 — пополнения
   /// * 2 — списания и пополнения
   @JsonKey(name: JsonKeys.cardType)
-  final CardType cardType;
+  final CardType? cardType;
 
   /// Статус карты:
   /// * A - активная
   /// * I - неактивная
   /// * D - удалена
   @JsonKey(name: JsonKeys.status)
-  final CardStatus status;
+  final CardStatus? status;
 
   /// Срок действия карты
   @JsonKey(name: JsonKeys.expDate)
-  final String expDate;
+  final String? expDate;
 }

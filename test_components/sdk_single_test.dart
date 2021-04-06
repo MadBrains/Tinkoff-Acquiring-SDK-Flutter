@@ -7,7 +7,7 @@ import 'sdk_test_constant.dart';
 void start() {
   test('addCard', () async {
     final AddCardResponse value = await acquiring.addCard(AddCardRequest(
-      customerKey,
+      customerKey: customerKey,
       checkType: CheckType.no,
       description: description,
       payForm: payForm,
@@ -29,7 +29,7 @@ void start() {
   test('addCustomer', () async {
     final AddCustomerResponse value =
         await acquiring.addCustomer(AddCustomerRequest(
-      customerKey,
+      customerKey: customerKey,
       email: email,
       phone: phone,
       ip: ip,
@@ -39,7 +39,7 @@ void start() {
 
   test('cancel', () async {
     final CancelResponse value = await acquiring.cancel(CancelRequest(
-      700000021787,
+      paymentId: 700000021787,
       amount: amount,
       ip: ip,
     ));
@@ -57,7 +57,7 @@ void start() {
 
   test('confirm', () async {
     final ConfirmResponse value = await acquiring.confirm(ConfirmRequest(
-      700000021787,
+      paymentId: 700000021787,
       amount: amount,
       ip: ip,
     ));
@@ -77,8 +77,8 @@ void start() {
   test('check3DSVersion', () async {
     final Check3DSVersionResponse value =
         await acquiring.check3DSVersion(Check3DSVersionRequest(
-      700000021787,
-      cardData3DS,
+      paymentId: 700000021787,
+      cardData: cardData3DS,
     ));
     expect(value.runtimeType, Check3DSVersionResponse);
   });
@@ -86,7 +86,7 @@ void start() {
   test('getCardList', () async {
     final GetCardListResponse value =
         await acquiring.getCardList(GetCardListRequest(
-      customerKey,
+      customerKey: customerKey,
       ip: ip,
     ));
     expect(value.runtimeType, GetCardListResponse);
@@ -95,7 +95,7 @@ void start() {
   test('getCustomer', () async {
     final GetCustomerResponse value =
         await acquiring.getCustomer(GetCustomerRequest(
-      customerKey,
+      customerKey: customerKey,
       ip: ip,
     ));
     expect(value.runtimeType, GetCustomerResponse);
@@ -103,7 +103,7 @@ void start() {
 
   test('getState', () async {
     final GetStateResponse value = await acquiring.getState(GetStateRequest(
-      700000021787,
+      paymentId: 700000021787,
       ip: ip,
     ));
     expect(value.runtimeType, GetStateResponse);
@@ -111,7 +111,7 @@ void start() {
 
   test('init', () async {
     final InitResponse value = await acquiring.init(InitRequest(
-      orderId.toString(),
+      orderId: orderId.toString(),
       amount: amount,
       ip: ip,
       description: description,
@@ -120,14 +120,14 @@ void start() {
       customerKey: customerKey,
       payType: PayType.one,
       receipt: Receipt(
-        Taxation.esn,
-        <Items>[
+        taxation: Taxation.esn,
+        items: <Items>[
           Items(
-            'testItem',
-            '1',
-            amount.toString(),
-            amount.toString(),
-            Tax.vat20,
+            name: 'testItem',
+            quantity: '1',
+            price: amount.toString(),
+            amount: amount.toString(),
+            tax: Tax.vat20,
             paymentMethod: PaymentMethod.fullPayment,
             paymentObject: PaymentObject.composite,
             shopCode: 'shop',
@@ -157,14 +157,17 @@ void start() {
 
   test('removeCard', () async {
     final RemoveCardResponse value =
-        await acquiring.removeCard(RemoveCardRequest(4750, customerKey));
+        await acquiring.removeCard(RemoveCardRequest(
+      cardId: 4750,
+      customerKey: customerKey,
+    ));
     expect(value.runtimeType, RemoveCardResponse);
   });
 
   test('removeCustomer', () async {
     final RemoveCustomerResponse value =
         await acquiring.removeCustomer(RemoveCustomerRequest(
-      customerKey,
+      customerKey: customerKey,
       ip: ip,
     ));
     expect(value.runtimeType, RemoveCustomerResponse);

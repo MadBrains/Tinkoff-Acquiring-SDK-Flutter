@@ -20,7 +20,7 @@ Acquiring SDK allows you to integrate [Tinkoff Internet Acquiring][acquiring] in
 Add this to your package's pubspec.yaml file:
 ```yaml
 dependencies:
-  tinkoff_acquiring: 1.0.2
+  tinkoff_acquiring: 2.0.0
 ```
 
 ## Before usage
@@ -38,10 +38,20 @@ The SDK also allows you to configure request proxying, by default all requests g
 To configure the operation mode, set the following parameters:
 ```dart
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
-  terminalKey: terminalKey,
-  password: password,
-  debug: true,
-  proxyUrl: 'https://server.com/'
+  TinkoffAcquiringConfig(
+    terminalKey: terminalKey,
+    password: password,
+    debug: false,
+  ),
+);
+```
+
+If you want to use a proxy, use the following constructor:
+```dart
+final TinkoffAcquiring acquiring = TinkoffAcquiring(
+  TinkoffAcquiringConfig.proxy(
+    proxyUrl: 'https://server.com/'
+  ),
 );
 ```
 

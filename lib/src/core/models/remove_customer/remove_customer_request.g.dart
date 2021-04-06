@@ -9,9 +9,9 @@ part of 'remove_customer_request.dart';
 RemoveCustomerRequest _$RemoveCustomerRequestFromJson(
     Map<String, dynamic> json) {
   return RemoveCustomerRequest(
-    json['CustomerKey'] as String,
-    ip: json['IP'] as String,
-    signToken: json['Token'] as String,
+    customerKey: json['CustomerKey'] as String,
+    ip: json['IP'] as String?,
+    signToken: json['Token'] as String?,
   );
 }
 
@@ -26,7 +26,7 @@ Map<String, dynamic> _$RemoveCustomerRequestToJson(
   }
 
   writeNotNull('Token', instance.signToken);
-  writeNotNull('CustomerKey', instance.customerKey);
+  val['CustomerKey'] = instance.customerKey;
   writeNotNull('IP', instance.ip);
   return val;
 }

@@ -8,12 +8,12 @@ part of 'attach_card_request.dart';
 
 AttachCardRequest _$AttachCardRequestFromJson(Map<String, dynamic> json) {
   return AttachCardRequest(
-    json['RequestKey'] as String,
-    json['CardData'] as String,
-    data: (json['DATA'] as Map<String, dynamic>)?.map(
+    requestKey: json['RequestKey'] as String,
+    cardData: json['CardData'] as String,
+    data: (json['DATA'] as Map<String, dynamic>?)?.map(
       (k, e) => MapEntry(k, e as String),
     ),
-    signToken: json['Token'] as String,
+    signToken: json['Token'] as String?,
   );
 }
 
@@ -27,8 +27,8 @@ Map<String, dynamic> _$AttachCardRequestToJson(AttachCardRequest instance) {
   }
 
   writeNotNull('Token', instance.signToken);
-  writeNotNull('RequestKey', instance.requestKey);
-  writeNotNull('CardData', instance.cardData);
+  val['RequestKey'] = instance.requestKey;
+  val['CardData'] = instance.cardData;
   writeNotNull('DATA', instance.data);
   return val;
 }

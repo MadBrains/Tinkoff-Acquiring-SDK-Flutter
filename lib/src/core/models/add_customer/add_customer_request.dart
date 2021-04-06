@@ -11,12 +11,12 @@ part 'add_customer_request.g.dart';
 @JsonSerializable(includeIfNull: false)
 class AddCustomerRequest extends AcquiringRequest {
   /// Создает экземпляр метода регистрации покупателя
-  AddCustomerRequest(
-    this.customerKey, {
+  AddCustomerRequest({
+    required this.customerKey,
     this.email,
     this.phone,
     this.ip,
-    String signToken,
+    String? signToken,
   }) : super(signToken) {
     validate();
   }
@@ -32,7 +32,7 @@ class AddCustomerRequest extends AcquiringRequest {
   Map<String, dynamic> toJson() => _$AddCustomerRequestToJson(this);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         ...super.equals,
         JsonKeys.customerKey: customerKey,
         JsonKeys.email: email,
@@ -42,14 +42,14 @@ class AddCustomerRequest extends AcquiringRequest {
 
   @override
   AddCustomerRequest copyWith({
-    String customerKey,
-    String email,
-    String phone,
-    String ip,
-    String signToken,
+    String? customerKey,
+    String? email,
+    String? phone,
+    String? ip,
+    String? signToken,
   }) {
     return AddCustomerRequest(
-      customerKey ?? this.customerKey,
+      customerKey: customerKey ?? this.customerKey,
       email: email ?? this.email,
       phone: phone ?? this.phone,
       ip: ip ?? this.ip,
@@ -60,18 +60,24 @@ class AddCustomerRequest extends AcquiringRequest {
   @override
   void validate() {
     assert(customerKey.length <= 36);
-    if (ip != null) {
-      assert(ip.length >= 7 && ip.length <= 45);
+
+    final String? _ip = ip;
+    if (_ip != null) {
+      assert(_ip.length >= 7 && _ip.length <= 45);
     }
-    if (email != null) {
+
+    final String? _email = email;
+    if (_email != null) {
       final bool match =
           RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-              .hasMatch(email);
-      assert(email.length <= 100 && match);
+              .hasMatch(_email);
+      assert(_email.length <= 100 && match);
     }
-    if (phone != null) {
-      final bool match = RegExp(r'^\+[0-9](?:[\d]*)$').hasMatch(phone);
-      assert(phone.length <= 19 && match);
+
+    final String? _phone = phone;
+    if (_phone != null) {
+      final bool match = RegExp(r'^\+[0-9](?:[\d]*)$').hasMatch(_phone);
+      assert(_phone.length <= 19 && match);
     }
   }
 
@@ -83,7 +89,7 @@ class AddCustomerRequest extends AcquiringRequest {
   ///
   /// Пример: `a@test.ru`
   @JsonKey(name: JsonKeys.email)
-  final String email;
+  final String? email;
 
   /// Телефон покупателя
   ///
@@ -91,9 +97,9 @@ class AddCustomerRequest extends AcquiringRequest {
   ///
   /// Пример: `+71234567890`
   @JsonKey(name: JsonKeys.phone)
-  final String phone;
+  final String? phone;
 
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
-  final String ip;
+  final String? ip;
 }

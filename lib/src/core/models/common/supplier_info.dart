@@ -22,7 +22,7 @@ class SupplierInfo with Comparer {
       _$SupplierInfoFromJson(json);
 
   @override
-  Map<String, Object> get equals => <String, Object>{
+  Map<String, Object?> get equals => <String, Object?>{
         JsonKeys.phones: phones,
         JsonKeys.name: name,
         JsonKeys.inn: inn,
