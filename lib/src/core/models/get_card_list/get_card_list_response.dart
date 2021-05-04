@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 import '../base/acquiring_response.dart';
 import '../common/card_info.dart';
 

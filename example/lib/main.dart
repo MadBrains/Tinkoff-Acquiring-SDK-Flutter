@@ -119,7 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // d. Restricted, 2201382000000005/1220/any
         // e. Challenge(пароль на ACS 1qwezxc), 2201382000000047/1224/any
         cardData = CardData(
-          pan: 2201382000000047,
+          pan: '2201382000000047',
           expDate: '1224',
           cvv: '123',
           cardHolder: 'T. TESTING',
@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
       } else {
         // 3ds v1
         cardData = CardData(
-          pan: 5411420000000002,
+          pan: '5411420000000002',
           expDate: '1122',
           cvv: '111',
           cardHolder: 'T. TESTING',
@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     } else {
       cardData = CardData(
-        pan: 4300000000000777,
+        pan: '4300000000000777',
         expDate: '1122',
         cvv: '111',
         cardHolder: 'T. TESTING',

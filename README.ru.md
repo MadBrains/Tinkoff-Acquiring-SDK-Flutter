@@ -1,7 +1,7 @@
 <h1 align="center">Flutter Tinkoff Acquiring SDK</h1>
 
 <a href="https://madbrains.ru/"><img src="https://firebasestorage.googleapis.com/v0/b/mad-brains-web.appspot.com/o/logo.png?alt=media" width="200" align="right" style="margin: 20px;"/></a>
-
+ 
 Acquiring SDK позволяет интегрировать [Интернет-Эквайринг Tinkoff][acquiring] в мобильные приложения для платформы iOS и Android. 
 
 [Документация по доступным API][documentation].
@@ -18,7 +18,7 @@ Acquiring SDK позволяет интегрировать [Интернет-Э
 Для подключения добавьте в файл Pubspec зависимости:
 ```yaml
 dependencies:
-  tinkoff_acquiring: 2.0.0
+  tinkoff_acquiring: 2.1.0
 ```
 
 ## Подготовка к работе

@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
-class JsonKeys {
+abstract class JsonKeys {
   static const String terminalKey = 'TerminalKey';
   static const String customerKey = 'CustomerKey';
   static const String checkType = 'CheckType';
@@ -42,8 +42,6 @@ class JsonKeys {
   static const String expDate = 'ExpDate';
   static const String cardHolder = 'CardHolder';
   static const String cvv = 'CVV';
-  static const String eci = 'ECI';
-  static const String cavv = 'CAVV';
   static const String name = 'Name';
   static const String quantity = 'Quantity';
   static const String price = 'Price';
@@ -82,7 +80,7 @@ class JsonKeys {
   static const String count = 'Count';
 }
 
-class WebViewKeys {
+abstract class WebViewKeys {
   static const String threeDSServerTransId = 'threeDSServerTransID';
   static const String threeDSMethodNotificationURL =
       'threeDSMethodNotificationURL';
@@ -98,7 +96,7 @@ class WebViewKeys {
   static const String cresCallbackUrl = 'cresCallbackUrl';
 }
 
-class NetworkSettings {
+abstract class NetworkSettings {
   static const String apiVersion = 'v2';
   static const String apiUrlRelease =
       'https://securepay.tinkoff.ru/$apiVersion/';
@@ -112,7 +110,7 @@ class NetworkSettings {
   };
 }
 
-class WebViewSettings {
+abstract class WebViewSettings {
   static const String messageType = 'CReq';
   static const String challengeWindowSize = '05';
   static const List<String> cancelActions = <String>[
@@ -121,7 +119,7 @@ class WebViewSettings {
   ];
 }
 
-class ApiMethods {
+abstract class ApiMethods {
   static const String init = 'Init';
   static const String finishAuthorize = 'FinishAuthorize';
   static const String confirm = 'Confirm';
@@ -142,10 +140,25 @@ class ApiMethods {
   static const String check3DSVersion = 'Check3dsVersion';
 }
 
-class Ignore {
+abstract class Ignore {
   static const Set<String> ignoredFields = <String>{
     JsonKeys.data,
     JsonKeys.receipt,
     JsonKeys.payForm,
   };
+}
+
+abstract class CardSettings {
+  static const List<int> defaultRangers = <int>[16];
+  static const List<int> unknownRangers = <int>[13, 14, 15, 16, 17, 18, 19];
+  static const List<int> maestroRangers = <int>[13, 14, 15, 16, 17, 18, 19];
+  static const List<int> mirRanges = <int>[16, 18, 19];
+
+  static final RegExp mirPattern = RegExp('^220[0-4]');
+  static final RegExp cardNumberPattern = RegExp(r'^[0-9]+$');
+  static final RegExp cardMaskedNumberPattern = RegExp(r'^[0-9*]+$');
+  static final RegExp cvcCodePattern = RegExp(r'^[0-9]{3}$');
+
+  static const int maxDateLength = 4;
+  static const int maxCvcLength = 3;
 }

@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../core/constants.dart';
+import '../constants.dart';
 import '../core/tinkoff_acquiring_config.dart';
-import '../core/utils/crypto_utils.dart';
+import '../utils/crypto_utils.dart';
 
 /// Сбор данных для прохождения 3-D Secure 2.0 Collect
 class CollectData {

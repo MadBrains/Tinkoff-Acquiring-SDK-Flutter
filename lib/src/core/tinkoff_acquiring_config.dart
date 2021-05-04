@@ -1,4 +1,4 @@
-import 'utils/logger.dart';
+import '../utils/logger.dart';
 
 /// {@template tinkoff_acquiring_config}
 /// Класс позволяет конфигурировать SDK.

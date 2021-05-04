@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../constants.dart';
+import '../../../constants.dart';
 import '../base/acquiring_request.dart';
 
 part 'get_customer_request.g.dart';

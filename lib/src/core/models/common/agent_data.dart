@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../constants.dart';
-import '../../utils/comparer.dart';
+import '../../../constants.dart';
+import '../base/base_request.dart';
 import '../enums/agent_sign.dart';
 
 part 'agent_data.g.dart';
@@ -10,7 +10,7 @@ part 'agent_data.g.dart';
 ///
 /// [AgentData](https://oplata.tinkoff.ru/develop/api/payments/init-request/#AgentData)
 @JsonSerializable(includeIfNull: false)
-class AgentData with Comparer {
+class AgentData extends BaseRequest {
   /// Создает экземпляр данных агента
   AgentData({
     this.agentSign,
@@ -39,10 +39,33 @@ class AgentData with Comparer {
         JsonKeys.operatorInn: operatorInn,
       };
 
-  /// Преобразование модели в json
+  @override
   Map<String, dynamic> toJson() => _$AgentDataToJson(this);
 
-  /// Метод проверяет валидность данных
+  @override
+  AgentData copyWith({
+    AgentSign? agentSign,
+    String? operationName,
+    List<String>? phones,
+    List<String>? receiverPhones,
+    List<String>? transferPhones,
+    String? operatorName,
+    String? operatorAddress,
+    String? operatorInn,
+  }) {
+    return AgentData(
+      agentSign: agentSign ?? this.agentSign,
+      operationName: operationName ?? this.operationName,
+      phones: phones ?? this.phones,
+      receiverPhones: receiverPhones ?? this.receiverPhones,
+      transferPhones: transferPhones ?? this.transferPhones,
+      operatorName: operatorName ?? this.operatorName,
+      operatorAddress: operatorAddress ?? this.operatorAddress,
+      operatorInn: operatorInn ?? this.operatorInn,
+    );
+  }
+
+  @override
   void validate() {
     final String? _operationName = operationName;
     if (agentSign == AgentSign.bankPayingAgent ||

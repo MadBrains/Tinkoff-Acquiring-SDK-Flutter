@@ -150,7 +150,10 @@ void start() {
         ],
         email: email,
       ),
-      data: <String, String>{'Phone': '+71234567890', 'Email': 'a@test.com'},
+      data: const <String, String>{
+        'Phone': '+71234567890',
+        'Email': 'a@test.com',
+      },
     ));
     expect(value.runtimeType, InitResponse);
   });

@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../constants.dart';
-import '../../utils/comparer.dart';
+import '../../../constants.dart';
+import '../base/base_response.dart';
 import '../enums/card_status.dart';
 import '../enums/card_type.dart';
 
@@ -9,7 +9,7 @@ part 'card_info.g.dart';
 
 /// Данные карты
 @JsonSerializable()
-class CardInfo with Comparer {
+class CardInfo extends BaseResponse {
   /// Данные карты
   CardInfo({
     this.pan,
@@ -34,7 +34,7 @@ class CardInfo with Comparer {
         JsonKeys.status: status,
       };
 
-  /// Преобразование модели в json
+  @override
   Map<String, dynamic> toJson() => _$CardInfoToJson(this);
 
   /// Номер карты маскированный
