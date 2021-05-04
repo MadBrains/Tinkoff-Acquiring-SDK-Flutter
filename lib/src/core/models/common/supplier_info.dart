@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../constants.dart';
-import '../../utils/comparer.dart';
+import '../../../constants.dart';
+import '../base/base_request.dart';
 
 part 'supplier_info.g.dart';
 
@@ -9,7 +9,7 @@ part 'supplier_info.g.dart';
 ///
 /// [AgentData](https://oplata.tinkoff.ru/develop/api/payments/init-request/#SupplierInfo)
 @JsonSerializable(includeIfNull: false)
-class SupplierInfo with Comparer {
+class SupplierInfo extends BaseRequest {
   /// Создает экземпляр данных поставщика платежного агента
   SupplierInfo(
     this.phones,
@@ -28,10 +28,23 @@ class SupplierInfo with Comparer {
         JsonKeys.inn: inn,
       };
 
-  /// Преобразование модели в json
+  @override
   Map<String, dynamic> toJson() => _$SupplierInfoToJson(this);
 
-  /// Метод проверяет валидность данных
+  @override
+  SupplierInfo copyWith({
+    List<String>? phones,
+    String? name,
+    String? inn,
+  }) {
+    return SupplierInfo(
+      phones ?? this.phones,
+      name ?? this.name,
+      inn ?? this.inn,
+    );
+  }
+
+  @override
   void validate() {
     assert(phones.isNotEmpty && phones.length <= 19);
     assert(name.length <= 239);

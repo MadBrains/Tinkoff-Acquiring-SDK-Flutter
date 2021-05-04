@@ -1,3 +1,9 @@
+# 2.1.0
+
+* Add Base Model & Update models
+* Add Card Validators
+* Replacing Comparer with a package
+
 # 2.0.0
 
 * Null safe migration

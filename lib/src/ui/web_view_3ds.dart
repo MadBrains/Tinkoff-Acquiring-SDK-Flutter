@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../core/constants.dart';
+import '../constants.dart';
 import '../core/models/submit_3ds_authorization/submit_3ds_authorization_response.dart';
 import '../core/tinkoff_acquiring_config.dart';
-import '../core/utils/crypto_utils.dart';
+import '../utils/crypto_utils.dart';
 
 /// WebView для прохождения 3-D Secure
 class WebView3DS extends StatefulWidget {

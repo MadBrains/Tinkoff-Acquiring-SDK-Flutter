@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../constants.dart';
-import '../../utils/comparer.dart';
+import '../../../constants.dart';
+import '../base/base_request.dart';
 import '../enums/payment_method.dart';
 import '../enums/payment_object.dart';
 import '../enums/tax.dart';
@@ -14,7 +14,7 @@ part 'items.g.dart';
 ///
 /// [Items](https://oplata.tinkoff.ru/develop/api/payments/init-request/#Items)
 @JsonSerializable(includeIfNull: false)
-class Items with Comparer {
+class Items extends BaseRequest {
   /// Создает экземпляр массива позиций чека с информацией о товарах.
   Items({
     required this.name,
@@ -48,10 +48,39 @@ class Items with Comparer {
         JsonKeys.supplierInfo: supplierInfo,
       };
 
-  /// Преобразование модели в json
+  @override
   Map<String, dynamic> toJson() => _$ItemsToJson(this);
 
-  /// Метод проверяет валидность данных
+  @override
+  Items copyWith({
+    String? name,
+    String? quantity,
+    String? amount,
+    String? price,
+    PaymentMethod? paymentMethod,
+    PaymentObject? paymentObject,
+    Tax? tax,
+    String? ean13,
+    String? shopCode,
+    AgentData? agentData,
+    SupplierInfo? supplierInfo,
+  }) {
+    return Items(
+      name: name ?? this.name,
+      quantity: quantity ?? this.quantity,
+      amount: amount ?? this.amount,
+      price: price ?? this.price,
+      paymentMethod: paymentMethod ?? this.paymentMethod,
+      paymentObject: paymentObject ?? this.paymentObject,
+      tax: tax ?? this.tax,
+      ean13: ean13 ?? this.ean13,
+      shopCode: shopCode ?? this.shopCode,
+      agentData: agentData ?? this.agentData,
+      supplierInfo: supplierInfo ?? this.supplierInfo,
+    );
+  }
+
+  @override
   void validate() {
     assert(quantity.length <= 8);
     assert(amount.length <= 10);

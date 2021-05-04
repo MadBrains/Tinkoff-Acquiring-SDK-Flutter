@@ -1,14 +1,11 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../constants.dart';
-import '../../utils/comparer.dart';
+import '../../../constants.dart';
 import '../enums/status.dart';
-
-part 'acquiring_response.g.dart';
+import 'base_response.dart';
 
 /// Базовый класс ответа Acquiring API
-@JsonSerializable()
-class AcquiringResponse with Comparer {
+abstract class AcquiringResponse extends BaseResponse {
   /// Базовый класс ответа Acquiring API
   AcquiringResponse({
     this.success,
@@ -17,10 +14,6 @@ class AcquiringResponse with Comparer {
     this.message,
     this.details,
   });
-
-  /// Преобразование json в модель
-  factory AcquiringResponse.fromJson(Map<String, dynamic> json) =>
-      _$AcquiringResponseFromJson(json);
 
   @override
   Map<String, Object?> get equals => <String, Object?>{
@@ -31,14 +24,13 @@ class AcquiringResponse with Comparer {
         JsonKeys.details: details,
       };
 
-  /// Преобразование модели в json
-  Map<String, dynamic> toJson() => _$AcquiringResponseToJson(this);
-
   /// Выполнение операции
   @JsonKey(name: JsonKeys.success)
   final bool? success;
 
-  /// Статус платежа
+  /// Статус в ответе на запрос методов
+  ///
+  /// [Status](https://oplata.tinkoff.ru/develop/api/payments/)
   @JsonKey(name: JsonKeys.status)
   final Status? status;
 

@@ -1,7 +1,6 @@
 analyzer:
   exclude:
     - "**/*.g.dart"
-    - "lib/src/constants.dart"
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false

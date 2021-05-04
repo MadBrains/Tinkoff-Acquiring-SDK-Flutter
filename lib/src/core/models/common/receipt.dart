@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../constants.dart';
-import '../../utils/comparer.dart';
+import '../../../constants.dart';
+import '../base/base_request.dart';
 import '../enums/taxation.dart';
 import 'items.dart';
 
@@ -11,7 +11,7 @@ part 'receipt.g.dart';
 ///
 /// [Receipt](https://oplata.tinkoff.ru/develop/api/payments/init-request/#Receipt)
 @JsonSerializable(includeIfNull: false)
-class Receipt with Comparer {
+class Receipt extends BaseRequest {
   /// Создает экземпляр данных чека
   Receipt({
     required this.taxation,
@@ -34,10 +34,27 @@ class Receipt with Comparer {
         JsonKeys.emailCompany: emailCompany,
       };
 
-  /// Преобразование модели в json
+  @override
   Map<String, dynamic> toJson() => _$ReceiptToJson(this);
 
-  /// Метод проверяет валидность данных
+  @override
+  Receipt copyWith({
+    String? email,
+    String? phone,
+    String? emailCompany,
+    Taxation? taxation,
+    List<Items>? items,
+  }) {
+    return Receipt(
+      email: email ?? this.email,
+      phone: phone ?? this.phone,
+      emailCompany: emailCompany ?? this.emailCompany,
+      taxation: taxation ?? this.taxation,
+      items: items ?? this.items,
+    );
+  }
+
+  @override
   void validate() {
     for (int i = 0; i < items.length; i++) {
       items[i].validate();

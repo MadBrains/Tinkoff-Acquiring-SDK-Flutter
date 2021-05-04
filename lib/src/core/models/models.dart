@@ -6,6 +6,8 @@ export './attach_card/attach_card_request.dart';
 export './attach_card/attach_card_response.dart';
 export './base/acquiring_request.dart';
 export './base/acquiring_response.dart';
+export './base/base_request.dart';
+export './base/base_response.dart';
 export './cancel/cancel_request.dart';
 export './cancel/cancel_response.dart';
 export './charge/charge_request.dart';

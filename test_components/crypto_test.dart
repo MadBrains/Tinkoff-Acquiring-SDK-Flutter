@@ -2,7 +2,7 @@ import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:tinkoff_acquiring/src/core/utils/crypto_utils.dart';
+import 'package:tinkoff_acquiring/src/utils/crypto_utils.dart';
 
 void start() {
   test('sha256', () {

@@ -4,11 +4,11 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:meta/meta.dart';
 
-import '../constants.dart';
+import '../../constants.dart';
+import '../../utils/crypto_utils.dart';
 import '../models/base/acquiring_request.dart';
 import '../models/base/acquiring_response.dart';
 import '../tinkoff_acquiring_config.dart';
-import '../utils/crypto_utils.dart';
 
 /// {@template network_client}
 /// Класс для работы с сетью

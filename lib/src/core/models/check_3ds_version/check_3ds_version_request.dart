@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import 'package:tinkoff_acquiring/src/core/constants.dart';
-import 'package:tinkoff_acquiring/src/core/models/base/acquiring_request.dart';
-import 'package:tinkoff_acquiring/src/core/utils/extensions.dart';
+import '../../../constants.dart';
+import '../../../utils/extensions.dart';
+import '../base/acquiring_request.dart';
 
 part 'check_3ds_version_request.g.dart';
 
