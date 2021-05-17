@@ -3,8 +3,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import 'package:tinkoff_acquiring/tinkoff_acquiring_core.dart';
-import 'package:tinkoff_acquiring/tinkoff_acquiring_ui.dart';
+import 'package:tinkoff_acquiring/tinkoff_acquiring.dart';
+import 'package:tinkoff_acquiring_flutter/tinkoff_acquiring_flutter.dart';
 
 void main() {
   runApp(MyApp());

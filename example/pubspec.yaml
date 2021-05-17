@@ -12,7 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
   tinkoff_acquiring:
-    path: ../
+    path: ../packages/tinkoff_acquiring
+  tinkoff_acquiring_flutter:
+    path: ../packages/tinkoff_acquiring_flutter
 
 flutter:
   uses-material-design: true

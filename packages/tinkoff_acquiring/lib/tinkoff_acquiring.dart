@@ -3,7 +3,7 @@
 ///
 /// Основной класс модуля: `TinkoffAcquiring` - предоставляет интерфейс для взаимодействия с Tinkoff Acquiring API.
 /// Для работы необходимы ключи и пароль продавца.
-library tinkoff_acquiring_core;
+library tinkoff_acquiring;
 
 export 'src/core/tinkoff_acquiring.dart';
 export 'src/core/tinkoff_acquiring_config.dart';

@@ -1,0 +1,1 @@
+Extension for [tinkoff_acquiring](../../packages/tinkoff_acquiring/README.md) please go there for documentation.

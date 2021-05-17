@@ -1,0 +1,1 @@
+The [Example](../../../example/lib/main.dart) is in the corresponding folder

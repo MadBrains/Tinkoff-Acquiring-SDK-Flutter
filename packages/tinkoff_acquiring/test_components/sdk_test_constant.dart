@@ -1,4 +1,4 @@
-import 'package:tinkoff_acquiring/tinkoff_acquiring_core.dart';
+import 'package:tinkoff_acquiring/tinkoff_acquiring.dart';
 
 const int orderId = 990100;
 const String terminalKey = 'TestSDK';
