@@ -11,13 +11,9 @@ ide:
     true
 
 scripts:
-  format:code: >
+  format: >
     melos exec -c 6 -- \
       dartfmt -w .
-
-  format:import: >
-    melos exec -c 6 -- \
-      pub global run import_sorter:main lib\/* --no-comments
 
   # Run `dart analyze` in all packages.
   # Note: you can also rely on your IDEs Dart Analysis / Issues window.
