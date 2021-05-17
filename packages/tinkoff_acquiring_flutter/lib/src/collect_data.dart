@@ -3,11 +3,10 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
+import 'package:tinkoff_acquiring/tinkoff_acquiring.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../constants.dart';
-import '../core/tinkoff_acquiring_config.dart';
-import '../utils/crypto_utils.dart';
+import 'constants.dart';
 
 /// Сбор данных для прохождения 3-D Secure 2.0 Collect
 class CollectData {
@@ -91,15 +90,11 @@ class _WebViewCollect extends StatelessWidget {
   final String threeDsMethodUrl;
   final void Function(Map<String, String>) onFinished;
 
-  String get termUrl => Uri.encodeFull((config.debug
-          ? NetworkSettings.apiUrlDebug
-          : NetworkSettings.apiUrlRelease) +
-      ApiMethods.submit3DSAuthorizationV2);
+  String get termUrl =>
+      Uri.encodeFull(config.apiUrl + WebViewMethods.submit3DSAuthorizationV2);
 
-  String get notificationsUrl => Uri.encodeFull((config.debug
-          ? NetworkSettings.apiUrlDebug
-          : NetworkSettings.apiUrlRelease) +
-      ApiMethods.complete3DSMethodv2);
+  String get notificationsUrl =>
+      Uri.encodeFull(config.apiUrl + WebViewMethods.complete3DSMethodv2);
 
   String get createCollectData {
     final Map<String, String> params = <String, String>{
@@ -107,7 +102,8 @@ class _WebViewCollect extends StatelessWidget {
       WebViewKeys.threeDSMethodNotificationURL: notificationsUrl,
     };
 
-    return CryptoUtils.base64(Uint8List.fromList(jsonEncode(params).codeUnits))
+    return base64
+        .encode(Uint8List.fromList(jsonEncode(params).codeUnits))
         .trim();
   }
 

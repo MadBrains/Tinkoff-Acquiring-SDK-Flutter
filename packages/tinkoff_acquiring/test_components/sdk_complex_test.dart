@@ -1,8 +1,8 @@
 import 'dart:math' as math;
 
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
-import 'package:tinkoff_acquiring/tinkoff_acquiring_core.dart';
+import 'package:tinkoff_acquiring/tinkoff_acquiring.dart';
 
 import 'sdk_test_constant.dart';
 

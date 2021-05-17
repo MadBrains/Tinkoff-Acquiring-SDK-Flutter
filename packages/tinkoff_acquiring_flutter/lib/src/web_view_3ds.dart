@@ -4,12 +4,10 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
+import 'package:tinkoff_acquiring/tinkoff_acquiring.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-import '../constants.dart';
-import '../core/models/submit_3ds_authorization/submit_3ds_authorization_response.dart';
-import '../core/tinkoff_acquiring_config.dart';
-import '../utils/crypto_utils.dart';
+import 'constants.dart';
 
 /// WebView для прохождения 3-D Secure
 class WebView3DS extends StatefulWidget {
@@ -59,12 +57,10 @@ class WebView3DS extends StatefulWidget {
   /// Загрузка 3-D Secure
   final void Function(bool) onLoad;
 
-  String get _termUrl => Uri.encodeFull((config.debug
-          ? NetworkSettings.apiUrlDebug
-          : NetworkSettings.apiUrlRelease) +
+  String get _termUrl => Uri.encodeFull(config.apiUrl +
       (is3DsVersion2
-          ? ApiMethods.submit3DSAuthorizationV2
-          : ApiMethods.submit3DSAuthorization));
+          ? WebViewMethods.submit3DSAuthorizationV2
+          : WebViewMethods.submit3DSAuthorization));
 
   String get _createCreq {
     final Map<String, String> params = <String, String>{
@@ -76,7 +72,8 @@ class WebView3DS extends StatefulWidget {
       WebViewKeys.messageType: WebViewSettings.messageType,
     };
 
-    return CryptoUtils.base64(Uint8List.fromList(jsonEncode(params).codeUnits))
+    return base64
+        .encode(Uint8List.fromList(jsonEncode(params).codeUnits))
         .trim();
   }
 

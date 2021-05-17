@@ -1,3 +1,5 @@
+import 'package:tinkoff_acquiring/src/constants.dart';
+
 import '../utils/logger.dart';
 
 /// {@template tinkoff_acquiring_config}
@@ -54,6 +56,10 @@ class TinkoffAcquiringConfig {
     this.logger = const Logger(),
   }) : assert((proxyUrl != null && Uri.parse(proxyUrl).hasAbsolutePath) ^
             (terminalKey != null));
+
+  /// Ссылка к `api` на основе `debug` параметра
+  String get apiUrl =>
+      debug ? NetworkSettings.apiUrlDebug : NetworkSettings.apiUrlRelease;
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала

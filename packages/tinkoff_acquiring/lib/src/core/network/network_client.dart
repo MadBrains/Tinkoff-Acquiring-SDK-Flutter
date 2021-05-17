@@ -31,11 +31,7 @@ class NetworkClient {
 
     http
         .post(
-          Uri.parse((_config.proxyUrl ??
-                  (_config.debug
-                      ? NetworkSettings.apiUrlDebug
-                      : NetworkSettings.apiUrlRelease)) +
-              request.apiMethod),
+          Uri.parse((_config.proxyUrl ?? _config.apiUrl) + request.apiMethod),
           headers: NetworkSettings.headers,
           body: rawRequest,
           encoding: Encoding.getByName('UTF-8'),

@@ -1,4 +1,4 @@
-import 'package:flutter_test/flutter_test.dart';
+import 'package:test/test.dart';
 
 import '../test_components/crypto_test.dart' as crypto_test;
 import '../test_components/sdk_complex_test.dart' as complex_test;

@@ -80,22 +80,6 @@ abstract class JsonKeys {
   static const String count = 'Count';
 }
 
-abstract class WebViewKeys {
-  static const String threeDSServerTransId = 'threeDSServerTransID';
-  static const String threeDSMethodNotificationURL =
-      'threeDSMethodNotificationURL';
-  static const String acsTransId = 'acsTransID';
-  static const String messageVersion = 'messageVersion';
-  static const String challengeWindowSize = 'challengeWindowSize';
-  static const String messageType = 'messageType';
-  static const String threeDSCompInd = 'threeDSCompInd';
-  static const String language = 'language';
-  static const String timezone = 'timezone';
-  static const String screenHeight = 'screen_height';
-  static const String screenWidth = 'screen_width';
-  static const String cresCallbackUrl = 'cresCallbackUrl';
-}
-
 abstract class NetworkSettings {
   static const String apiVersion = 'v2';
   static const String apiUrlRelease =
@@ -110,15 +94,6 @@ abstract class NetworkSettings {
   };
 }
 
-abstract class WebViewSettings {
-  static const String messageType = 'CReq';
-  static const String challengeWindowSize = '05';
-  static const List<String> cancelActions = <String>[
-    'cancel.do',
-    'cancel=true',
-  ];
-}
-
 abstract class ApiMethods {
   static const String init = 'Init';
   static const String finishAuthorize = 'FinishAuthorize';
@@ -126,9 +101,6 @@ abstract class ApiMethods {
   static const String cancel = 'Cancel';
   static const String getState = 'GetState';
   static const String resend = 'Resend';
-  static const String submit3DSAuthorization = 'Submit3DSAuthorization';
-  static const String submit3DSAuthorizationV2 = 'Submit3DSAuthorizationV2';
-  static const String complete3DSMethodv2 = 'Complete3DSMethodv2';
   static const String charge = 'Charge';
   static const String addCustomer = 'AddCustomer';
   static const String getCustomer = 'GetCustomer';
