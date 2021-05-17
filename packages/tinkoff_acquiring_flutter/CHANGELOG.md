@@ -1,3 +1,7 @@
+# 3.0.1
+
+* Update `tinkoff_acquiring` dependencie
+
 # 3.0.0
 
 * **BREAKING**: Splitting the library into two packages:

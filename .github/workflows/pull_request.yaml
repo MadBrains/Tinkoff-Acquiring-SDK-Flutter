@@ -48,12 +48,11 @@ jobs:
       - name: 'Install Tools'
         run: |
           flutter pub global activate melos
-          flutter pub global activate flutter_plugin_tools
       - name: 'Clean Workspace'
         run: melos clean
       - name: 'Bootstrap Workspace'
         run: melos bootstrap
-      - name: 'Melos Format'
+      - name: 'Format Code'
         run: melos run format
       - name: 'Validate Formatting'
         run: |

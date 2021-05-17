@@ -30,6 +30,8 @@ export './remove_customer/remove_customer_request.dart';
 export './remove_customer/remove_customer_response.dart';
 export './resend/resend_request.dart';
 export './resend/resend_response.dart';
+export './send_closing_receipt/send_closing_receipt_request.dart';
+export './send_closing_receipt/send_closing_receipt_response.dart';
 export './submit_3ds_authorization/submit_3ds_authorization_response.dart';
 export './check_3ds_version/check_3ds_version_request.dart';
 export './check_3ds_version/check_3ds_version_response.dart';

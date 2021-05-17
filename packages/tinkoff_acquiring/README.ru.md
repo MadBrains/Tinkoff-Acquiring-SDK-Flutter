@@ -18,8 +18,8 @@ Acquiring SDK позволяет интегрировать [Интернет-Э
 Для подключения добавьте в файл Pubspec зависимости:
 ```yaml
 dependencies:
-  tinkoff_acquiring: 3.0.0
-  tinkoff_acquiring_flutter: 3.0.0 # for UI
+  tinkoff_acquiring: 3.0.1
+  tinkoff_acquiring_flutter: 3.0.1 # for UI
 ```
 
 ## Подготовка к работе
@@ -56,10 +56,11 @@ final TinkoffAcquiring acquiring = TinkoffAcquiring(
 
 ## Пример работы
 
-Пример работы SDK доступен в [Example](../../example/lib/main.dart)
+Пример работы SDK доступен в [Example][example]
 
 ## Схема работы SDK
 <details><img src="https://acdn.tinkoff.ru/static/pages/files/d3cd0230-03a1-47e6-bacf-dfdf9c8c1bea.png"/></details>
 
 [documentation]: https://www.tinkoff.ru/kassa/develop/api/payments/
 [acquiring]: https://www.tinkoff.ru/business/internet-acquiring/
+[example]: https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/tree/main/example

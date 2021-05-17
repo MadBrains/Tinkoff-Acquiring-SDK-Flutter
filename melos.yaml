@@ -12,7 +12,7 @@ ide:
 
 scripts:
   format: >
-    melos exec -c 1 -- \
+    melos exec -c 6 -- \
       dartfmt -w .
 
   # Run `dart analyze` in all packages.
@@ -28,7 +28,7 @@ scripts:
 
   lint:pana: >
     melos exec -c 1 --fail-fast --no-private --ignore="*example*" -- \
-      pana || pub global activate pana
+      pana
 
   # Additional cleanup lifecycle script, executed when `melos clean` is ran.
   postclean: >

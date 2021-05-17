@@ -2,7 +2,7 @@
 
 <a href="https://madbrains.ru/"><img src="https://firebasestorage.googleapis.com/v0/b/mad-brains-web.appspot.com/o/logo.png?alt=media" width="200" align="right" style="margin: 20px;"/></a>
 
-[Read this in Russian](README.ru.md)
+[Read this in Russian][readme_ru]
 
 Acquiring SDK allows you to integrate [Tinkoff Internet Acquiring][acquiring] into mobile applications for iOS and Android platforms.
 
@@ -20,8 +20,8 @@ Acquiring SDK allows you to integrate [Tinkoff Internet Acquiring][acquiring] in
 Add this to your package's pubspec.yaml file:
 ```yaml
 dependencies:
-  tinkoff_acquiring: 3.0.0
-  tinkoff_acquiring_flutter: 3.0.0 # for UI
+  tinkoff_acquiring: 3.0.1
+  tinkoff_acquiring_flutter: 3.0.1 # for UI
 ```
 
 ## Before usage
@@ -58,10 +58,12 @@ final TinkoffAcquiring acquiring = TinkoffAcquiring(
 
 ## Example
 
-The [Example](../../example/lib/main.dart) is in the corresponding folder
+The [Example][example] is in the corresponding folder
 
 ## SDK workflow
 <details><img src="https://acdn.tinkoff.ru/static/pages/files/d3cd0230-03a1-47e6-bacf-dfdf9c8c1bea.png"/></details>
 
 [documentation]: https://www.tinkoff.ru/kassa/develop/api/payments/
 [acquiring]: https://www.tinkoff.ru/business/internet-acquiring/
+[example]: https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/tree/main/example
+[readme_ru]: https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/blob/main/packages/tinkoff_acquiring/README.ru.md

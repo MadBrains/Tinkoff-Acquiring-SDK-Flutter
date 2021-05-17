@@ -110,6 +110,7 @@ abstract class ApiMethods {
   static const String addCard = 'AddCard';
   static const String attachCard = 'AttachCard';
   static const String check3DSVersion = 'Check3dsVersion';
+  static const String sendClosingReceipt = 'SendClosingReceipt';
 }
 
 abstract class Ignore {
