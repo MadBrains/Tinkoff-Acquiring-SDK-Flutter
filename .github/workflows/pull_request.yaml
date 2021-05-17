@@ -48,13 +48,15 @@ jobs:
       - name: 'Install Tools'
         run: |
           flutter pub global activate melos
-          flutter pub global activate flutter_plugin_tools
+          flutter pub global activate import_sorter
       - name: 'Clean Workspace'
         run: melos clean
       - name: 'Bootstrap Workspace'
         run: melos bootstrap
-      - name: 'Melos Format'
-        run: melos run format
+      - name: 'Melos Format Code'
+        run: melos run format:code
+      - name: 'Melos Format Import'
+        run: melos run format:import
       - name: 'Validate Formatting'
         run: |
           ./.github/workflows/scripts/validate-formatting.sh

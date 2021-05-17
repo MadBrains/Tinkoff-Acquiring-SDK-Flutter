@@ -1,5 +1,4 @@
 import 'package:tinkoff_acquiring/src/constants.dart';
-
 import '../utils/logger.dart';
 
 /// {@template tinkoff_acquiring_config}

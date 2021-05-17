@@ -47,23 +47,25 @@ class NetworkClient {
                 _response =
                     response(<String, dynamic>{JsonKeys.cardInfo: json});
               } else {
-                Exception('ApiMethod for list error');
+                throw Exception('ApiMethod for list error');
               }
             } else if (json is Map) {
               _response = response(json as Map<String, dynamic>);
             } else {
-              Exception('REST type error');
+              throw Exception('REST type error');
             }
 
             _config.logger.log(message: _response.toString(), name: 'Response');
             _completer.complete(_response);
           } else {
-            _completer.completeError(rawResponse);
+            throw http.ClientException(
+                rawResponse.reasonPhrase ?? '', rawResponse.request?.url);
           }
         })
         .timeout(NetworkSettings.timeout)
         .catchError((Object error) {
-          _config.logger.log(message: '', name: 'HTTP Error', error: error);
+          _config.logger
+              .log(message: '', name: 'HTTP Error', error: error.toString());
           _completer.completeError(error);
         });
 

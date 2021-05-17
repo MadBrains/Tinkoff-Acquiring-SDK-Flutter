@@ -133,6 +133,15 @@ class TinkoffAcquiring {
     );
   }
 
+  /// Отправить закрывающий чек в кассу
+  Future<SendClosingReceiptResponse> sendClosingReceipt(
+      SendClosingReceiptRequest request) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => SendClosingReceiptResponse.fromJson(json),
+    );
+  }
+
   /// Проверяет 3DS протокол
   Future<Check3DSVersionResponse> check3DSVersion(
       Check3DSVersionRequest request) {

@@ -1,3 +1,8 @@
+# 3.0.1
+
+* Add SendClosingReceipt endpoint
+* Small fixes
+
 # 3.0.0
 
 * **BREAKING**: Splitting the library into two packages:

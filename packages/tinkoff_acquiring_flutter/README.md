@@ -1,1 +1,3 @@
-Extension for [tinkoff_acquiring](../../packages/tinkoff_acquiring/README.md) please go there for documentation.
+Extension for [tinkoff_acquiring][repo] please go there for documentation.
+
+[repo]: https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter

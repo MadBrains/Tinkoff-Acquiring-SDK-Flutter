@@ -180,4 +180,43 @@ void start() {
     final ResendResponse value = await acquiring.resend(ResendRequest());
     expect(value.runtimeType, ResendResponse);
   });
+
+  test('sendClosingReceipt', () async {
+    final SendClosingReceiptResponse value =
+        await acquiring.sendClosingReceipt(SendClosingReceiptRequest(
+      paymentId: 700000021787,
+      receipt: Receipt(
+        taxation: Taxation.esn,
+        items: <Items>[
+          Items(
+            name: 'testItem',
+            quantity: '1',
+            price: amount.toString(),
+            amount: amount.toString(),
+            tax: Tax.vat20,
+            paymentMethod: PaymentMethod.fullPayment,
+            paymentObject: PaymentObject.composite,
+            shopCode: 'shop',
+            agentData: AgentData(
+              agentSign: AgentSign.bankPayingAgent,
+              operationName: 'testOperation',
+              phones: <String>[phone],
+              receiverPhones: <String>[phone],
+              transferPhones: <String>[phone],
+              operatorName: 'testOperator',
+              operatorAddress: 'testAddress',
+              operatorInn: 'testtestInn',
+            ),
+            supplierInfo: SupplierInfo(
+              <String>[phone],
+              'testName',
+              'testtestInn',
+            ),
+          ),
+        ],
+        email: email,
+      ),
+    ));
+    expect(value.runtimeType, SendClosingReceiptResponse);
+  });
 }
