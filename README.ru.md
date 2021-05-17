@@ -1,1 +1,0 @@
-packages/tinkoff_acquiring/README.ru.md
