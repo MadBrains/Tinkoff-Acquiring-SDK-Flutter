@@ -18,7 +18,7 @@ Acquiring SDK allows you to integrate [Tinkoff Internet Acquiring][acquiring] in
 |  |  |
 |:---:|:---:|
 | tinkoff_acquiring | [![pub package](https://img.shields.io/pub/v/tinkoff_acquiring.svg)](https://pub.dartlang.org/packages/tinkoff_acquiring) |
-| tinkoff_acquiring | [![pub package](https://img.shields.io/pub/v/tinkoff_acquiring.svg)](https://pub.dartlang.org/packages/tinkoff_acquiring) |
+| tinkoff_acquiring_flutter | [![pub package](https://img.shields.io/pub/v/tinkoff_acquiring_flutter.svg)](https://pub.dartlang.org/packages/tinkoff_acquiring_flutter) |
 
 
 ## Example
