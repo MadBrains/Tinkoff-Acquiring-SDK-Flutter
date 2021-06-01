@@ -172,5 +172,30 @@ void start() {
       rebillId: _parsePaymentId(finishAuthorize2.rebillId),
     ));
     expect(value.success, true);
+
+    /*------------------------QR------------------------*/
+
+    final InitResponse init5 = await acquiring.init(InitRequest(
+      orderId: (orderId +
+              math.Random(DateTime.now().millisecondsSinceEpoch)
+                  .nextInt(100000))
+          .toString(),
+      customerKey: getCustomer.customerKey,
+      amount: amount,
+    ));
+    expect(init5.success, true);
+
+    final GetQrResponse qr = await acquiring.getQr(GetQrRequest(
+      paymentId: _parsePaymentId(init5.paymentId),
+      dataType: DataType.payload,
+    ));
+    expect(qr.success, true);
+
+    final GetStaticQrResponse staticQr =
+        await acquiring.getStaticQr(GetStaticQrRequest(
+      dataType: DataType.payload,
+    ));
+
+    expect(staticQr.success, true);
   }, timeout: const Timeout(Duration(seconds: 300)));
 }

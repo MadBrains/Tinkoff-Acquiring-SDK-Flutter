@@ -219,4 +219,20 @@ void start() {
     ));
     expect(value.runtimeType, SendClosingReceiptResponse);
   });
+
+  test('GetQr', () async {
+    final GetQrResponse value = await acquiring.getQr(GetQrRequest(
+      paymentId: 700000021787,
+      dataType: DataType.payload,
+    ));
+    expect(value.runtimeType, GetQrResponse);
+  });
+
+  test('GetStaticQr', () async {
+    final GetStaticQrResponse value =
+        await acquiring.getStaticQr(GetStaticQrRequest(
+      dataType: DataType.payload,
+    ));
+    expect(value.runtimeType, GetStaticQrResponse);
+  });
 }

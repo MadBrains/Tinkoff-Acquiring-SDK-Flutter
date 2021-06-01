@@ -150,4 +150,20 @@ class TinkoffAcquiring {
       (Map<String, dynamic> json) => Check3DSVersionResponse.fromJson(json),
     );
   }
+
+  /// Возвращает ответ от сервера на регистрацию QR
+  Future<GetQrResponse> getQr(GetQrRequest request) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => GetQrResponse.fromJson(json),
+    );
+  }
+
+  /// Возвращает ответ от сервера на статического QR
+  Future<GetStaticQrResponse> getStaticQr(GetStaticQrRequest request) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => GetStaticQrResponse.fromJson(json),
+    );
+  }
 }

@@ -17,6 +17,7 @@ abstract class JsonKeys {
   static const String email = 'Email';
   static const String phone = 'Phone';
   static const String data = 'DATA';
+  static const String data2 = 'Data';
   static const String rebillId = 'RebillId';
   static const String cardId = 'CardId';
   static const String status = 'Status';
@@ -78,6 +79,7 @@ abstract class JsonKeys {
   static const String acsTransId = 'AcsTransId';
   static const String fallbackOnTdsV1 = 'FallbackOnTdsV1';
   static const String count = 'Count';
+  static const String dataType = 'DataType';
 }
 
 abstract class NetworkSettings {
@@ -111,6 +113,8 @@ abstract class ApiMethods {
   static const String attachCard = 'AttachCard';
   static const String check3DSVersion = 'Check3dsVersion';
   static const String sendClosingReceipt = 'SendClosingReceipt';
+  static const String getQr = 'GetQr';
+  static const String getStaticQr = 'GetStaticQr';
 }
 
 abstract class Ignore {
