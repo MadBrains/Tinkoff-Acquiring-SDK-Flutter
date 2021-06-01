@@ -15,12 +15,13 @@ Acquiring SDK allows you to integrate [Tinkoff Internet Acquiring][acquiring] in
 - Getting information about customers and saved bank cards;
 - Management of saved bank cards;
 - Integration with online checkouts;
+- Payment through the Fast Payment System (SBP) by QR
 
 ## Installing
 Add this to your package's pubspec.yaml file:
 ```yaml
 dependencies:
-  tinkoff_acquiring: 3.0.1
+  tinkoff_acquiring: 3.0.2
   tinkoff_acquiring_flutter: 3.0.1 # for UI
 ```
 
