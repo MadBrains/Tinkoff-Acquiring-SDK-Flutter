@@ -6,18 +6,17 @@ part of 'confirm_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ConfirmResponse _$ConfirmResponseFromJson(Map<String, dynamic> json) {
-  return ConfirmResponse(
-    status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    orderId: json['OrderId'] as String?,
-    paymentId: json['PaymentId'] as String?,
-  );
-}
+ConfirmResponse _$ConfirmResponseFromJson(Map<String, dynamic> json) =>
+    ConfirmResponse(
+      status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      orderId: json['OrderId'] as String?,
+      paymentId: json['PaymentId'] as String?,
+    );
 
 Map<String, dynamic> _$ConfirmResponseToJson(ConfirmResponse instance) =>
     <String, dynamic>{

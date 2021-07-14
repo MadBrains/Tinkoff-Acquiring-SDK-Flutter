@@ -6,13 +6,11 @@ part of 'supplier_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-SupplierInfo _$SupplierInfoFromJson(Map<String, dynamic> json) {
-  return SupplierInfo(
-    (json['Phones'] as List<dynamic>).map((e) => e as String).toList(),
-    json['Name'] as String,
-    json['Inn'] as String,
-  );
-}
+SupplierInfo _$SupplierInfoFromJson(Map<String, dynamic> json) => SupplierInfo(
+      (json['Phones'] as List<dynamic>).map((e) => e as String).toList(),
+      json['Name'] as String,
+      json['Inn'] as String,
+    );
 
 Map<String, dynamic> _$SupplierInfoToJson(SupplierInfo instance) =>
     <String, dynamic>{

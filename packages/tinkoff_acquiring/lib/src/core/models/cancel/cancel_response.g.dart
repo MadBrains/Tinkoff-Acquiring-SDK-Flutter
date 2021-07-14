@@ -6,20 +6,19 @@ part of 'cancel_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CancelResponse _$CancelResponseFromJson(Map<String, dynamic> json) {
-  return CancelResponse(
-    status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    orderId: json['OrderId'] as String?,
-    paymentId: json['PaymentId'] as String?,
-    originalAmount: json['OriginalAmount'] as int?,
-    newAmount: json['NewAmount'] as int?,
-  );
-}
+CancelResponse _$CancelResponseFromJson(Map<String, dynamic> json) =>
+    CancelResponse(
+      status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      orderId: json['OrderId'] as String?,
+      paymentId: json['PaymentId'] as String?,
+      originalAmount: json['OriginalAmount'] as int?,
+      newAmount: json['NewAmount'] as int?,
+    );
 
 Map<String, dynamic> _$CancelResponseToJson(CancelResponse instance) =>
     <String, dynamic>{

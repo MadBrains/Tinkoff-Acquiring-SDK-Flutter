@@ -6,13 +6,12 @@ part of 'get_state_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetStateRequest _$GetStateRequestFromJson(Map<String, dynamic> json) {
-  return GetStateRequest(
-    paymentId: json['PaymentId'] as int,
-    ip: json['IP'] as String?,
-    signToken: json['Token'] as String?,
-  );
-}
+GetStateRequest _$GetStateRequestFromJson(Map<String, dynamic> json) =>
+    GetStateRequest(
+      paymentId: json['PaymentId'] as int,
+      ip: json['IP'] as String?,
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$GetStateRequestToJson(GetStateRequest instance) {
   final val = <String, dynamic>{};

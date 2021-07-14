@@ -7,13 +7,12 @@ part of 'send_closing_receipt_request.dart';
 // **************************************************************************
 
 SendClosingReceiptRequest _$SendClosingReceiptRequestFromJson(
-    Map<String, dynamic> json) {
-  return SendClosingReceiptRequest(
-    paymentId: json['PaymentId'] as int,
-    receipt: Receipt.fromJson(json['Receipt'] as Map<String, dynamic>),
-    signToken: json['Token'] as String?,
-  );
-}
+        Map<String, dynamic> json) =>
+    SendClosingReceiptRequest(
+      paymentId: json['PaymentId'] as int,
+      receipt: Receipt.fromJson(json['Receipt'] as Map<String, dynamic>),
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$SendClosingReceiptRequestToJson(
     SendClosingReceiptRequest instance) {

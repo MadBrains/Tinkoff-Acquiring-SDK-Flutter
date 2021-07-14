@@ -6,19 +6,18 @@ part of 'remove_card_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RemoveCardResponse _$RemoveCardResponseFromJson(Map<String, dynamic> json) {
-  return RemoveCardResponse(
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    customerKey: json['CustomerKey'] as String?,
-    cardId: json['CardId'] as String?,
-    cardStatus: _$enumDecodeNullable(_$CardStatusEnumMap, json['Status'],
-        unknownValue: CardStatus.notExist),
-  );
-}
+RemoveCardResponse _$RemoveCardResponseFromJson(Map<String, dynamic> json) =>
+    RemoveCardResponse(
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      customerKey: json['CustomerKey'] as String?,
+      cardId: json['CardId'] as String?,
+      cardStatus: _$enumDecodeNullable(_$CardStatusEnumMap, json['Status'],
+          unknownValue: CardStatus.notExist),
+    );
 
 Map<String, dynamic> _$RemoveCardResponseToJson(RemoveCardResponse instance) =>
     <String, dynamic>{

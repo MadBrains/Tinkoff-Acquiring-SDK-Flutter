@@ -1,3 +1,8 @@
+# 3.0.2
+
+* Update `tinkoff_acquiring` dependencie
+* Update `webview_flutter` dependencie
+
 # 3.0.1
 
 * Update `tinkoff_acquiring` dependencie

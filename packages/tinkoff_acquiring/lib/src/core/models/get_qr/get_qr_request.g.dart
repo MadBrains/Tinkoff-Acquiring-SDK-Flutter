@@ -6,14 +6,12 @@ part of 'get_qr_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetQrRequest _$GetQrRequestFromJson(Map<String, dynamic> json) {
-  return GetQrRequest(
-    paymentId: json['PaymentId'] as int,
-    dataType: _$enumDecodeNullable(_$DataTypeEnumMap, json['DataType']) ??
-        DataType.payload,
-    signToken: json['Token'] as String?,
-  );
-}
+GetQrRequest _$GetQrRequestFromJson(Map<String, dynamic> json) => GetQrRequest(
+      paymentId: json['PaymentId'] as int,
+      dataType: _$enumDecodeNullable(_$DataTypeEnumMap, json['DataType']) ??
+          DataType.payload,
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$GetQrRequestToJson(GetQrRequest instance) {
   final val = <String, dynamic>{};

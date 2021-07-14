@@ -7,27 +7,26 @@ part of 'finish_authorize_response.dart';
 // **************************************************************************
 
 FinishAuthorizeResponse _$FinishAuthorizeResponseFromJson(
-    Map<String, dynamic> json) {
-  return FinishAuthorizeResponse(
-    status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    amount: json['Amount'] as int?,
-    orderId: json['OrderId'] as String?,
-    paymentId: json['PaymentId'] as String?,
-    cardId: json['CardId'] as String?,
-    acsUrl: json['ACSUrl'] as String?,
-    acsTransId: json['AcsTransId'] as String?,
-    md: json['MD'] as String?,
-    paReq: json['PaReq'] as String?,
-    rebillId: json['RebillId'] as String?,
-    fallbackOnTdsV1: json['FallbackOnTdsV1'] as bool?,
-    serverTransId: json['TdsServerTransId'] as String?,
-  );
-}
+        Map<String, dynamic> json) =>
+    FinishAuthorizeResponse(
+      status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      amount: json['Amount'] as int?,
+      orderId: json['OrderId'] as String?,
+      paymentId: json['PaymentId'] as String?,
+      cardId: json['CardId'] as String?,
+      acsUrl: json['ACSUrl'] as String?,
+      acsTransId: json['AcsTransId'] as String?,
+      md: json['MD'] as String?,
+      paReq: json['PaReq'] as String?,
+      rebillId: json['RebillId'] as String?,
+      fallbackOnTdsV1: json['FallbackOnTdsV1'] as bool?,
+      serverTransId: json['TdsServerTransId'] as String?,
+    );
 
 Map<String, dynamic> _$FinishAuthorizeResponseToJson(
         FinishAuthorizeResponse instance) =>

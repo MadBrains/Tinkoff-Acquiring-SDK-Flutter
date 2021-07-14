@@ -6,14 +6,13 @@ part of 'remove_card_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RemoveCardRequest _$RemoveCardRequestFromJson(Map<String, dynamic> json) {
-  return RemoveCardRequest(
-    cardId: json['CardId'] as int,
-    customerKey: json['CustomerKey'] as String,
-    ip: json['IP'] as String?,
-    signToken: json['Token'] as String?,
-  );
-}
+RemoveCardRequest _$RemoveCardRequestFromJson(Map<String, dynamic> json) =>
+    RemoveCardRequest(
+      cardId: json['CardId'] as int,
+      customerKey: json['CustomerKey'] as String,
+      ip: json['IP'] as String?,
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$RemoveCardRequestToJson(RemoveCardRequest instance) {
   final val = <String, dynamic>{};

@@ -1,6 +1,7 @@
 # 3.0.3
 
 * Fix Json Key pan in `CardInfo`
+* Update dependencies
 
 # 3.0.2
 

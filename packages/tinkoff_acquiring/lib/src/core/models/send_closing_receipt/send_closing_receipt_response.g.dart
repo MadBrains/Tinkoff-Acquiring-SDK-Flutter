@@ -7,15 +7,14 @@ part of 'send_closing_receipt_response.dart';
 // **************************************************************************
 
 SendClosingReceiptResponse _$SendClosingReceiptResponseFromJson(
-    Map<String, dynamic> json) {
-  return SendClosingReceiptResponse(
-    status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-  );
-}
+        Map<String, dynamic> json) =>
+    SendClosingReceiptResponse(
+      status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+    );
 
 Map<String, dynamic> _$SendClosingReceiptResponseToJson(
         SendClosingReceiptResponse instance) =>

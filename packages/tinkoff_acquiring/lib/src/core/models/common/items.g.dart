@@ -6,27 +6,25 @@ part of 'items.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Items _$ItemsFromJson(Map<String, dynamic> json) {
-  return Items(
-    name: json['Name'] as String,
-    quantity: json['Quantity'] as String,
-    amount: json['Amount'] as String,
-    price: json['Price'] as String,
-    tax: _$enumDecode(_$TaxEnumMap, json['Tax']),
-    paymentMethod:
-        _$enumDecodeNullable(_$PaymentMethodEnumMap, json['PaymentMethod']),
-    paymentObject:
-        _$enumDecodeNullable(_$PaymentObjectEnumMap, json['PaymentObject']),
-    ean13: json['Ean13'] as String?,
-    shopCode: json['ShopCode'] as String?,
-    agentData: json['AgentData'] == null
-        ? null
-        : AgentData.fromJson(json['AgentData'] as Map<String, dynamic>),
-    supplierInfo: json['SupplierInfo'] == null
-        ? null
-        : SupplierInfo.fromJson(json['SupplierInfo'] as Map<String, dynamic>),
-  );
-}
+Items _$ItemsFromJson(Map<String, dynamic> json) => Items(
+      name: json['Name'] as String,
+      quantity: json['Quantity'] as String,
+      amount: json['Amount'] as String,
+      price: json['Price'] as String,
+      tax: _$enumDecode(_$TaxEnumMap, json['Tax']),
+      paymentMethod:
+          _$enumDecodeNullable(_$PaymentMethodEnumMap, json['PaymentMethod']),
+      paymentObject:
+          _$enumDecodeNullable(_$PaymentObjectEnumMap, json['PaymentObject']),
+      ean13: json['Ean13'] as String?,
+      shopCode: json['ShopCode'] as String?,
+      agentData: json['AgentData'] == null
+          ? null
+          : AgentData.fromJson(json['AgentData'] as Map<String, dynamic>),
+      supplierInfo: json['SupplierInfo'] == null
+          ? null
+          : SupplierInfo.fromJson(json['SupplierInfo'] as Map<String, dynamic>),
+    );
 
 Map<String, dynamic> _$ItemsToJson(Items instance) {
   final val = <String, dynamic>{

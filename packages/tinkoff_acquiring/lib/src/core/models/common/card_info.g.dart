@@ -6,16 +6,14 @@ part of 'card_info.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-CardInfo _$CardInfoFromJson(Map<String, dynamic> json) {
-  return CardInfo(
-    pan: json['Pan'] as String?,
-    cardId: json['CardId'] as String?,
-    rebillId: json['RebillId'] as String?,
-    cardType: _$enumDecodeNullable(_$CardTypeEnumMap, json['CardType']),
-    expDate: json['ExpDate'] as String?,
-    status: _$enumDecodeNullable(_$CardStatusEnumMap, json['Status']),
-  );
-}
+CardInfo _$CardInfoFromJson(Map<String, dynamic> json) => CardInfo(
+      pan: json['Pan'] as String?,
+      cardId: json['CardId'] as String?,
+      rebillId: json['RebillId'] as String?,
+      cardType: _$enumDecodeNullable(_$CardTypeEnumMap, json['CardType']),
+      expDate: json['ExpDate'] as String?,
+      status: _$enumDecodeNullable(_$CardStatusEnumMap, json['Status']),
+    );
 
 Map<String, dynamic> _$CardInfoToJson(CardInfo instance) => <String, dynamic>{
       'Pan': instance.pan,

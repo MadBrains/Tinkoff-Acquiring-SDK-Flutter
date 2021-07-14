@@ -7,13 +7,12 @@ part of 'remove_customer_request.dart';
 // **************************************************************************
 
 RemoveCustomerRequest _$RemoveCustomerRequestFromJson(
-    Map<String, dynamic> json) {
-  return RemoveCustomerRequest(
-    customerKey: json['CustomerKey'] as String,
-    ip: json['IP'] as String?,
-    signToken: json['Token'] as String?,
-  );
-}
+        Map<String, dynamic> json) =>
+    RemoveCustomerRequest(
+      customerKey: json['CustomerKey'] as String,
+      ip: json['IP'] as String?,
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$RemoveCustomerRequestToJson(
     RemoveCustomerRequest instance) {
