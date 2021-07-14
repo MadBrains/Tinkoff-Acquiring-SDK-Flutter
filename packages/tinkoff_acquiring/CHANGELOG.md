@@ -1,3 +1,7 @@
+# 3.0.3
+
+* Fix Json Key pan in `CardInfo`
+
 # 3.0.2
 
 * Add `getQr` endpoint for SBP

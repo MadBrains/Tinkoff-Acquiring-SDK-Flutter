@@ -8,7 +8,7 @@ part of 'card_info.dart';
 
 CardInfo _$CardInfoFromJson(Map<String, dynamic> json) {
   return CardInfo(
-    pan: json['PAN'] as String?,
+    pan: json['Pan'] as String?,
     cardId: json['CardId'] as String?,
     rebillId: json['RebillId'] as String?,
     cardType: _$enumDecodeNullable(_$CardTypeEnumMap, json['CardType']),
@@ -18,7 +18,7 @@ CardInfo _$CardInfoFromJson(Map<String, dynamic> json) {
 }
 
 Map<String, dynamic> _$CardInfoToJson(CardInfo instance) => <String, dynamic>{
-      'PAN': instance.pan,
+      'Pan': instance.pan,
       'CardId': instance.cardId,
       'RebillId': instance.rebillId,
       'CardType': _$CardTypeEnumMap[instance.cardType],

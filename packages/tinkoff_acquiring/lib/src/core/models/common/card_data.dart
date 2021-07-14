@@ -1,5 +1,4 @@
 import 'package:comparer/comparer.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
 import '../../../constants.dart';
@@ -28,21 +27,17 @@ class CardData extends ComparerMap {
       };
 
   /// Номер карты
-  @JsonKey(name: JsonKeys.pan)
   final String pan;
 
   /// Месяц и год срока действия карты
   ///
   /// В формате MMYY
-  @JsonKey(name: JsonKeys.expDate)
   final String expDate;
 
   /// Код защиты
-  @JsonKey(name: JsonKeys.cvv)
   final String cvv;
 
   /// Имя и фамилия держателя карты (как на карте)
-  @JsonKey(name: JsonKeys.cardHolder)
   final String? cardHolder;
 
   /// Создает экземпляр с заданными параметрами
@@ -88,7 +83,7 @@ class CardData extends ComparerMap {
 
     final StringBuffer mergedData = StringBuffer();
 
-    mergedData.write('${JsonKeys.pan}=$pan;');
+    mergedData.write('${JsonKeys.pan.toUpperCase()}=$pan;');
     mergedData.write('${JsonKeys.expDate}=$expDate;');
     if (cardHolder != null) {
       mergedData.write('${JsonKeys.cardHolder}=$cardHolder;');
