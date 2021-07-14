@@ -6,20 +6,18 @@ part of 'init_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-InitResponse _$InitResponseFromJson(Map<String, dynamic> json) {
-  return InitResponse(
-    status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    amount: json['Amount'] as int?,
-    orderId: json['OrderId'] as String?,
-    paymentId: json['PaymentId'] as String?,
-    paymentURL: json['PaymentURL'] as String?,
-  );
-}
+InitResponse _$InitResponseFromJson(Map<String, dynamic> json) => InitResponse(
+      status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      amount: json['Amount'] as int?,
+      orderId: json['OrderId'] as String?,
+      paymentId: json['PaymentId'] as String?,
+      paymentURL: json['PaymentURL'] as String?,
+    );
 
 Map<String, dynamic> _$InitResponseToJson(InitResponse instance) =>
     <String, dynamic>{

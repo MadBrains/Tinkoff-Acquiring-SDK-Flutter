@@ -6,17 +6,15 @@ part of 'receipt.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Receipt _$ReceiptFromJson(Map<String, dynamic> json) {
-  return Receipt(
-    taxation: _$enumDecode(_$TaxationEnumMap, json['Taxation']),
-    items: (json['Items'] as List<dynamic>)
-        .map((e) => Items.fromJson(e as Map<String, dynamic>))
-        .toList(),
-    email: json['Email'] as String?,
-    phone: json['Phone'] as String?,
-    emailCompany: json['EmailCompany'] as String?,
-  );
-}
+Receipt _$ReceiptFromJson(Map<String, dynamic> json) => Receipt(
+      taxation: _$enumDecode(_$TaxationEnumMap, json['Taxation']),
+      items: (json['Items'] as List<dynamic>)
+          .map((e) => Items.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      email: json['Email'] as String?,
+      phone: json['Phone'] as String?,
+      emailCompany: json['EmailCompany'] as String?,
+    );
 
 Map<String, dynamic> _$ReceiptToJson(Receipt instance) {
   final val = <String, dynamic>{};

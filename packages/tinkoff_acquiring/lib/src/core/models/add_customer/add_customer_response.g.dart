@@ -6,16 +6,15 @@ part of 'add_customer_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AddCustomerResponse _$AddCustomerResponseFromJson(Map<String, dynamic> json) {
-  return AddCustomerResponse(
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    customerKey: json['CustomerKey'] as String?,
-  );
-}
+AddCustomerResponse _$AddCustomerResponseFromJson(Map<String, dynamic> json) =>
+    AddCustomerResponse(
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      customerKey: json['CustomerKey'] as String?,
+    );
 
 Map<String, dynamic> _$AddCustomerResponseToJson(
         AddCustomerResponse instance) =>

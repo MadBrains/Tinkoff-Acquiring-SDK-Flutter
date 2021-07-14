@@ -6,19 +6,18 @@ part of 'charge_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChargeResponse _$ChargeResponseFromJson(Map<String, dynamic> json) {
-  return ChargeResponse(
-    status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    orderId: json['OrderId'] as String?,
-    paymentId: json['PaymentId'] as String?,
-    amount: json['Amount'] as int?,
-  );
-}
+ChargeResponse _$ChargeResponseFromJson(Map<String, dynamic> json) =>
+    ChargeResponse(
+      status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      orderId: json['OrderId'] as String?,
+      paymentId: json['PaymentId'] as String?,
+      amount: json['Amount'] as int?,
+    );
 
 Map<String, dynamic> _$ChargeResponseToJson(ChargeResponse instance) =>
     <String, dynamic>{

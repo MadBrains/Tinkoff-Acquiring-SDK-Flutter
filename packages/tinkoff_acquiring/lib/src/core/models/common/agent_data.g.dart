@@ -6,23 +6,21 @@ part of 'agent_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AgentData _$AgentDataFromJson(Map<String, dynamic> json) {
-  return AgentData(
-    agentSign: _$enumDecodeNullable(_$AgentSignEnumMap, json['AgentSign']),
-    operationName: json['OperationName'] as String?,
-    phones:
-        (json['Phones'] as List<dynamic>?)?.map((e) => e as String).toList(),
-    receiverPhones: (json['ReceiverPhones'] as List<dynamic>?)
-        ?.map((e) => e as String)
-        .toList(),
-    transferPhones: (json['TransferPhones'] as List<dynamic>?)
-        ?.map((e) => e as String)
-        .toList(),
-    operatorName: json['OperatorName'] as String?,
-    operatorAddress: json['OperatorAddress'] as String?,
-    operatorInn: json['OperatorInn'] as String?,
-  );
-}
+AgentData _$AgentDataFromJson(Map<String, dynamic> json) => AgentData(
+      agentSign: _$enumDecodeNullable(_$AgentSignEnumMap, json['AgentSign']),
+      operationName: json['OperationName'] as String?,
+      phones:
+          (json['Phones'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      receiverPhones: (json['ReceiverPhones'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      transferPhones: (json['TransferPhones'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      operatorName: json['OperatorName'] as String?,
+      operatorAddress: json['OperatorAddress'] as String?,
+      operatorInn: json['OperatorInn'] as String?,
+    );
 
 Map<String, dynamic> _$AgentDataToJson(AgentData instance) {
   final val = <String, dynamic>{};

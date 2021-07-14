@@ -7,21 +7,20 @@ part of 'submit_3ds_authorization_response.dart';
 // **************************************************************************
 
 Submit3DSAuthorizationResponse _$Submit3DSAuthorizationResponseFromJson(
-    Map<String, dynamic> json) {
-  return Submit3DSAuthorizationResponse(
-    status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    amount: json['Amount'] as int?,
-    orderId: json['OrderId'] as String?,
-    paymentId: json['PaymentId'] as String?,
-    rebillId: json['RebillId'] as int?,
-    cardId: json['CardId'] as String?,
-  );
-}
+        Map<String, dynamic> json) =>
+    Submit3DSAuthorizationResponse(
+      status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      amount: json['Amount'] as int?,
+      orderId: json['OrderId'] as String?,
+      paymentId: json['PaymentId'] as String?,
+      rebillId: json['RebillId'] as int?,
+      cardId: json['CardId'] as String?,
+    );
 
 Map<String, dynamic> _$Submit3DSAuthorizationResponseToJson(
         Submit3DSAuthorizationResponse instance) =>

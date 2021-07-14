@@ -6,16 +6,15 @@ part of 'add_card_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AddCardRequest _$AddCardRequestFromJson(Map<String, dynamic> json) {
-  return AddCardRequest(
-    customerKey: json['CustomerKey'] as String,
-    checkType: _$enumDecodeNullable(_$CheckTypeEnumMap, json['CheckType']),
-    description: json['Description'] as String?,
-    payForm: json['PayForm'] as String?,
-    ip: json['IP'] as String?,
-    signToken: json['Token'] as String?,
-  );
-}
+AddCardRequest _$AddCardRequestFromJson(Map<String, dynamic> json) =>
+    AddCardRequest(
+      customerKey: json['CustomerKey'] as String,
+      checkType: _$enumDecodeNullable(_$CheckTypeEnumMap, json['CheckType']),
+      description: json['Description'] as String?,
+      payForm: json['PayForm'] as String?,
+      ip: json['IP'] as String?,
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$AddCardRequestToJson(AddCardRequest instance) {
   final val = <String, dynamic>{};

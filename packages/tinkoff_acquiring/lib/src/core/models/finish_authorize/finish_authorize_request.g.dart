@@ -7,24 +7,23 @@ part of 'finish_authorize_request.dart';
 // **************************************************************************
 
 FinishAuthorizeRequest _$FinishAuthorizeRequestFromJson(
-    Map<String, dynamic> json) {
-  return FinishAuthorizeRequest(
-    paymentId: json['PaymentId'] as int,
-    cardData: json['CardData'] as String?,
-    encryptedPaymentData: json['EncryptedPaymentData'] as String?,
-    amount: json['Amount'] as int?,
-    data: (json['DATA'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as String),
-    ),
-    infoEmail: json['InfoEmail'] as String?,
-    ip: json['IP'] as String?,
-    phone: json['Phone'] as String?,
-    sendEmail: json['SendEmail'] as bool?,
-    route: _$enumDecodeNullable(_$RouteEnumMap, json['Route']),
-    source: _$enumDecodeNullable(_$SourceEnumMap, json['Source']),
-    signToken: json['Token'] as String?,
-  );
-}
+        Map<String, dynamic> json) =>
+    FinishAuthorizeRequest(
+      paymentId: json['PaymentId'] as int,
+      cardData: json['CardData'] as String?,
+      encryptedPaymentData: json['EncryptedPaymentData'] as String?,
+      amount: json['Amount'] as int?,
+      data: (json['DATA'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
+      infoEmail: json['InfoEmail'] as String?,
+      ip: json['IP'] as String?,
+      phone: json['Phone'] as String?,
+      sendEmail: json['SendEmail'] as bool?,
+      route: _$enumDecodeNullable(_$RouteEnumMap, json['Route']),
+      source: _$enumDecodeNullable(_$SourceEnumMap, json['Source']),
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$FinishAuthorizeRequestToJson(
     FinishAuthorizeRequest instance) {

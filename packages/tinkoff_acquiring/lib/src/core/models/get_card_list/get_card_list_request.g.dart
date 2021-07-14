@@ -6,13 +6,12 @@ part of 'get_card_list_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetCardListRequest _$GetCardListRequestFromJson(Map<String, dynamic> json) {
-  return GetCardListRequest(
-    customerKey: json['CustomerKey'] as String,
-    ip: json['IP'] as String?,
-    signToken: json['Token'] as String?,
-  );
-}
+GetCardListRequest _$GetCardListRequestFromJson(Map<String, dynamic> json) =>
+    GetCardListRequest(
+      customerKey: json['CustomerKey'] as String,
+      ip: json['IP'] as String?,
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$GetCardListRequestToJson(GetCardListRequest instance) {
   final val = <String, dynamic>{};

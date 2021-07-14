@@ -6,16 +6,15 @@ part of 'charge_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ChargeRequest _$ChargeRequestFromJson(Map<String, dynamic> json) {
-  return ChargeRequest(
-    paymentId: json['PaymentId'] as int,
-    rebillId: json['RebillId'] as int,
-    sendEmail: json['SendEmail'] as bool?,
-    infoEmail: json['InfoEmail'] as String?,
-    ip: json['IP'] as String?,
-    signToken: json['Token'] as String?,
-  );
-}
+ChargeRequest _$ChargeRequestFromJson(Map<String, dynamic> json) =>
+    ChargeRequest(
+      paymentId: json['PaymentId'] as int,
+      rebillId: json['RebillId'] as int,
+      sendEmail: json['SendEmail'] as bool?,
+      infoEmail: json['InfoEmail'] as String?,
+      ip: json['IP'] as String?,
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$ChargeRequestToJson(ChargeRequest instance) {
   final val = <String, dynamic>{};

@@ -7,16 +7,15 @@ part of 'remove_customer_response.dart';
 // **************************************************************************
 
 RemoveCustomerResponse _$RemoveCustomerResponseFromJson(
-    Map<String, dynamic> json) {
-  return RemoveCustomerResponse(
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    customerKey: json['CustomerKey'] as String?,
-  );
-}
+        Map<String, dynamic> json) =>
+    RemoveCustomerResponse(
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      customerKey: json['CustomerKey'] as String?,
+    );
 
 Map<String, dynamic> _$RemoveCustomerResponseToJson(
         RemoveCustomerResponse instance) =>

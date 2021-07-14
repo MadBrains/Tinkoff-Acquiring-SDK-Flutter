@@ -6,18 +6,17 @@ part of 'get_state_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetStateResponse _$GetStateResponseFromJson(Map<String, dynamic> json) {
-  return GetStateResponse(
-    status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    orderId: json['OrderId'] as String?,
-    paymentId: json['PaymentId'] as String?,
-  );
-}
+GetStateResponse _$GetStateResponseFromJson(Map<String, dynamic> json) =>
+    GetStateResponse(
+      status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      orderId: json['OrderId'] as String?,
+      paymentId: json['PaymentId'] as String?,
+    );
 
 Map<String, dynamic> _$GetStateResponseToJson(GetStateResponse instance) =>
     <String, dynamic>{

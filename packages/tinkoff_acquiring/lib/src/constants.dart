@@ -39,7 +39,7 @@ abstract class JsonKeys {
   static const String operatorName = 'OperatorName';
   static const String operatorAddress = 'OperatorAddress';
   static const String operatorInn = 'OperatorInn';
-  static const String pan = 'PAN';
+  static const String pan = 'Pan';
   static const String expDate = 'ExpDate';
   static const String cardHolder = 'CardHolder';
   static const String cvv = 'CVV';

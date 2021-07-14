@@ -6,29 +6,27 @@ part of 'init_request.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-InitRequest _$InitRequestFromJson(Map<String, dynamic> json) {
-  return InitRequest(
-    orderId: json['OrderId'] as String,
-    amount: json['Amount'] as int?,
-    ip: json['IP'] as String?,
-    description: json['Description'] as String?,
-    language: _$enumDecodeNullable(_$LanguageEnumMap, json['Language']),
-    recurrent: json['Recurrent'] as String?,
-    customerKey: json['CustomerKey'] as String?,
-    redirectDueDate: json['RedirectDueDate'] as String?,
-    notificationUrl: json['NotificationUrl'] as String?,
-    successUrl: json['SuccessUrl'] as String?,
-    failUrl: json['FailUrl'] as String?,
-    payType: _$enumDecodeNullable(_$PayTypeEnumMap, json['PayType']),
-    receipt: json['Receipt'] == null
-        ? null
-        : Receipt.fromJson(json['Receipt'] as Map<String, dynamic>),
-    data: (json['DATA'] as Map<String, dynamic>?)?.map(
-      (k, e) => MapEntry(k, e as String),
-    ),
-    signToken: json['Token'] as String?,
-  );
-}
+InitRequest _$InitRequestFromJson(Map<String, dynamic> json) => InitRequest(
+      orderId: json['OrderId'] as String,
+      amount: json['Amount'] as int?,
+      ip: json['IP'] as String?,
+      description: json['Description'] as String?,
+      language: _$enumDecodeNullable(_$LanguageEnumMap, json['Language']),
+      recurrent: json['Recurrent'] as String?,
+      customerKey: json['CustomerKey'] as String?,
+      redirectDueDate: json['RedirectDueDate'] as String?,
+      notificationUrl: json['NotificationUrl'] as String?,
+      successUrl: json['SuccessUrl'] as String?,
+      failUrl: json['FailUrl'] as String?,
+      payType: _$enumDecodeNullable(_$PayTypeEnumMap, json['PayType']),
+      receipt: json['Receipt'] == null
+          ? null
+          : Receipt.fromJson(json['Receipt'] as Map<String, dynamic>),
+      data: (json['DATA'] as Map<String, dynamic>?)?.map(
+        (k, e) => MapEntry(k, e as String),
+      ),
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$InitRequestToJson(InitRequest instance) {
   final val = <String, dynamic>{};

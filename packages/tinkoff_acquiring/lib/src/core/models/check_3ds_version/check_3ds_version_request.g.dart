@@ -7,13 +7,12 @@ part of 'check_3ds_version_request.dart';
 // **************************************************************************
 
 Check3DSVersionRequest _$Check3DSVersionRequestFromJson(
-    Map<String, dynamic> json) {
-  return Check3DSVersionRequest(
-    paymentId: json['PaymentId'] as int,
-    cardData: json['CardData'] as String,
-    signToken: json['Token'] as String?,
-  );
-}
+        Map<String, dynamic> json) =>
+    Check3DSVersionRequest(
+      paymentId: json['PaymentId'] as int,
+      cardData: json['CardData'] as String,
+      signToken: json['Token'] as String?,
+    );
 
 Map<String, dynamic> _$Check3DSVersionRequestToJson(
     Check3DSVersionRequest instance) {

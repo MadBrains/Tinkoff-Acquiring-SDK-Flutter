@@ -1,6 +1,4 @@
 analyzer:
-  exclude:
-    - "**/*.g.dart"
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false

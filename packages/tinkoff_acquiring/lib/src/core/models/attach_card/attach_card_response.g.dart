@@ -6,23 +6,22 @@ part of 'attach_card_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AttachCardResponse _$AttachCardResponseFromJson(Map<String, dynamic> json) {
-  return AttachCardResponse(
-    status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
-    success: json['Success'] as bool?,
-    errorCode: json['ErrorCode'] as String?,
-    message: json['Message'] as String?,
-    details: json['Details'] as String?,
-    terminalKey: json['TerminalKey'] as String?,
-    customerKey: json['CustomerKey'] as String?,
-    requestKey: json['RequestKey'] as String?,
-    rebillId: json['RebillId'] as int?,
-    cardId: json['CardId'] as String?,
-    acsUrl: json['ACSUrl'] as String?,
-    md: json['MD'] as String?,
-    paReq: json['PaReq'] as String?,
-  );
-}
+AttachCardResponse _$AttachCardResponseFromJson(Map<String, dynamic> json) =>
+    AttachCardResponse(
+      status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      success: json['Success'] as bool?,
+      errorCode: json['ErrorCode'] as String?,
+      message: json['Message'] as String?,
+      details: json['Details'] as String?,
+      terminalKey: json['TerminalKey'] as String?,
+      customerKey: json['CustomerKey'] as String?,
+      requestKey: json['RequestKey'] as String?,
+      rebillId: json['RebillId'] as int?,
+      cardId: json['CardId'] as String?,
+      acsUrl: json['ACSUrl'] as String?,
+      md: json['MD'] as String?,
+      paReq: json['PaReq'] as String?,
+    );
 
 Map<String, dynamic> _$AttachCardResponseToJson(AttachCardResponse instance) =>
     <String, dynamic>{
