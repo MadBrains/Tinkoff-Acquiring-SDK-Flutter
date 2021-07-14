@@ -12,7 +12,7 @@ ide:
 
 scripts:
   format: >
-    melos exec -c 6 -- \
+    melos exec -c 6 --ignore="*example*" -- \
       dartfmt -w .
 
   # Run `dart analyze` in all packages.
