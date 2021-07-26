@@ -1,3 +1,7 @@
+# 3.0.3
+
+* Fix `meta` dependencie
+
 # 3.0.2
 
 * Update `tinkoff_acquiring` dependencie
