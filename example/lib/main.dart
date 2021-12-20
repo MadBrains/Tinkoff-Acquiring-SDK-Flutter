@@ -1,8 +1,9 @@
+// ignore_for_file: public_member_api_docs
+
 import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-
 import 'package:tinkoff_acquiring/tinkoff_acquiring.dart';
 import 'package:tinkoff_acquiring_flutter/tinkoff_acquiring_flutter.dart';
 

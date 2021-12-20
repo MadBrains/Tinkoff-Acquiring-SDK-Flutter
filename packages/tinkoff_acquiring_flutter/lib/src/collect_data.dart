@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-
 import 'package:tinkoff_acquiring/tinkoff_acquiring.dart';
+import 'package:tinkoff_acquiring_flutter/src/utils.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 import 'constants.dart';
@@ -102,8 +102,8 @@ class _WebViewCollect extends StatelessWidget {
       WebViewKeys.threeDSMethodNotificationURL: notificationsUrl,
     };
 
-    return base64
-        .encode(Uint8List.fromList(jsonEncode(params).codeUnits))
+    return base64WithoutPadding(
+            Uint8List.fromList(jsonEncode(params).codeUnits))
         .trim();
   }
 

@@ -1,3 +1,7 @@
+# 3.0.4
+
+* Changed mode of encoding threeDsMethod params with Base64 without Padding according to 3DS 2.0 requirements
+
 # 3.0.3
 
 * Fix `meta` dependencie
