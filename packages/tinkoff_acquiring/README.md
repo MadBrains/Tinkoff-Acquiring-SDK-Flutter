@@ -21,8 +21,8 @@ Acquiring SDK allows you to integrate [Tinkoff Internet Acquiring][acquiring] in
 Add this to your package's pubspec.yaml file:
 ```yaml
 dependencies:
-  tinkoff_acquiring: 3.0.2
-  tinkoff_acquiring_flutter: 3.0.1 # for UI
+  tinkoff_acquiring: <lastles>
+  tinkoff_acquiring_flutter: <lastles> # for UI
 ```
 
 ## Before usage
