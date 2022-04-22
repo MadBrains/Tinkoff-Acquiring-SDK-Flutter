@@ -6,11 +6,16 @@ publish_to: none
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.10.0"
 
 dependencies:
   flutter:
     sdk: flutter
+  tinkoff_acquiring:
+    path: ../packages/tinkoff_acquiring
+  tinkoff_acquiring_flutter:
+    path: ../packages/tinkoff_acquiring_flutter
+
+dependency_overrides:
   tinkoff_acquiring:
     path: ../packages/tinkoff_acquiring
   tinkoff_acquiring_flutter:
