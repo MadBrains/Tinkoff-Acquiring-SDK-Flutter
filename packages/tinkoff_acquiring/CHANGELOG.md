@@ -1,3 +1,8 @@
+# 3.0.5
+
+* Update dependencies
+* Add AttachedCardData
+
 # 3.0.4
 
 * Fix dependencies

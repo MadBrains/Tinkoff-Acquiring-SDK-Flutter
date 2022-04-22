@@ -1,7 +1,6 @@
 import 'dart:math' as math;
 
 import 'package:test/test.dart';
-
 import 'package:tinkoff_acquiring/tinkoff_acquiring.dart';
 
 import 'sdk_test_constant.dart';
@@ -87,7 +86,9 @@ void start() {
     final FinishAuthorizeResponse finishAuthorize =
         await acquiring.finishAuthorize(FinishAuthorizeRequest(
       paymentId: _parsePaymentId(init.paymentId),
-      cardData: is3DS ? cardData3DS : cardDataNo3DS,
+      cardData: AttachedCardData.card(
+              cardId: getCardList.cardInfo?.first.cardId, cvv: '111')
+          .encode(publicKey),
     ));
     expect(finishAuthorize.success, true);
 
@@ -95,11 +96,9 @@ void start() {
       final Check3DSVersionResponse check3DSVersion =
           await acquiring.check3DSVersion(Check3DSVersionRequest(
         paymentId: _parsePaymentId(init.paymentId),
-        cardData: is3DS
-            ? cardData3DS
-            : is3DS
-                ? cardData3DS
-                : cardDataNo3DS,
+        cardData: AttachedCardData.card(
+                cardId: getCardList.cardInfo?.first.cardId, cvv: '111')
+            .encode(publicKey),
       ));
       expect(check3DSVersion.success, true);
     }

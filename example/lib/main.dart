@@ -11,6 +11,21 @@ void main() {
   runApp(MyApp());
 }
 
+const String terminalKey = 'TestSDK';
+const String password = '12345678';
+const String publicKey =
+    'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5Yg3RyEkszggDVMDHCAGzJm0mYpYT53BpasrsKdby8iaWJVACj8ueR0Wj3Tu2BY64HdIoZFvG0v7UqSFztE/zUvnznbXVYguaUcnRdwao9gLUQO2I/097SHF9r++BYI0t6EtbbcWbfi755A1EWfu9tdZYXTrwkqgU9ok2UIZCPZ4evVDEzDCKH6ArphVc4+iKFrzdwbFBmPmwi5Xd6CB9Na2kRoPYBHePGzGgYmtKgKMNs+6rdv5v9VB3k7CS/lSIH4p74/OPRjyryo6Q7NbL+evz0+s60Qz5gbBRGfqCA57lUiB3hfXQZq5/q1YkABOHf9cR6Ov5nTRSOnjORgPjwIDAQAB';
+
+const String customerKey = 'user-key';
+const int amount = 1400;
+
+final TinkoffAcquiring acquiring = TinkoffAcquiring(
+  TinkoffAcquiringConfig(
+    terminalKey: terminalKey,
+    password: password,
+  ),
+);
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -77,6 +92,24 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: const Text('Pay'),
             ),
+            ElevatedButton(
+              onPressed: () async {
+                await cancle();
+              },
+              child: const Text('Cancle'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await state();
+              },
+              child: const Text('State'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                await charge();
+              },
+              child: const Text('charge'),
+            ),
             const Padding(padding: EdgeInsets.only(bottom: 20)),
             FutureBuilder<String>(
               future: status.future,
@@ -102,14 +135,21 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  Future<String> _pay() async {
-    const String terminalKey = 'TestSDK';
-    const String password = '12345678';
-    const String publicKey =
-        'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5Yg3RyEkszggDVMDHCAGzJm0mYpYT53BpasrsKdby8iaWJVACj8ueR0Wj3Tu2BY64HdIoZFvG0v7UqSFztE/zUvnznbXVYguaUcnRdwao9gLUQO2I/097SHF9r++BYI0t6EtbbcWbfi755A1EWfu9tdZYXTrwkqgU9ok2UIZCPZ4evVDEzDCKH6ArphVc4+iKFrzdwbFBmPmwi5Xd6CB9Na2kRoPYBHePGzGgYmtKgKMNs+6rdv5v9VB3k7CS/lSIH4p74/OPRjyryo6Q7NbL+evz0+s60Qz5gbBRGfqCA57lUiB3hfXQZq5/q1YkABOHf9cR6Ov5nTRSOnjORgPjwIDAQAB';
+  Future<void> cancle() async {
+    await acquiring
+        .cancel(CancelRequest(paymentId: 1191852757, amount: 1500000));
+  }
 
-    const String customerKey = 'user-key';
-    const int amount = 1400;
+  Future<void> state() async {
+    await acquiring.getState(GetStateRequest(paymentId: 995090973));
+  }
+
+  Future<void> charge() async {
+    await acquiring
+        .charge(ChargeRequest(paymentId: 995090973, rebillId: 1642583003390));
+  }
+
+  Future<String> _pay() async {
     String cardData = '';
 
     if (threeDs) {
@@ -136,19 +176,12 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     } else {
       cardData = CardData(
-        pan: '4300000000000777',
+        pan: '4000000000000119',
         expDate: '1122',
         cvv: '111',
         cardHolder: 'T. TESTING',
       ).encode(publicKey);
     }
-
-    final TinkoffAcquiring acquiring = TinkoffAcquiring(
-      TinkoffAcquiringConfig(
-        terminalKey: terminalKey,
-        password: password,
-      ),
-    );
 
     final InitResponse init = await acquiring.init(InitRequest(
       orderId: (99 +

@@ -161,8 +161,8 @@ class _WebView3DSState extends State<WebView3DS> {
   Future<void> _response() async {
     final String rawResponse =
         await _controller.future.then<String>((WebViewController v) async {
-      final String document =
-          await v.evaluateJavascript('document.documentElement.innerHTML');
+      final String document = await v
+          .runJavascriptReturningResult('document.documentElement.innerHTML');
       final String? response = RegExp('{.+}').firstMatch(document)?.group(0);
 
       return response?.replaceAll(RegExp('\\"').pattern, '"') ?? document;
