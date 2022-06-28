@@ -59,7 +59,9 @@ class NetworkClient {
             _completer.complete(_response);
           } else {
             throw http.ClientException(
-                rawResponse.reasonPhrase ?? '', rawResponse.request?.url);
+              rawResponse.reasonPhrase ?? '',
+              rawResponse.request?.url,
+            );
           }
         })
         .timeout(NetworkSettings.timeout)

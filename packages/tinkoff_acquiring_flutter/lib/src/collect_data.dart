@@ -103,8 +103,8 @@ class _WebViewCollect extends StatelessWidget {
     };
 
     return base64WithoutPadding(
-            Uint8List.fromList(jsonEncode(params).codeUnits))
-        .trim();
+      Uint8List.fromList(jsonEncode(params).codeUnits),
+    ).trim();
   }
 
   String get collect => '''
@@ -128,11 +128,13 @@ class _WebViewCollect extends StatelessWidget {
       gestureNavigationEnabled: true,
       javascriptMode: JavascriptMode.unrestricted,
       onWebViewCreated: (WebViewController webViewController) {
-        webViewController.loadUrl(Uri.dataFromString(
-          collect,
-          mimeType: 'text/html',
-          encoding: Encoding.getByName('utf-8'),
-        ).toString());
+        webViewController.loadUrl(
+          Uri.dataFromString(
+            collect,
+            mimeType: 'text/html',
+            encoding: Encoding.getByName('utf-8'),
+          ).toString(),
+        );
       },
       onPageFinished: (String url) async {
         if (url == notificationsUrl) {

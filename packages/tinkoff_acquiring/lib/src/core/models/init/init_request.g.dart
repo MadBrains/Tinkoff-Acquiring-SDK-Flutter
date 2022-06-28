@@ -11,14 +11,14 @@ InitRequest _$InitRequestFromJson(Map<String, dynamic> json) => InitRequest(
       amount: json['Amount'] as int?,
       ip: json['IP'] as String?,
       description: json['Description'] as String?,
-      language: _$enumDecodeNullable(_$LanguageEnumMap, json['Language']),
+      language: $enumDecodeNullable(_$LanguageEnumMap, json['Language']),
       recurrent: json['Recurrent'] as String?,
       customerKey: json['CustomerKey'] as String?,
       redirectDueDate: json['RedirectDueDate'] as String?,
       notificationUrl: json['NotificationUrl'] as String?,
       successUrl: json['SuccessUrl'] as String?,
       failUrl: json['FailUrl'] as String?,
-      payType: _$enumDecodeNullable(_$PayTypeEnumMap, json['PayType']),
+      payType: $enumDecodeNullable(_$PayTypeEnumMap, json['PayType']),
       receipt: json['Receipt'] == null
           ? null
           : Receipt.fromJson(json['Receipt'] as Map<String, dynamic>),
@@ -53,43 +53,6 @@ Map<String, dynamic> _$InitRequestToJson(InitRequest instance) {
   writeNotNull('Receipt', instance.receipt);
   writeNotNull('DATA', instance.data);
   return val;
-}
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
-
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
 }
 
 const _$LanguageEnumMap = {

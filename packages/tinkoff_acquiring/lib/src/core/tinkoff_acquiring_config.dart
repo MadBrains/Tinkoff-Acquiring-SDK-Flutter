@@ -1,4 +1,5 @@
 import 'package:tinkoff_acquiring/src/constants.dart';
+
 import '../utils/logger.dart';
 
 /// {@template tinkoff_acquiring_config}
@@ -53,8 +54,10 @@ class TinkoffAcquiringConfig {
     this.proxyUrl,
     this.debug = true,
     this.logger = const Logger(),
-  }) : assert((proxyUrl != null && Uri.parse(proxyUrl).hasAbsolutePath) ^
-            (terminalKey != null));
+  }) : assert(
+          (proxyUrl != null && Uri.parse(proxyUrl).hasAbsolutePath) ^
+              (terminalKey != null),
+        );
 
   /// Ссылка к `api` на основе `debug` параметра
   String get apiUrl =>

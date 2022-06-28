@@ -183,22 +183,26 @@ class _MyHomePageState extends State<MyHomePage> {
       ).encode(publicKey);
     }
 
-    final InitResponse init = await acquiring.init(InitRequest(
-      orderId: (99 +
-              math.Random(DateTime.now().millisecondsSinceEpoch)
-                  .nextInt(100000))
-          .toString(),
-      customerKey: customerKey,
-      amount: amount,
-      language: Language.ru,
-      payType: PayType.one,
-    ));
+    final InitResponse init = await acquiring.init(
+      InitRequest(
+        orderId: (99 +
+                math.Random(DateTime.now().millisecondsSinceEpoch)
+                    .nextInt(100000))
+            .toString(),
+        customerKey: customerKey,
+        amount: amount,
+        language: Language.ru,
+        payType: PayType.one,
+      ),
+    );
 
     final Check3DSVersionResponse check3DSVersion =
-        await acquiring.check3DSVersion(Check3DSVersionRequest(
-      paymentId: int.parse(init.paymentId!),
-      cardData: cardData,
-    ));
+        await acquiring.check3DSVersion(
+      Check3DSVersionRequest(
+        paymentId: int.parse(init.paymentId!),
+        cardData: cardData,
+      ),
+    );
 
     final Completer<Map<String, String>> data =
         Completer<Map<String, String>>();
@@ -216,37 +220,40 @@ class _MyHomePageState extends State<MyHomePage> {
       data.complete(<String, String>{});
     }
 
-    final FinishAuthorizeResponse fa =
-        await acquiring.finishAuthorize(FinishAuthorizeRequest(
-      paymentId: int.parse(init.paymentId!),
-      cardData: cardData,
-      data: await data.future,
-    ));
+    final FinishAuthorizeResponse fa = await acquiring.finishAuthorize(
+      FinishAuthorizeRequest(
+        paymentId: int.parse(init.paymentId!),
+        cardData: cardData,
+        data: await data.future,
+      ),
+    );
 
     final Completer<Submit3DSAuthorizationResponse?> webView =
         Completer<Submit3DSAuthorizationResponse?>();
     if (fa.status == Status.threeDsChecking) {
-      Navigator.of(context).push(MaterialPageRoute<void>(
-        builder: (BuildContext context) => Scaffold(
-          body: WebView3DS(
-            config: acquiring.config,
-            is3DsVersion2: fa.is3DsVersion2 || check3DSVersion.is3DsVersion2,
-            serverTransId: fa.serverTransId ?? check3DSVersion.serverTransId,
-            acsUrl: fa.acsUrl!,
-            md: fa.md,
-            paReq: fa.paReq,
-            acsTransId: fa.acsTransId,
-            version: check3DSVersion.version,
-            onLoad: (bool v) {
-              debugPrint('WebView load: $v');
-            },
-            onFinished: (Submit3DSAuthorizationResponse? v) {
-              Navigator.of(context).pop();
-              webView.complete(v);
-            },
+      Navigator.of(context).push(
+        MaterialPageRoute<void>(
+          builder: (BuildContext context) => Scaffold(
+            body: WebView3DS(
+              config: acquiring.config,
+              is3DsVersion2: fa.is3DsVersion2 || check3DSVersion.is3DsVersion2,
+              serverTransId: fa.serverTransId ?? check3DSVersion.serverTransId,
+              acsUrl: fa.acsUrl!,
+              md: fa.md,
+              paReq: fa.paReq,
+              acsTransId: fa.acsTransId,
+              version: check3DSVersion.version,
+              onLoad: (bool v) {
+                debugPrint('WebView load: $v');
+              },
+              onFinished: (Submit3DSAuthorizationResponse? v) {
+                Navigator.of(context).pop();
+                webView.complete(v);
+              },
+            ),
           ),
         ),
-      ));
+      );
     } else {
       webView.complete(null);
     }

@@ -11,11 +11,11 @@ Items _$ItemsFromJson(Map<String, dynamic> json) => Items(
       quantity: json['Quantity'] as String,
       amount: json['Amount'] as String,
       price: json['Price'] as String,
-      tax: _$enumDecode(_$TaxEnumMap, json['Tax']),
+      tax: $enumDecode(_$TaxEnumMap, json['Tax']),
       paymentMethod:
-          _$enumDecodeNullable(_$PaymentMethodEnumMap, json['PaymentMethod']),
+          $enumDecodeNullable(_$PaymentMethodEnumMap, json['PaymentMethod']),
       paymentObject:
-          _$enumDecodeNullable(_$PaymentObjectEnumMap, json['PaymentObject']),
+          $enumDecodeNullable(_$PaymentObjectEnumMap, json['PaymentObject']),
       ean13: json['Ean13'] as String?,
       shopCode: json['ShopCode'] as String?,
       agentData: json['AgentData'] == null
@@ -50,32 +50,6 @@ Map<String, dynamic> _$ItemsToJson(Items instance) {
   return val;
 }
 
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
-
 const _$TaxEnumMap = {
   Tax.none: 'none',
   Tax.vat0: 'vat0',
@@ -84,17 +58,6 @@ const _$TaxEnumMap = {
   Tax.vat110: 'vat110',
   Tax.vat120: 'vat120',
 };
-
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
-}
 
 const _$PaymentMethodEnumMap = {
   PaymentMethod.fullPayment: 'full_payment',

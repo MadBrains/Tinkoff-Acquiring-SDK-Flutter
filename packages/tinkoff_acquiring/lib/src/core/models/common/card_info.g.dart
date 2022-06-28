@@ -10,9 +10,9 @@ CardInfo _$CardInfoFromJson(Map<String, dynamic> json) => CardInfo(
       pan: json['Pan'] as String?,
       cardId: json['CardId'] as String?,
       rebillId: json['RebillId'] as String?,
-      cardType: _$enumDecodeNullable(_$CardTypeEnumMap, json['CardType']),
+      cardType: $enumDecodeNullable(_$CardTypeEnumMap, json['CardType']),
       expDate: json['ExpDate'] as String?,
-      status: _$enumDecodeNullable(_$CardStatusEnumMap, json['Status']),
+      status: $enumDecodeNullable(_$CardStatusEnumMap, json['Status']),
     );
 
 Map<String, dynamic> _$CardInfoToJson(CardInfo instance) => <String, dynamic>{
@@ -23,43 +23,6 @@ Map<String, dynamic> _$CardInfoToJson(CardInfo instance) => <String, dynamic>{
       'Status': _$CardStatusEnumMap[instance.status],
       'ExpDate': instance.expDate,
     };
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
-
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
-}
 
 const _$CardTypeEnumMap = {
   CardType.writeOffs: 0,

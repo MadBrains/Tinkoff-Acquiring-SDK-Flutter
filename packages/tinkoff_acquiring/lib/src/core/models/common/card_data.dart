@@ -99,10 +99,12 @@ class CardData extends ComparerMap implements CardSource {
     }
     mergedData.write('${JsonKeys.cvv}=$cvv');
 
-    return CryptoUtils.base64(CryptoUtils.rsa(
-      mergedData.toString(),
-      publicKey,
-    ));
+    return CryptoUtils.base64(
+      CryptoUtils.rsa(
+        mergedData.toString(),
+        publicKey,
+      ),
+    );
   }
 }
 
@@ -162,10 +164,12 @@ class AttachedCardData extends ComparerMap implements CardSource {
 
     final String? _rebillId = rebillId;
     if (_rebillId != null) {
-      return CryptoUtils.base64(CryptoUtils.rsa(
-        _rebillId,
-        publicKey,
-      ));
+      return CryptoUtils.base64(
+        CryptoUtils.rsa(
+          _rebillId,
+          publicKey,
+        ),
+      );
     }
 
     final StringBuffer mergedData = StringBuffer();
@@ -173,9 +177,11 @@ class AttachedCardData extends ComparerMap implements CardSource {
     mergedData.write('${JsonKeys.cardId}=$cardId;');
     mergedData.write('${JsonKeys.cvv}=$cvv');
 
-    return CryptoUtils.base64(CryptoUtils.rsa(
-      mergedData.toString(),
-      publicKey,
-    ));
+    return CryptoUtils.base64(
+      CryptoUtils.rsa(
+        mergedData.toString(),
+        publicKey,
+      ),
+    );
   }
 }

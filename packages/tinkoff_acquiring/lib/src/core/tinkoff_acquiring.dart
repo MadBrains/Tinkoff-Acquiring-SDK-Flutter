@@ -70,7 +70,8 @@ class TinkoffAcquiring {
 
   /// Подтверждает инициированный платеж передачей карточных данных
   Future<FinishAuthorizeResponse> finishAuthorize(
-      FinishAuthorizeRequest request) {
+    FinishAuthorizeRequest request,
+  ) {
     return _network(
       request,
       (Map<String, dynamic> json) => FinishAuthorizeResponse.fromJson(json),
@@ -135,7 +136,8 @@ class TinkoffAcquiring {
 
   /// Отправить закрывающий чек в кассу
   Future<SendClosingReceiptResponse> sendClosingReceipt(
-      SendClosingReceiptRequest request) {
+    SendClosingReceiptRequest request,
+  ) {
     return _network(
       request,
       (Map<String, dynamic> json) => SendClosingReceiptResponse.fromJson(json),
@@ -144,7 +146,8 @@ class TinkoffAcquiring {
 
   /// Проверяет 3DS протокол
   Future<Check3DSVersionResponse> check3DSVersion(
-      Check3DSVersionRequest request) {
+    Check3DSVersionRequest request,
+  ) {
     return _network(
       request,
       (Map<String, dynamic> json) => Check3DSVersionResponse.fromJson(json),

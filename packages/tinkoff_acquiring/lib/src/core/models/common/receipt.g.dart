@@ -7,7 +7,7 @@ part of 'receipt.dart';
 // **************************************************************************
 
 Receipt _$ReceiptFromJson(Map<String, dynamic> json) => Receipt(
-      taxation: _$enumDecode(_$TaxationEnumMap, json['Taxation']),
+      taxation: $enumDecode(_$TaxationEnumMap, json['Taxation']),
       items: (json['Items'] as List<dynamic>)
           .map((e) => Items.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -31,32 +31,6 @@ Map<String, dynamic> _$ReceiptToJson(Receipt instance) {
   val['Taxation'] = _$TaxationEnumMap[instance.taxation];
   val['Items'] = instance.items;
   return val;
-}
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
 }
 
 const _$TaxationEnumMap = {

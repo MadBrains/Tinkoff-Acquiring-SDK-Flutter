@@ -1,13 +1,13 @@
 import 'dart:typed_data';
 
 import 'package:test/test.dart';
-
 import 'package:tinkoff_acquiring/src/utils/crypto_utils.dart';
 
 void start() {
   test('sha256', () {
     final String testData = CryptoUtils.sha256(
-        '100000testTokenExampleTinkoffBankTestTinkoffBankTest');
+      '100000testTokenExampleTinkoffBankTestTinkoffBankTest',
+    );
     const String resultData =
         '48d4ca825aab2ede06736d3eae099bd56ac97bd1bcdd598aff210f729de4eb21';
 
