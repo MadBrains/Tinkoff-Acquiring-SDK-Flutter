@@ -1,0 +1,11 @@
+version: 2
+enable-beta-ecosystems: true
+updates:
+  - package-ecosystem: "pub"
+    directory: "/packages/tinkoff_acquiring/"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "pub"
+    directory: "/packages/tinkoff_acquiring_flutter/"
+    schedule:
+      interval: "weekly"

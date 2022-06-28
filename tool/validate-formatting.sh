@@ -1,4 +1,5 @@
 #!/bin/bash
+
 if [[ $(git ls-files --modified) ]]; then
   echo ""
   echo ""
