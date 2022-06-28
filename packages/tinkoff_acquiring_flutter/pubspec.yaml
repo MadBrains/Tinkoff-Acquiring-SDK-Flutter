@@ -15,7 +15,12 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   tinkoff_acquiring: ^3.0.5
-  webview_flutter: ^3.0.2
+  webview_flutter: ^3.0.4
+
+# For development. Remove/comment before publishing to pub.
+dependency_overrides:
+  tinkoff_acquiring:
+    path: ../tinkoff_acquiring
 
 dev_dependencies:
   flutter_test:
