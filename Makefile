@@ -26,6 +26,9 @@ endif
 bump:
 	./tool/bump-version.sh $(filter-out $@,$(MAKECMDGOALS))
 
+build_runner:
+	cd $(DART_PATH); $(FVM_FLUTTER) pub run build_runner build --delete-conflicting-outputs;
+
 pub_get: pub_get_dart pub_get_flutter pub_get_example
 
 pub_get_dart: 
