@@ -5,6 +5,7 @@ abstract class JsonKeys {
   static const String customerKey = 'CustomerKey';
   static const String checkType = 'CheckType';
   static const String description = 'Description';
+  static const String currency = 'Currency';
   static const String payForm = 'PayForm';
   static const String ip = 'IP';
   static const String token = 'Token';
@@ -18,6 +19,9 @@ abstract class JsonKeys {
   static const String phone = 'Phone';
   static const String data = 'DATA';
   static const String data2 = 'Data';
+  static const String shops = 'Shops';
+  static const String receipts = 'Receipts';
+  static const String fee = 'Fee';
   static const String rebillId = 'RebillId';
   static const String cardId = 'CardId';
   static const String status = 'Status';
@@ -80,6 +84,8 @@ abstract class JsonKeys {
   static const String fallbackOnTdsV1 = 'FallbackOnTdsV1';
   static const String count = 'Count';
   static const String dataType = 'DataType';
+  static const String ffdVersion = 'FfdVersion';
+  static const String payments = 'Payments';
 }
 
 abstract class NetworkSettings {
@@ -91,8 +97,10 @@ abstract class NetworkSettings {
 
   static const Duration timeout = Duration(seconds: 40);
 
-  static const Map<String, String> headers = <String, String>{
-    'content-type': 'application/json',
+  static const String contentType = 'content-type';
+  static const String contentTypeJson = 'application/json';
+  static const Map<String, String> baseHeaders = <String, String>{
+    contentType: contentTypeJson,
   };
 }
 

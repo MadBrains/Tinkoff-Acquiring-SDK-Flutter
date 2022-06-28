@@ -19,9 +19,7 @@ class GetStaticQrRequest extends AcquiringRequest {
   GetStaticQrRequest({
     this.dataType,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory GetStaticQrRequest.fromJson(Map<String, dynamic> json) =>

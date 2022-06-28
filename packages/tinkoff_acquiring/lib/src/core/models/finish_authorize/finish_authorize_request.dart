@@ -38,9 +38,7 @@ class FinishAuthorizeRequest extends AcquiringRequest {
     this.route,
     this.source,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory FinishAuthorizeRequest.fromJson(Map<String, dynamic> json) =>

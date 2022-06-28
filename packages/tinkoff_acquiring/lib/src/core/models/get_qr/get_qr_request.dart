@@ -17,9 +17,7 @@ class GetQrRequest extends AcquiringRequest {
     required this.paymentId,
     this.dataType,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory GetQrRequest.fromJson(Map<String, dynamic> json) =>

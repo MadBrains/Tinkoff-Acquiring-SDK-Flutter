@@ -16,9 +16,7 @@ class Check3DSVersionRequest extends AcquiringRequest {
     required this.paymentId,
     required this.cardData,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory Check3DSVersionRequest.fromJson(Map<String, dynamic> json) =>

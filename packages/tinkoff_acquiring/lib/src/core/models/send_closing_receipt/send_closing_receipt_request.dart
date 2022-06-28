@@ -21,9 +21,7 @@ class SendClosingReceiptRequest extends AcquiringRequest {
     required this.paymentId,
     required this.receipt,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory SendClosingReceiptRequest.fromJson(Map<String, dynamic> json) =>
@@ -44,10 +42,12 @@ class SendClosingReceiptRequest extends AcquiringRequest {
 
   @override
   SendClosingReceiptRequest copyWith({
+    String? signToken,
     int? paymentId,
     Receipt? receipt,
   }) {
     return SendClosingReceiptRequest(
+      signToken: signToken ?? this.signToken,
       paymentId: paymentId ?? this.paymentId,
       receipt: receipt ?? this.receipt,
     );

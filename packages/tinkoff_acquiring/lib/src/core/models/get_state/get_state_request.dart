@@ -16,9 +16,7 @@ class GetStateRequest extends AcquiringRequest {
     required this.paymentId,
     this.ip,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory GetStateRequest.fromJson(Map<String, dynamic> json) =>

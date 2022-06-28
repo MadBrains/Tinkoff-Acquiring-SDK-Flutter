@@ -32,7 +32,7 @@ class NetworkClient {
     http
         .post(
           Uri.parse((_config.proxyUrl ?? _config.apiUrl) + request.apiMethod),
-          headers: NetworkSettings.headers,
+          headers: NetworkSettings.baseHeaders,
           body: rawRequest,
           encoding: Encoding.getByName('UTF-8'),
         )

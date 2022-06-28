@@ -19,9 +19,7 @@ class CancelRequest extends AcquiringRequest {
     this.ip,
     this.receipt,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory CancelRequest.fromJson(Map<String, dynamic> json) =>

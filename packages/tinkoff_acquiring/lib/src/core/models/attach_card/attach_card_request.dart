@@ -17,9 +17,7 @@ class AttachCardRequest extends AcquiringRequest {
     required this.cardData,
     this.data,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory AttachCardRequest.fromJson(Map<String, dynamic> json) =>

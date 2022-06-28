@@ -4,6 +4,11 @@ import 'package:meta/meta.dart';
 /// Базовый класс запроса
 @immutable
 abstract class BaseRequest extends ComparerMap {
+  /// Базовый класс запроса
+  BaseRequest() {
+    validate();
+  }
+
   @override
   Map<String, Object?> get equals => <String, Object?>{};
 

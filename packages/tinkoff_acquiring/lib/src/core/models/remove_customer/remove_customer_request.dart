@@ -15,9 +15,7 @@ class RemoveCustomerRequest extends AcquiringRequest {
     required this.customerKey,
     this.ip,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory RemoveCustomerRequest.fromJson(Map<String, dynamic> json) =>

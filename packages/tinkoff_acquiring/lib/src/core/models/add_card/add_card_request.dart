@@ -19,9 +19,7 @@ class AddCardRequest extends AcquiringRequest {
     this.payForm,
     this.ip,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory AddCardRequest.fromJson(Map<String, dynamic> json) =>

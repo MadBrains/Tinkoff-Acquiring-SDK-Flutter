@@ -25,9 +25,7 @@ class ConfirmRequest extends AcquiringRequest {
     this.ip,
     this.receipt,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory ConfirmRequest.fromJson(Map<String, dynamic> json) =>

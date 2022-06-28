@@ -17,9 +17,7 @@ class AddCustomerRequest extends AcquiringRequest {
     this.phone,
     this.ip,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory AddCustomerRequest.fromJson(Map<String, dynamic> json) =>

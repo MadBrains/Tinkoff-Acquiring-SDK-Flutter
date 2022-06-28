@@ -23,9 +23,7 @@ class ChargeRequest extends AcquiringRequest {
     this.infoEmail,
     this.ip,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory ChargeRequest.fromJson(Map<String, dynamic> json) =>

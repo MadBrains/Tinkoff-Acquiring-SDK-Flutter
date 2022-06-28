@@ -13,9 +13,7 @@ class ResendRequest extends AcquiringRequest {
   /// Создает экземпляр метода по отправки неотправленых уведомлений
   ResendRequest({
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory ResendRequest.fromJson(Map<String, dynamic> json) =>
