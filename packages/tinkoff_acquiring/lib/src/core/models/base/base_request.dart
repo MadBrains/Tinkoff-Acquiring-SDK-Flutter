@@ -1,6 +1,9 @@
 import 'package:comparer/comparer.dart';
 import 'package:meta/meta.dart';
 
+export '../../../constants.dart';
+export '../../../utils/extensions.dart';
+
 /// Базовый класс запроса
 @immutable
 abstract class BaseRequest extends ComparerMap {

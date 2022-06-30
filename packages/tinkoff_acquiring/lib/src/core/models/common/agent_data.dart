@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/base_request.dart';
 import '../enums/agent_sign.dart';
 
