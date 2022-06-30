@@ -116,6 +116,7 @@ abstract class JsonKeys {
   static const String documentCode = 'DocumentСode';
   static const String documentData = 'DocumentData';
   static const String address = 'Address';
+  static const String paymentSystem = 'PaymentSystem';
 }
 
 abstract class NetworkSettings {
