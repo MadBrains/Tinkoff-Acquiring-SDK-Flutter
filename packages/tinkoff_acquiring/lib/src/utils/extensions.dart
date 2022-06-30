@@ -180,4 +180,18 @@ extension ObjectRequestValidate on Object? {
       "Unable to build request: field '$fieldName' is not valid",
     );
   }
+
+  /// валидация PaymentId
+  void validatePaymentId(String fieldName, {bool checkNull = false}) {
+    validate(fieldName, checkNull: checkNull);
+    assert(
+      () {
+        final Object? object = this;
+        if (object is int && object.length > 20) return false;
+
+        return true;
+      }(),
+      "Unable to build request: field '$fieldName' is not valid",
+    );
+  }
 }

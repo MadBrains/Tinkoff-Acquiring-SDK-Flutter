@@ -140,7 +140,7 @@ class FinishAuthorizeRequest extends AcquiringRequest {
     }
   }
 
-  /// Зашифрованные данные карты. См. класс [CardData].
+  /// Зашифрованные данные карты. См. класс [PaymentSource].
   ///
   /// Не используется и не является обязательным, если передается [encryptedPaymentData]
   @JsonKey(name: JsonKeys.cardData)

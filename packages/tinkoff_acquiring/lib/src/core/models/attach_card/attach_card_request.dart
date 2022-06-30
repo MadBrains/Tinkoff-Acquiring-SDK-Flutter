@@ -58,7 +58,7 @@ class AttachCardRequest extends AcquiringRequest {
   @JsonKey(name: JsonKeys.requestKey)
   final String requestKey;
 
-  /// Зашифрованные данные карты. См. класс [CardData].
+  /// Зашифрованные данные карты. См. класс [PaymentSource].
   @JsonKey(name: JsonKeys.cardData)
   final String cardData;
 

@@ -5,8 +5,74 @@ import '../../../constants.dart';
 import '../../../utils/card_validator.dart';
 import '../../../utils/crypto_utils.dart';
 
+/// Источник оплаты
+abstract class PaymentSource {
+  /// Источник оплаты
+  const PaymentSource();
+
+  /// Тип оплаты с помощью Google Pay
+  const factory PaymentSource.googlePay(String token) = GooglePayData;
+
+  /// Тип оплаты с помощью Apple Pay
+  const factory PaymentSource.applePay(String token) = ApplePayData;
+
+  /// Данные карты
+  factory PaymentSource.card({
+    required String pan,
+    required String expDate,
+    required String cvv,
+    String? cardHolder,
+  }) = CardData;
+
+  /// Данные привязанной карты на основе [cardId]
+  factory PaymentSource.attachedCard({
+    required String? cardId,
+    required String? cvv,
+  }) = AttachedCardData.card;
+
+  /// Данные привязанной карты на основе [rebillId]
+  factory PaymentSource.attachedRebill({required String? rebillId}) =
+      AttachedCardData.rebill;
+
+  /// Зашифрованные данные карты
+  String cardData(String publicKey);
+}
+
+/// Тип оплаты с помощью Google Pay
+class GooglePayData implements PaymentSource {
+  /// Тип оплаты с помощью Google Pay
+  const GooglePayData(this.token);
+
+  /// Токен для оплаты, полученный через Google Pay.
+  ///
+  /// Можно использовать [mad_pay](https://pub.dev/packages/mad_pay)
+  final String token;
+
+  // publicKey не используется
+  @override
+  String cardData(String publicKey) => token;
+}
+
+/// Тип оплаты с помощью Apple Pay
+class ApplePayData implements PaymentSource {
+  /// Тип оплаты с помощью Apple Pay
+  const ApplePayData(this.token);
+
+  /// Токен для оплаты, полученный через Apple Pay.
+  ///
+  /// Можно использовать [mad_pay](https://pub.dev/packages/mad_pay)
+  final String token;
+
+  // publicKey не используется
+  @override
+  String cardData(String publicKey) => token;
+}
+
 /// Интерфейс данных карты
-abstract class CardSource {
+abstract class CardSource implements PaymentSource {
+  /// Интерфейс данных карты
+  const CardSource();
+
   /// Метод шифрует данные карты
   String encode(String publicKey);
 
@@ -34,6 +100,9 @@ class CardData extends ComparerMap implements CardSource {
         JsonKeys.cvv: cvv,
         JsonKeys.cardHolder: cardHolder,
       };
+
+  @override
+  String cardData(String publicKey) => encode(publicKey);
 
   /// Номер карты
   final String pan;
@@ -126,6 +195,9 @@ class AttachedCardData extends ComparerMap implements CardSource {
         JsonKeys.cvv: cvv,
         JsonKeys.rebillId: rebillId,
       };
+
+  @override
+  String cardData(String publicKey) => encode(publicKey);
 
   /// Номер карты
   final String? cardId;
