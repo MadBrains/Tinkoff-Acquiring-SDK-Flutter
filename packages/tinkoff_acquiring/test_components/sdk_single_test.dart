@@ -131,14 +131,14 @@ void start() {
         recurrent: 'Y',
         customerKey: customerKey,
         payType: PayType.one,
-        receipt: Receipt(
+        receipt: Receipt.ffd105(
           taxation: Taxation.esn,
           items: <Items>[
             Items(
               name: 'testItem',
-              quantity: '1',
-              price: amount.toString(),
-              amount: amount.toString(),
+              quantity: 1,
+              price: amount,
+              amount: amount,
               tax: Tax.vat20,
               paymentMethod: PaymentMethod.fullPayment,
               paymentObject: PaymentObject.composite,
@@ -200,14 +200,14 @@ void start() {
     final SendClosingReceiptResponse value = await acquiring.sendClosingReceipt(
       SendClosingReceiptRequest(
         paymentId: 700000021787,
-        receipt: Receipt(
+        receipt: Receipt.ffd105(
           taxation: Taxation.esn,
           items: <Items>[
             Items(
               name: 'testItem',
-              quantity: '1',
-              price: amount.toString(),
-              amount: amount.toString(),
+              quantity: 1,
+              price: amount,
+              amount: amount,
               tax: Tax.vat20,
               paymentMethod: PaymentMethod.fullPayment,
               paymentObject: PaymentObject.composite,

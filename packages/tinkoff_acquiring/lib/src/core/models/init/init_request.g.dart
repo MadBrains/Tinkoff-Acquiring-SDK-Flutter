@@ -11,9 +11,10 @@ InitRequest _$InitRequestFromJson(Map<String, dynamic> json) => InitRequest(
       amount: json['Amount'] as int?,
       ip: json['IP'] as String?,
       description: json['Description'] as String?,
-      language: $enumDecodeNullable(_$LanguageEnumMap, json['Language']),
-      recurrent: json['Recurrent'] as String?,
+      currency: json['Currency'] as int?,
       customerKey: json['CustomerKey'] as String?,
+      recurrent: json['Recurrent'] as String?,
+      language: $enumDecodeNullable(_$LanguageEnumMap, json['Language']),
       redirectDueDate: json['RedirectDueDate'] as String?,
       notificationUrl: json['NotificationUrl'] as String?,
       successUrl: json['SuccessUrl'] as String?,
@@ -25,6 +26,13 @@ InitRequest _$InitRequestFromJson(Map<String, dynamic> json) => InitRequest(
       data: (json['DATA'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, e as String),
       ),
+      shops: (json['Shops'] as List<dynamic>?)
+          ?.map((e) => Shops.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      receipts: (json['Receipts'] as List<dynamic>?)
+          ?.map((e) => Receipts.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      descriptor: json['Descriptor'] as String?,
       signToken: json['Token'] as String?,
     );
 
@@ -42,6 +50,7 @@ Map<String, dynamic> _$InitRequestToJson(InitRequest instance) {
   val['OrderId'] = instance.orderId;
   writeNotNull('IP', instance.ip);
   writeNotNull('Description', instance.description);
+  writeNotNull('Currency', instance.currency);
   writeNotNull('Language', _$LanguageEnumMap[instance.language]);
   writeNotNull('Recurrent', instance.recurrent);
   writeNotNull('CustomerKey', instance.customerKey);
@@ -52,6 +61,9 @@ Map<String, dynamic> _$InitRequestToJson(InitRequest instance) {
   writeNotNull('PayType', _$PayTypeEnumMap[instance.payType]);
   writeNotNull('Receipt', instance.receipt);
   writeNotNull('DATA', instance.data);
+  writeNotNull('Shops', instance.shops);
+  writeNotNull('Receipts', instance.receipts);
+  writeNotNull('Descriptor', instance.descriptor);
   return val;
 }
 

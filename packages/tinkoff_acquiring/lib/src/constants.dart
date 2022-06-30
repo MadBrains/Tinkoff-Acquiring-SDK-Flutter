@@ -86,6 +86,36 @@ abstract class JsonKeys {
   static const String dataType = 'DataType';
   static const String ffdVersion = 'FfdVersion';
   static const String payments = 'Payments';
+  static const String customer = 'Customer';
+  static const String customerInn = 'CustomerInn';
+  static const String clientInfo = 'ClientInfo';
+  static const String descriptor = 'Descriptor';
+  static const String userData = 'UserData';
+  static const String markCodeType = 'MarkCodeType';
+  static const String value = 'Value';
+  static const String numerator = 'numerator';
+  static const String denominator = 'denominator';
+  static const String federalId = 'FederalId';
+  static const String date = 'Date';
+  static const String number = 'Number';
+  static const String excise = 'Excise';
+  static const String countryCode = 'CountryCode';
+  static const String declarationNumber = 'DeclarationNumber';
+  static const String measurementUnit = 'MeasurementUnit';
+  static const String markProcessingMode = 'MarkProcessingMode';
+  static const String markCode = 'MarkCode';
+  static const String markQuantity = 'MarkQuantity';
+  static const String sectoralItemProps = 'SectoralItemProps';
+  static const String cash = 'Cash';
+  static const String electronic = 'Electronic';
+  static const String advancePayment = 'AdvancePayment';
+  static const String credit = 'Credit';
+  static const String provision = 'Provision';
+  static const String birthdate = 'Birthdate';
+  static const String citizenship = 'citizenship';
+  static const String documentCode = 'DocumentСode';
+  static const String documentData = 'DocumentData';
+  static const String address = 'Address';
 }
 
 abstract class NetworkSettings {
