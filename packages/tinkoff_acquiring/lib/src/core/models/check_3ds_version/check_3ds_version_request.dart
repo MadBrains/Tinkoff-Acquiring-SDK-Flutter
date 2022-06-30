@@ -48,14 +48,14 @@ class Check3DSVersionRequest extends AcquiringRequest {
 
   @override
   void validate() {
-    assert(paymentId.length <= 20);
+    paymentId.validatePaymentId(JsonKeys.paymentId);
   }
 
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.paymentId)
   final int paymentId;
 
-  /// Зашифрованные данные карты. См. класс [CardData].
+  /// Зашифрованные данные карты. См. класс [PaymentSource].
   @JsonKey(name: JsonKeys.cardData)
   final String cardData;
 }

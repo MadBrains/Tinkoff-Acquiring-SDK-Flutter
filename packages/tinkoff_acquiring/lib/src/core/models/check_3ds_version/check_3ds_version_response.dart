@@ -21,6 +21,7 @@ class Check3DSVersionResponse extends AcquiringResponse {
     this.version,
     this.serverTransId,
     this.threeDsMethodUrl,
+    this.paymentSystem,
   }) : super(
           status: status,
           success: success,
@@ -42,6 +43,7 @@ class Check3DSVersionResponse extends AcquiringResponse {
         JsonKeys.version: version,
         JsonKeys.tdsServerTransID: serverTransId,
         JsonKeys.threeDsMethodUrl: threeDsMethodUrl,
+        JsonKeys.paymentSystem: paymentSystem,
       };
 
   /// Определение версии 3DS протокола
@@ -60,4 +62,8 @@ class Check3DSVersionResponse extends AcquiringResponse {
   /// который позволяет пройти этап по сбору данных браузера ACS-ом
   @JsonKey(name: JsonKeys.threeDsMethodUrl)
   final String? threeDsMethodUrl;
+
+  /// Платежная система карты
+  @JsonKey(name: JsonKeys.paymentSystem)
+  final String? paymentSystem;
 }
