@@ -89,8 +89,10 @@ class CardData extends ComparerMap implements CardSource {
   CardData({
     required this.pan,
     required this.expDate,
-    required this.cvv,
+    this.cvv,
     this.cardHolder,
+    this.eci,
+    this.cavv,
   });
 
   @override
@@ -99,6 +101,8 @@ class CardData extends ComparerMap implements CardSource {
         JsonKeys.expDate: expDate,
         JsonKeys.cvv: cvv,
         JsonKeys.cardHolder: cardHolder,
+        JsonKeys.eci: eci,
+        JsonKeys.cavv: cavv,
       };
 
   @override
@@ -109,14 +113,24 @@ class CardData extends ComparerMap implements CardSource {
 
   /// Месяц и год срока действия карты
   ///
-  /// В формате MMYY
+  /// В формате `MMYY`
   final String expDate;
 
-  /// Код защиты
-  final String cvv;
+  /// Код защиты (с обратной стороны карты).
+  /// Для платежей по Apple Pay (с расшифровкой токена на своей стороне) не является обязательным.
+  final String? cvv;
 
   /// Имя и фамилия держателя карты (как на карте)
   final String? cardHolder;
+
+  /// Electronic Commerce Indicator.
+  /// Индикатор, показывающий степень защиты, применяемую при предоставлении покупателем своих данных ТСП.
+  ///
+  /// Обязателен при проведении операции через Apple Pay и Google Pay.
+  final String? eci;
+
+  /// Cardholder Authentication Verification Value или Accountholder Authentication Value
+  final String? cavv;
 
   /// Создает экземпляр с заданными параметрами
   CardData copyWith({
@@ -124,12 +138,16 @@ class CardData extends ComparerMap implements CardSource {
     String? expDate,
     String? cvv,
     String? cardHolder,
+    String? eci,
+    String? cavv,
   }) {
     return CardData(
       pan: pan ?? this.pan,
       expDate: expDate ?? this.expDate,
       cvv: cvv ?? this.cvv,
       cardHolder: cardHolder ?? this.cardHolder,
+      eci: eci ?? this.eci,
+      cavv: cavv ?? this.cavv,
     );
   }
 
@@ -145,7 +163,8 @@ class CardData extends ComparerMap implements CardSource {
       wrongField = 'месяц и год срока действия карты';
     }
 
-    if (!CardValidator.validateSecurityCode(cvv)) {
+    final String? cvv = this.cvv;
+    if (cvv != null && !CardValidator.validateSecurityCode(cvv)) {
       wrongField = 'код защиты';
     }
 
@@ -166,7 +185,15 @@ class CardData extends ComparerMap implements CardSource {
     if (cardHolder != null) {
       mergedData.write('${JsonKeys.cardHolder}=$cardHolder;');
     }
-    mergedData.write('${JsonKeys.cvv}=$cvv');
+    if (cvv != null) {
+      mergedData.write('${JsonKeys.cvv}=$cvv');
+    }
+    if (cavv != null) {
+      mergedData.write('${JsonKeys.cavv}=$cavv');
+    }
+    if (eci != null) {
+      mergedData.write('${JsonKeys.eci}=$eci');
+    }
 
     return CryptoUtils.base64(
       CryptoUtils.rsa(
