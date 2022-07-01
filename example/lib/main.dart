@@ -237,7 +237,8 @@ class _MyHomePageState extends State<MyHomePage> {
             body: WebView3DS(
               config: acquiring.config,
               is3DsVersion2: fa.is3DsVersion2 || check3DSVersion.is3DsVersion2,
-              serverTransId: fa.serverTransId ?? check3DSVersion.serverTransId,
+              serverTransId:
+                  fa.tdsServerTransId ?? check3DSVersion.serverTransId,
               acsUrl: fa.acsUrl!,
               md: fa.md,
               paReq: fa.paReq,

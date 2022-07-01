@@ -47,6 +47,8 @@ abstract class JsonKeys {
   static const String expDate = 'ExpDate';
   static const String cardHolder = 'CardHolder';
   static const String cvv = 'CVV';
+  static const String eci = 'ECI';
+  static const String cavv = 'CAVV';
   static const String name = 'Name';
   static const String quantity = 'Quantity';
   static const String price = 'Price';
@@ -81,6 +83,11 @@ abstract class JsonKeys {
   static const String tdsServerTransID = 'TdsServerTransID';
   static const String threeDsMethodUrl = 'ThreeDSMethodURL';
   static const String acsTransId = 'AcsTransId';
+  static const String acsInterface = 'AcsInterface';
+  static const String acsUiTemplate = 'AcsUiTemplate';
+  static const String acsSignedContent = 'AcsSignedContent';
+  static const String acsReferenceNumber = 'AcsReferenceNumber';
+  static const String sdkTransID = 'SdkTransID';
   static const String fallbackOnTdsV1 = 'FallbackOnTdsV1';
   static const String count = 'Count';
   static const String dataType = 'DataType';
