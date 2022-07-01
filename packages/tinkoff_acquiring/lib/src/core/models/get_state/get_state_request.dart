@@ -6,7 +6,7 @@ part 'get_state_request.g.dart';
 
 /// Метод возвращает текущий статус платежа.
 ///
-/// [GetStateRequest](https://oplata.tinkoff.ru/develop/api/payments/getstate-request/)
+/// [GetStateRequest](https://www.tinkoff.ru/kassa/develop/api/payments/getstate-description/)
 @JsonSerializable(includeIfNull: false)
 class GetStateRequest extends AcquiringRequest {
   /// Создает экземпляр метода по получению статуса платежа
@@ -48,12 +48,8 @@ class GetStateRequest extends AcquiringRequest {
 
   @override
   void validate() {
-    assert(paymentId.length <= 20);
-
-    final String? _ip = ip;
-    if (_ip != null) {
-      assert(_ip.length >= 7 && _ip.length <= 45);
-    }
+    paymentId.validateId(JsonKeys.paymentId);
+    ip.validateIp(JsonKeys.ip);
   }
 
   /// Идентификатор платежа в системе банка

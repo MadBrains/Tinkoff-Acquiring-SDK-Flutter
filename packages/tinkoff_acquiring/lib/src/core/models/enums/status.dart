@@ -28,10 +28,6 @@ enum Status {
   @JsonValue('AUTHORIZING')
   authorizing,
 
-  /// AUTHORIZED - Зарезервирован
-  @JsonValue('AUTHORIZED')
-  authorized,
-
   /// AUTH_FAIL - Не прошел авторизацию
   @JsonValue('AUTH_FAIL')
   authFail,
@@ -47,6 +43,14 @@ enum Status {
   /// 3DS_CHECKED - Проверен по протоколу 3-D Secure
   @JsonValue('3DS_CHECKED')
   threeDsChecked,
+
+  /// PAY_CHECKING - Платеж обрабатывается
+  @JsonValue('PAY_CHECKING')
+  payChecked,
+
+  /// AUTHORIZED - Зарезервирован
+  @JsonValue('AUTHORIZED')
+  authorized,
 
   /// REVERSING - Резервирование отменяется
   @JsonValue('REVERSING')
@@ -64,6 +68,10 @@ enum Status {
   @JsonValue('CONFIRMING')
   confirming,
 
+  /// CONFIRM_CHECKING - Платеж обрабатывается
+  @JsonValue('CONFIRM_CHECKING')
+  confirmChecking,
+
   /// CONFIRMED - Подтвержден
   @JsonValue('CONFIRMED')
   confirmed,
@@ -71,6 +79,10 @@ enum Status {
   /// REFUNDING - Возвращается
   @JsonValue('REFUNDING')
   refunding,
+
+  /// ASYNC_REFUNDING - Обработка возврата денежных средств по QR
+  @JsonValue('ASYNC_REFUNDING')
+  asyncRefunding,
 
   /// PARTIAL_REFUNDED - Возвращен частично
   @JsonValue('PARTIAL_REFUNDED')
@@ -80,17 +92,15 @@ enum Status {
   @JsonValue('REFUNDED')
   refunded,
 
-  // TODO May still be used...
-  // /// UNKNOWN
-  // @JsonValue('UNKNOWN')
-  // unknown,
+  /// UNKNOWN
+  @JsonValue('UNKNOWN')
+  unknown,
 
-  // /// LOOP_CHECKING
-  // @JsonValue('LOOP_CHECKING')
-  // loopChecking,
+  /// LOOP_CHECKING
+  @JsonValue('LOOP_CHECKING')
+  loopChecking,
 
-  // /// COMPLETED
-  // @JsonValue('COMPLETED')
-  // completed,
-
+  /// COMPLETED
+  @JsonValue('COMPLETED')
+  completed,
 }

@@ -21,6 +21,7 @@ class GetStateResponse extends AcquiringResponse {
     this.terminalKey,
     this.orderId,
     this.paymentId,
+    this.amount,
   }) : super(
           status: status,
           success: success,
@@ -42,6 +43,7 @@ class GetStateResponse extends AcquiringResponse {
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.orderId: orderId,
         JsonKeys.paymentId: paymentId,
+        JsonKeys.amount: amount,
       };
 
   /// Идентификатор терминала.
@@ -56,4 +58,8 @@ class GetStateResponse extends AcquiringResponse {
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.paymentId)
   final String? paymentId;
+
+  /// Сумма операции в копейках
+  @JsonKey(name: JsonKeys.amount)
+  final int? amount;
 }
