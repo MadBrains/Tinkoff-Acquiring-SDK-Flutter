@@ -17,6 +17,7 @@ Check3DSVersionResponse _$Check3DSVersionResponseFromJson(
       version: json['Version'] as String?,
       serverTransId: json['TdsServerTransID'] as String?,
       threeDsMethodUrl: json['ThreeDSMethodURL'] as String?,
+      paymentSystem: json['PaymentSystem'] as String?,
     );
 
 Map<String, dynamic> _$Check3DSVersionResponseToJson(
@@ -30,6 +31,7 @@ Map<String, dynamic> _$Check3DSVersionResponseToJson(
       'Version': instance.version,
       'TdsServerTransID': instance.serverTransId,
       'ThreeDSMethodURL': instance.threeDsMethodUrl,
+      'PaymentSystem': instance.paymentSystem,
     };
 
 const _$StatusEnumMap = {
@@ -39,17 +41,23 @@ const _$StatusEnumMap = {
   Status.canceled: 'CANCELED',
   Status.preAuthorizing: 'PREAUTHORIZING',
   Status.authorizing: 'AUTHORIZING',
-  Status.authorized: 'AUTHORIZED',
   Status.authFail: 'AUTH_FAIL',
   Status.rejected: 'REJECTED',
   Status.threeDsChecking: '3DS_CHECKING',
   Status.threeDsChecked: '3DS_CHECKED',
+  Status.payChecked: 'PAY_CHECKING',
+  Status.authorized: 'AUTHORIZED',
   Status.reversing: 'REVERSING',
   Status.partialReversed: 'PARTIAL_REVERSED',
   Status.reversed: 'REVERSED',
   Status.confirming: 'CONFIRMING',
+  Status.confirmChecking: 'CONFIRM_CHECKING',
   Status.confirmed: 'CONFIRMED',
   Status.refunding: 'REFUNDING',
+  Status.asyncRefunding: 'ASYNC_REFUNDING',
   Status.partialRefunded: 'PARTIAL_REFUNDED',
   Status.refunded: 'REFUNDED',
+  Status.unknown: 'UNKNOWN',
+  Status.loopChecking: 'LOOP_CHECKING',
+  Status.completed: 'COMPLETED',
 };

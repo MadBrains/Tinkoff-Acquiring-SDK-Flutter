@@ -52,10 +52,20 @@ Map<String, dynamic> _$FinishAuthorizeRequestToJson(
 
 const _$RouteEnumMap = {
   Route.acq: 'ACQ',
+  Route.mc: 'MC',
+  Route.einv: 'EINV',
+  Route.wm: 'WM',
 };
 
 const _$SourceEnumMap = {
   Source.cards: 'Cards',
   Source.applePay: 'ApplePay',
   Source.googlePay: 'GooglePay',
+  Source.yandexPay: 'YandexPay',
+  Source.beeline: 'beeline',
+  Source.mts: 'mts',
+  Source.tele2: 'tele2',
+  Source.megafon: 'megafon',
+  Source.envoicing: 'envoicing',
+  Source.webmoney: 'webmoney',
 };
