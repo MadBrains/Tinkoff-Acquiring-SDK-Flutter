@@ -169,4 +169,12 @@ class TinkoffAcquiring {
       (Map<String, dynamic> json) => GetStaticQrResponse.fromJson(json),
     );
   }
+
+  /// Возвращает текущий статус платежа.
+  Future<CheckOrderResponse> checkOrder(CheckOrderRequest request) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => CheckOrderResponse.fromJson(json),
+    );
+  }
 }
