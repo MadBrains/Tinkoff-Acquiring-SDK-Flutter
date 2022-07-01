@@ -6,10 +6,11 @@ import '../common/receipt.dart';
 part 'send_closing_receipt_request.g.dart';
 
 /// Метод позволяет отправить закрывающий чек в кассу.
+///
 /// Условия работы метода:
-/// 1. Закрывающий чек может быть отправлен если платежная сессия по первому чеку находится в статусе CONFIRMED.
-/// 2. В платежной сессии был передан объект Receipt.
-/// 3. В объекте Receipt был передан хотя бы один объект Receipt.Items.PaymentMethod = "full_prepayment" или "prepayment" или "advance"
+/// 1. Закрывающий чек может быть отправлен если платежная сессия по первому чеку находится в статусе `CONFIRMED`.
+/// 2. В платежной сессии был передан объект `Receipt`.
+/// 3. В объекте `Receipt` был передан хотя бы один объект `Receipt.Items.PaymentMethod = "full_prepayment"` или `"prepayment"` или `"advance"`
 ///
 /// [SendClosingReceiptRequest](https://www.tinkoff.ru/kassa/develop/api/payments/SendClosingReceipt-request/)
 @JsonSerializable(includeIfNull: false)
@@ -53,7 +54,7 @@ class SendClosingReceiptRequest extends AcquiringRequest {
 
   @override
   void validate() {
-    assert(paymentId.length <= 20);
+    paymentId.validateId(JsonKeys.paymentId);
     receipt.validate();
   }
 
