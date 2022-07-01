@@ -2,20 +2,30 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_request.dart';
 import '../common/receipt.dart';
+import '../common/receipts.dart';
+import '../common/shops.dart';
 
 part 'cancel_request.g.dart';
 
 /// Метод отменяет платеж
 ///
-/// [CancelRequest](https://oplata.tinkoff.ru/develop/api/payments/cancel-request/)
+/// В зависимости от статуса платежа переводит его в следующие состояния:
+/// - NEW -> CANCELED
+/// - AUTHORIZED -> REVERSED
+/// - CONFIRMED -> PARTIAL_REFUNDED – если отмена не на полную сумму
+/// - CONFIRMED -> REFUNDED – если отмена на полную сумму
+///
+/// [CancelRequest](https://www.tinkoff.ru/kassa/develop/api/payments/cancel-description/)
 @JsonSerializable(includeIfNull: false)
 class CancelRequest extends AcquiringRequest {
   /// Создает экземпляр метода по отмене платежа
   CancelRequest({
     required this.paymentId,
-    this.amount,
     this.ip,
+    this.amount,
     this.receipt,
+    this.shops,
+    this.receipts,
     String? signToken,
   }) : super(signToken);
 
@@ -36,38 +46,51 @@ class CancelRequest extends AcquiringRequest {
         JsonKeys.amount: amount,
         JsonKeys.ip: ip,
         JsonKeys.receipt: receipt,
+        JsonKeys.shops: shops,
+        JsonKeys.receipts: receipts,
       };
 
   @override
   CancelRequest copyWith({
+    String? signToken,
     int? paymentId,
     int? amount,
     String? ip,
     Receipt? receipt,
-    String? signToken,
+    List<Shops>? shops,
+    List<Receipts>? receipts,
   }) {
     return CancelRequest(
+      signToken: signToken ?? this.signToken,
       paymentId: paymentId ?? this.paymentId,
       amount: amount ?? this.amount,
       ip: ip ?? this.ip,
       receipt: receipt ?? this.receipt,
-      signToken: signToken ?? this.signToken,
+      shops: shops ?? this.shops,
+      receipts: receipts ?? this.receipts,
     );
   }
 
   @override
   void validate() {
-    assert(paymentId.length <= 20);
-
-    final int? _amount = amount;
-    if (_amount != null) {
-      assert(_amount.length <= 10);
+    receipt?.validate();
+    final List<Shops>? shops = this.shops;
+    if (shops != null) {
+      for (int i = 0; i < shops.length; i++) {
+        shops[i].validate();
+      }
     }
 
-    final String? _ip = ip;
-    if (_ip != null) {
-      assert(_ip.length >= 7 && _ip.length <= 45);
+    final List<Receipts>? receipts = this.receipts;
+    if (receipts != null) {
+      for (int i = 0; i < receipts.length; i++) {
+        receipts[i].validate();
+      }
     }
+
+    paymentId.validateId(JsonKeys.paymentId, checkNull: true);
+    amount.validateAmount(JsonKeys.amount);
+    ip.validateIp(JsonKeys.ip);
   }
 
   /// Идентификатор платежа в системе банка
@@ -84,12 +107,23 @@ class CancelRequest extends AcquiringRequest {
   @JsonKey(name: JsonKeys.ip)
   final String? ip;
 
-  /// Массив данных чека.
-  /// В чеке указываются данные товаров, подлежащих возврату
+  /// Данные чека.
   ///
   /// См. Структура объекта [Receipt]
   ///
   /// Имеет приоритет над данными, переданными в методе `Init`
   @JsonKey(name: JsonKeys.receipt)
   final Receipt? receipt;
+
+  /// Массив объектов с данными Маркетплейса
+  ///
+  /// Имеет приоритет над данными, переданными в методе `Init`
+  @JsonKey(name: JsonKeys.shops)
+  final List<Shops>? shops;
+
+  /// Массив объектов с чеками для каждого ShopCode из объекта Shops
+  ///
+  /// Имеет приоритет над данными, переданными в методе `Init`
+  @JsonKey(name: JsonKeys.receipts)
+  final List<Receipts>? receipts;
 }

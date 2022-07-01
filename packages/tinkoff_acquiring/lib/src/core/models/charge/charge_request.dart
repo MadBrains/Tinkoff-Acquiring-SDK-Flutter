@@ -102,8 +102,8 @@ class ChargeRequest extends AcquiringRequest {
 
   @override
   void validate() {
-    paymentId.validateId(JsonKeys.paymentId);
-    rebillId.validateId(JsonKeys.rebillId);
+    paymentId.validateId(JsonKeys.paymentId, checkNull: true);
+    rebillId.validateId(JsonKeys.rebillId, checkNull: true);
     infoEmail.validateEmail(JsonKeys.infoEmail, checkNull: sendEmail == true);
     ip.validateIp(JsonKeys.ip);
   }

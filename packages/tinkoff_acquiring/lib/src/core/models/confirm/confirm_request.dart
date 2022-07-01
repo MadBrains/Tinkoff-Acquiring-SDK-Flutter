@@ -74,6 +74,21 @@ class ConfirmRequest extends AcquiringRequest {
 
   @override
   void validate() {
+    receipt?.validate();
+    final List<Shops>? shops = this.shops;
+    if (shops != null) {
+      for (int i = 0; i < shops.length; i++) {
+        shops[i].validate();
+      }
+    }
+
+    final List<Receipts>? receipts = this.receipts;
+    if (receipts != null) {
+      for (int i = 0; i < receipts.length; i++) {
+        receipts[i].validate();
+      }
+    }
+
     paymentId.validateId(JsonKeys.paymentId, checkNull: true);
     amount.validateId(JsonKeys.amount);
     ip.validateId(JsonKeys.ip);
