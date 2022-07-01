@@ -74,9 +74,9 @@ class ConfirmRequest extends AcquiringRequest {
 
   @override
   void validate() {
-    paymentId.validatePaymentId(JsonKeys.paymentId, checkNull: true);
-    amount.validatePaymentId(JsonKeys.amount);
-    ip.validatePaymentId(JsonKeys.ip);
+    paymentId.validateId(JsonKeys.paymentId, checkNull: true);
+    amount.validateId(JsonKeys.amount);
+    ip.validateId(JsonKeys.ip);
   }
 
   /// Идентификатор платежа в системе банка

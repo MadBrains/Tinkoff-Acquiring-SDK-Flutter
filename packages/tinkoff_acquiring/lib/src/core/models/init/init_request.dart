@@ -133,7 +133,7 @@ class InitRequest extends AcquiringRequest {
       }
     }
 
-    orderId.validateOrderId(JsonKeys.orderId, checkNull: true);
+    orderId.validateId(JsonKeys.orderId, checkNull: true);
     amount.validateAmount(JsonKeys.amount);
     ip.validateIp(JsonKeys.ip);
     description.validateDescription(JsonKeys.description);

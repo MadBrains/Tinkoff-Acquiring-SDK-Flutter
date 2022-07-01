@@ -6,20 +6,58 @@ part 'charge_request.g.dart';
 
 /// Метод осуществляет автоплатеж.
 ///
-/// Всегда работает по типу одностадийной оплаты:
-/// во время выполнения метода на Notification URL будет отправлен синхронный запрос,
-/// на который требуется корректный ответ.
+/// Осуществляет рекуррентный (повторный) платеж — безакцептное списание денежных средств со счета
+/// банковской карты Покупателя.
+/// Для возможности его использования Покупатель должен совершить хотя бы один платеж в пользу Продавца,
+/// который должен быть указан как рекуррентный,
+/// фактически являющийся первичным. По завершении оплаты в нотификации на `AUTHORIZED` будет передан параметр `RebillId`.
+/// В дальнейшем для совершения рекуррентного платежа Продавец должен вызвать метод `Init`,
+///  а затем без переадресации на `PaymentURL` вызвать метод `Charge` для оплаты по тем же самым реквизитам
+/// и передать параметр `RebillId`, полученный при совершении первичного платежа.
+/// Метод `Charge` работает по одностадийной и двухстадийной схеме оплаты.
+/// Чтобы перейти на двухстадийную схему нужно переключить терминал в [Личном кабинете](https://www.tinkoff.ru/kassa/),
+/// а также написать обращение на [acq_help@tinkoff.ru](mailto:acq_help@tinkoff.ru) с просьбой переключить схему рекуррентов.
+/// Для использования рекуррентных платежей по одностадийной схеме необходима следующая последовательность действий:
+/// 1. Совершить родительский платеж путем вызова `Init` с указанием дополнительных параметров `Recurrent=Y` и `CustomerKey`.
+/// 2. Вызвать метод `Check3dsVersion` для проверки ожидаемой версии `3DS` протокола.
+/// 3. Вызвать метод `FinishAuthorize` для оплаты заказа.
+/// При необходимости, проверить прохождение `3DS` проверки методами `Submit3DSAuthorization/Submit3DSAuthorizationV2`
+/// в зависимости от версии `3DS`. После оплаты заказа Покупателем в нотификации на статус `AUTHORIZED`
+/// будет передан параметр `RebillId`, который необходимо сохранить.
+/// 4. Спустя некоторое время для совершения рекуррентного платежа необходимо вызвать метод `Init`
+/// со стандартным набором параметров (параметры `Recurrent` и `CustomerKey` здесь не нужны).
+/// 5. Получить в ответ на `Init` параметр `PaymentId`.
+/// 6. Вызвать метод `Charge` с параметром `RebillId`, полученным в п.3, и параметром `PaymentId`, полученным в п.5.
+/// При успешном сценарии операция перейдет в статус `CONFIRMED`.
 ///
-/// [ChargeRequest](https://oplata.tinkoff.ru/develop/api/autopayments/charge-request/)
+/// ---
+///
+/// Для использования рекуррентных платежей по двухстадийной схеме необходима следующая последовательность действий:
+/// 1. Совершить родительский платеж путем вызова `Init` с указанием дополнительных параметров `Recurrent=Y` и `CustomerKey`.
+/// 2. Вызвать метод `Check3dsVersion` для проверки ожидаемой версии `3DS` протокола.
+/// 3. Вызвать метод `FinishAuthorize` для оплаты заказа. При необходимости, проверить прохождение `3DS` проверки методами
+/// `Submit3DSAuthorization/Submit3DSAuthorizationV2` в зависимости от версии `3DS`.
+/// После оплаты заказа Покупателем в нотификации на статус `AUTHORIZED` будет передан параметр `RebillId`,
+/// который необходимо сохранить.
+/// 4. Вызвать метод `Confirm` для подтверждения платежа. При необходимости отмены платежа вызвать метод `Cancel`.
+/// 5. Спустя некоторое время для совершения рекуррентного платежа необходимо вызвать метод `Init`
+/// со стандартным набором параметров (параметры `Recurrent` и `CustomerKey` здесь не нужны).
+/// 6. Получить в ответ на `Init` параметр `PaymentId`
+/// 7. Вызвать метод `Charge` с параметром `RebillId`, полученным в п.3, и параметром `PaymentId`, полученным в п.5.
+/// При успешном сценарии операция перейдет в статус `AUTHORIZED`.
+/// Денежные средства будут заблокированы на карте покупателя.
+/// 8. Вызвать метод `Confirm` для подтверждения платежа.
+///
+/// [ChargeRequest](https://www.tinkoff.ru/kassa/develop/api/autopayments/charge-description/)
 @JsonSerializable(includeIfNull: false)
 class ChargeRequest extends AcquiringRequest {
   /// Создает экземпляр метода автоплатежа
   ChargeRequest({
     required this.paymentId,
     required this.rebillId,
+    this.ip,
     this.sendEmail,
     this.infoEmail,
-    this.ip,
     String? signToken,
   }) : super(signToken);
 
@@ -64,22 +102,10 @@ class ChargeRequest extends AcquiringRequest {
 
   @override
   void validate() {
-    assert(paymentId.length <= 20);
-    assert(rebillId.length <= 20);
-
-    final bool? _sendEmail = sendEmail;
-    final String? _infoEmail = infoEmail;
-    if (_sendEmail == true) {
-      final bool match =
-          RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-              .hasMatch(_infoEmail ?? '');
-      assert(_infoEmail != null && _infoEmail.length <= 100 && match);
-    }
-
-    final String? _ip = ip;
-    if (_ip != null) {
-      assert(_ip.length >= 7 && _ip.length <= 45);
-    }
+    paymentId.validateId(JsonKeys.paymentId);
+    rebillId.validateId(JsonKeys.rebillId);
+    infoEmail.validateEmail(JsonKeys.infoEmail, checkNull: sendEmail == true);
+    ip.validateIp(JsonKeys.ip);
   }
 
   /// Идентификатор платежа в системе банка

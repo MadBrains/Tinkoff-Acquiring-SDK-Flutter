@@ -48,7 +48,7 @@ class Check3DSVersionRequest extends AcquiringRequest {
 
   @override
   void validate() {
-    paymentId.validatePaymentId(JsonKeys.paymentId);
+    paymentId.validateId(JsonKeys.paymentId);
   }
 
   /// Идентификатор платежа в системе банка

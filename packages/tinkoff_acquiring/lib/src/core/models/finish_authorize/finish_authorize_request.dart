@@ -172,7 +172,7 @@ class FinishAuthorizeRequest extends AcquiringRequest {
 
   @override
   void validate() {
-    paymentId.validatePaymentId(JsonKeys.paymentId);
+    paymentId.validateId(JsonKeys.paymentId);
 
     assert(
       () {

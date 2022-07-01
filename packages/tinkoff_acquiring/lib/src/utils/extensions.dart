@@ -42,20 +42,6 @@ extension ObjectRequestValidate on Object? {
     );
   }
 
-  /// валидация OrderId
-  void validateOrderId(String fieldName, {bool checkNull = false}) {
-    validate(fieldName, checkNull: checkNull);
-    assert(
-      () {
-        final Object? object = this;
-        if (object is int && object.length > 20) return false;
-
-        return true;
-      }(),
-      "Unable to build request: field '$fieldName' is not valid",
-    );
-  }
-
   /// валидация Amount
   void validateAmount(String fieldName, {bool checkNull = false}) {
     validate(fieldName, checkNull: checkNull);
@@ -181,8 +167,8 @@ extension ObjectRequestValidate on Object? {
     );
   }
 
-  /// валидация PaymentId
-  void validatePaymentId(String fieldName, {bool checkNull = false}) {
+  /// валидация Id
+  void validateId(String fieldName, {bool checkNull = false}) {
     validate(fieldName, checkNull: checkNull);
     assert(
       () {
