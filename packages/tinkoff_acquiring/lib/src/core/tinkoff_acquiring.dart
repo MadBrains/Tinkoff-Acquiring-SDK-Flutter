@@ -212,4 +212,14 @@ class TinkoffAcquiring {
           GetAddAccountQrStateResponse.fromJson(json),
     );
   }
+
+  /// Возвращает список привязанных счетов покупателя по магазину
+  Future<GetAccountQrListResponse> getAccountQrList(
+    GetAccountQrListRequest request,
+  ) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => GetAccountQrListResponse.fromJson(json),
+    );
+  }
 }

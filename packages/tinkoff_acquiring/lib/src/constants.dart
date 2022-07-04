@@ -132,6 +132,7 @@ abstract class JsonKeys {
   static const String accountToken = 'AccountToken';
   static const String bankMemberId = 'BankMemberId';
   static const String bankMemberName = 'BankMemberName';
+  static const String accountTokens = 'AccountTokens';
 }
 
 abstract class NetworkSettings {
@@ -174,6 +175,7 @@ abstract class ApiMethods {
   static const String addAccountQr = 'AddAccountQr';
   static const String chargeQr = 'ChargeQr';
   static const String getAddAccountQrState = 'GetAddAccountQrState';
+  static const String getAccountQrList = 'GetAccountQrList';
 }
 
 abstract class Ignore {

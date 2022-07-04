@@ -59,4 +59,7 @@ const _$StatusEnumMap = {
   Status.unknown: 'UNKNOWN',
   Status.loopChecking: 'LOOP_CHECKING',
   Status.completed: 'COMPLETED',
+  Status.proccesing: 'PROCCESING',
+  Status.active: 'ACTIVE',
+  Status.inacitve: 'INACITVE',
 };

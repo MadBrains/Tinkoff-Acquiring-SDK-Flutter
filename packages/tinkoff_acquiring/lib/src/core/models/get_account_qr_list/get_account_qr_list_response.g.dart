@@ -1,63 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'finish_authorize_response.dart';
+part of 'get_account_qr_list_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-FinishAuthorizeResponse _$FinishAuthorizeResponseFromJson(
+GetAccountQrListResponse _$GetAccountQrListResponseFromJson(
         Map<String, dynamic> json) =>
-    FinishAuthorizeResponse(
+    GetAccountQrListResponse(
       status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
       success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
       details: json['Details'] as String?,
-      terminalKey: json['TerminalKey'] as String?,
-      orderId: json['OrderId'] as String?,
-      amount: json['Amount'] as int?,
-      paymentId: json['PaymentId'] as String?,
-      rebillId: json['RebillId'] as String?,
-      cardId: json['CardId'] as String?,
-      md: json['MD'] as String?,
-      paReq: json['PaReq'] as String?,
-      fallbackOnTdsV1: json['FallbackOnTdsV1'] as bool?,
-      tdsServerTransId: json['TdsServerTransId'] as String?,
-      acsUrl: json['ACSUrl'] as String?,
-      acsTransId: json['AcsTransId'] as String?,
-      acsInterface: json['AcsInterface'] as String?,
-      acsUiTemplate: json['AcsUiTemplate'] as String?,
-      acsSignedContent: json['AcsSignedContent'] as String?,
-      acsReferenceNumber: json['AcsReferenceNumber'] as String?,
-      sdkTransID: json['SdkTransID'] as String?,
+      accountTokens: (json['AccountTokens'] as List<dynamic>?)
+          ?.map((e) => AccountQrToken.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
-Map<String, dynamic> _$FinishAuthorizeResponseToJson(
-        FinishAuthorizeResponse instance) =>
+Map<String, dynamic> _$GetAccountQrListResponseToJson(
+        GetAccountQrListResponse instance) =>
     <String, dynamic>{
       'Success': instance.success,
       'Status': _$StatusEnumMap[instance.status],
       'ErrorCode': instance.errorCode,
       'Message': instance.message,
       'Details': instance.details,
-      'TerminalKey': instance.terminalKey,
-      'OrderId': instance.orderId,
-      'Amount': instance.amount,
-      'PaymentId': instance.paymentId,
-      'CardId': instance.cardId,
-      'MD': instance.md,
-      'PaReq': instance.paReq,
-      'RebillId': instance.rebillId,
-      'FallbackOnTdsV1': instance.fallbackOnTdsV1,
-      'TdsServerTransId': instance.tdsServerTransId,
-      'ACSUrl': instance.acsUrl,
-      'AcsTransId': instance.acsTransId,
-      'AcsInterface': instance.acsInterface,
-      'AcsUiTemplate': instance.acsUiTemplate,
-      'AcsSignedContent': instance.acsSignedContent,
-      'AcsReferenceNumber': instance.acsReferenceNumber,
-      'SdkTransID': instance.sdkTransID,
+      'AccountTokens': instance.accountTokens,
     };
 
 const _$StatusEnumMap = {

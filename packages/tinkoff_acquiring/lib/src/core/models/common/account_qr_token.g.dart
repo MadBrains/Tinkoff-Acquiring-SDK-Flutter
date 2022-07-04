@@ -1,36 +1,36 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'get_state_response.dart';
+part of 'account_qr_token.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-GetStateResponse _$GetStateResponseFromJson(Map<String, dynamic> json) =>
-    GetStateResponse(
+AccountQrToken _$AccountQrTokenFromJson(Map<String, dynamic> json) =>
+    AccountQrToken(
+      requestKey: json['RequestKey'] as String?,
       status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
-      success: json['Success'] as bool?,
-      errorCode: json['ErrorCode'] as String?,
-      message: json['Message'] as String?,
-      details: json['Details'] as String?,
-      terminalKey: json['TerminalKey'] as String?,
-      orderId: json['OrderId'] as String?,
-      paymentId: json['PaymentId'] as String?,
-      amount: json['Amount'] as int?,
+      accountToken: json['AccountToken'] as String?,
+      bankMemberId: json['BankMemberId'] as String?,
+      bankMemberName: json['BankMemberName'] as String?,
     );
 
-Map<String, dynamic> _$GetStateResponseToJson(GetStateResponse instance) =>
-    <String, dynamic>{
-      'Success': instance.success,
-      'Status': _$StatusEnumMap[instance.status],
-      'ErrorCode': instance.errorCode,
-      'Message': instance.message,
-      'Details': instance.details,
-      'TerminalKey': instance.terminalKey,
-      'OrderId': instance.orderId,
-      'PaymentId': instance.paymentId,
-      'Amount': instance.amount,
-    };
+Map<String, dynamic> _$AccountQrTokenToJson(AccountQrToken instance) {
+  final val = <String, dynamic>{};
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('RequestKey', instance.requestKey);
+  writeNotNull('Status', _$StatusEnumMap[instance.status]);
+  writeNotNull('AccountToken', instance.accountToken);
+  writeNotNull('BankMemberId', instance.bankMemberId);
+  writeNotNull('BankMemberName', instance.bankMemberName);
+  return val;
+}
 
 const _$StatusEnumMap = {
   Status.newest: 'NEW',
