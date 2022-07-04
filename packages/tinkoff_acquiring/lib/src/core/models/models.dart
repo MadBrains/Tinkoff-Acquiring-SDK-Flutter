@@ -48,6 +48,8 @@ export 'enums/tax.dart';
 export 'enums/taxation.dart';
 export 'finish_authorize/finish_authorize_request.dart';
 export 'finish_authorize/finish_authorize_response.dart';
+export 'get_add_account_qr_state/get_add_account_qr_state_request.dart';
+export 'get_add_account_qr_state/get_add_account_qr_state_response.dart';
 export 'get_card_list/get_card_list_request.dart';
 export 'get_card_list/get_card_list_response.dart';
 export 'get_customer/get_customer_request.dart';

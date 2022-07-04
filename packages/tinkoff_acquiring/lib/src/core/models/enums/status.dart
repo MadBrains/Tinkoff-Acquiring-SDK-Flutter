@@ -103,4 +103,16 @@ enum Status {
   /// COMPLETED
   @JsonValue('COMPLETED')
   completed,
+
+  /// PROCCESING
+  @JsonValue('PROCCESING')
+  proccesing,
+
+  /// ACTIVE
+  @JsonValue('ACTIVE')
+  active,
+
+  /// INACITVE
+  @JsonValue('INACITVE')
+  inacitve,
 }

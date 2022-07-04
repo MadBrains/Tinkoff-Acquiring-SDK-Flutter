@@ -201,4 +201,15 @@ class TinkoffAcquiring {
       (Map<String, dynamic> json) => ChargeQrResponse.fromJson(json),
     );
   }
+
+  /// Возвращает статус привязки счета Покупателя по магазину
+  Future<GetAddAccountQrStateResponse> getAddAccountQrState(
+    GetAddAccountQrStateRequest request,
+  ) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) =>
+          GetAddAccountQrStateResponse.fromJson(json),
+    );
+  }
 }
