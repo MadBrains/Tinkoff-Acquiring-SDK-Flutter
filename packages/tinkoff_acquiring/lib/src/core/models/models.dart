@@ -14,6 +14,8 @@ export 'cancel/cancel_request.dart';
 export 'cancel/cancel_response.dart';
 export 'charge/charge_request.dart';
 export 'charge/charge_response.dart';
+export 'charge_qr/charge_qr_request.dart';
+export 'charge_qr/charge_qr_response.dart';
 export 'check_3ds_version/check_3ds_version_request.dart';
 export 'check_3ds_version/check_3ds_version_response.dart';
 export 'check_order/check_order_request.dart';

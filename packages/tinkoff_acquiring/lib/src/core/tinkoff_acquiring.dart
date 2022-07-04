@@ -193,4 +193,12 @@ class TinkoffAcquiring {
       (Map<String, dynamic> json) => AddAccountQrResponse.fromJson(json),
     );
   }
+
+  /// Проведение платежа по привязанному счету QR
+  Future<ChargeQrResponse> chargeQr(ChargeQrRequest request) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => ChargeQrResponse.fromJson(json),
+    );
+  }
 }

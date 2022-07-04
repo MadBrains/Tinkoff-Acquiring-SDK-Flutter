@@ -129,6 +129,7 @@ abstract class JsonKeys {
   static const String memberName = 'MemberName';
   static const String isPayee = 'IsPayee';
   static const String members = 'Members';
+  static const String accountToken = 'AccountToken';
 }
 
 abstract class NetworkSettings {
@@ -169,6 +170,7 @@ abstract class ApiMethods {
   static const String checkOrder = 'CheckOrder';
   static const String qrMembersList = 'QrMembersList';
   static const String addAccountQr = 'AddAccountQr';
+  static const String chargeQr = 'ChargeQr';
 }
 
 abstract class Ignore {
