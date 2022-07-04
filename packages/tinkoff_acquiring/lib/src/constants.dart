@@ -168,6 +168,7 @@ abstract class ApiMethods {
   static const String getStaticQr = 'GetStaticQr';
   static const String checkOrder = 'CheckOrder';
   static const String qrMembersList = 'QrMembersList';
+  static const String addAccountQr = 'AddAccountQr';
 }
 
 abstract class Ignore {

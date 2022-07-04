@@ -1,3 +1,5 @@
+export 'add_account_qr/add_account_qr_request.dart';
+export 'add_account_qr/add_account_qr_response.dart';
 export 'add_card/add_card_request.dart';
 export 'add_card/add_card_response.dart';
 export 'add_customer/add_customer_request.dart';
@@ -66,5 +68,4 @@ export 'resend/resend_request.dart';
 export 'resend/resend_response.dart';
 export 'send_closing_receipt/send_closing_receipt_request.dart';
 export 'send_closing_receipt/send_closing_receipt_response.dart';
-export 'submit_3ds_authorization/submit_3ds_authorization_response.dart';
 export 'submit_3ds_authorization/submit_3ds_authorization_response.dart';

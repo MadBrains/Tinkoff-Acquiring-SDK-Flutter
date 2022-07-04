@@ -177,4 +177,20 @@ class TinkoffAcquiring {
       (Map<String, dynamic> json) => CheckOrderResponse.fromJson(json),
     );
   }
+
+  /// Возвращает список банков, куда может быть осуществлен возврат платежа по СБП, совершенного по QR
+  Future<QrMembersListResponse> qrMembersList(QrMembersListRequest request) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => QrMembersListResponse.fromJson(json),
+    );
+  }
+
+  /// Инициирует привязку счета покупателя к магазину в СБП и возвращает информацию о нём
+  Future<AddAccountQrResponse> addAccountQr(AddAccountQrRequest request) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => AddAccountQrResponse.fromJson(json),
+    );
+  }
 }
