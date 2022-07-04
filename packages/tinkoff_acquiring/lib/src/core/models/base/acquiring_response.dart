@@ -1,8 +1,10 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../enums/status.dart';
 import 'base_response.dart';
+
+export '../../../constants.dart';
+export '../../../utils/extensions.dart';
 
 /// Базовый класс ответа Acquiring API
 abstract class AcquiringResponse extends BaseResponse {

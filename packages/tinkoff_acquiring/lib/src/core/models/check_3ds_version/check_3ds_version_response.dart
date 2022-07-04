@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../../models/base/acquiring_response.dart';
 import '../../models/enums/status.dart';
 
