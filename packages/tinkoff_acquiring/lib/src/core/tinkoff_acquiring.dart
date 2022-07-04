@@ -222,4 +222,14 @@ class TinkoffAcquiring {
       (Map<String, dynamic> json) => GetAccountQrListResponse.fromJson(json),
     );
   }
+
+  /// Тестирование платежной сессии с предопределенным статусом по СБП
+  Future<SbpPayTestResponse> sbpPayTest(
+    SbpPayTestRequest request,
+  ) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => SbpPayTestResponse.fromJson(json),
+    );
+  }
 }

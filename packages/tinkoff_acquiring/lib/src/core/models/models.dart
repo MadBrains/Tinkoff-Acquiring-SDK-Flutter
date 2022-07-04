@@ -73,6 +73,8 @@ export 'remove_customer/remove_customer_request.dart';
 export 'remove_customer/remove_customer_response.dart';
 export 'resend/resend_request.dart';
 export 'resend/resend_response.dart';
+export 'sbp_pay_test/sbp_pay_test_request.dart';
+export 'sbp_pay_test/sbp_pay_test_response.dart';
 export 'send_closing_receipt/send_closing_receipt_request.dart';
 export 'send_closing_receipt/send_closing_receipt_response.dart';
 export 'submit_3ds_authorization/submit_3ds_authorization_response.dart';
