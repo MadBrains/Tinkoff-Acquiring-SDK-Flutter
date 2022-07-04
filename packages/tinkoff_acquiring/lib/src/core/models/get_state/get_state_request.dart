@@ -6,7 +6,7 @@ part 'get_state_request.g.dart';
 
 /// Метод возвращает текущий статус платежа.
 ///
-/// [GetStateRequest](https://www.tinkoff.ru/kassa/develop/api/payments/getstate-description/)
+/// [GetStateRequest](https://www.tinkoff.ru/kassa/develop/api/payments-sbp/getqrstate-description/)
 @JsonSerializable(includeIfNull: false)
 class GetStateRequest extends AcquiringRequest {
   /// Создает экземпляр метода по получению статуса платежа

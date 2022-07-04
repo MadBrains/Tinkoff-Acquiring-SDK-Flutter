@@ -125,6 +125,10 @@ abstract class JsonKeys {
   static const String address = 'Address';
   static const String paymentSystem = 'PaymentSystem';
   static const String rrn = 'RRN';
+  static const String memberId = 'MemberId';
+  static const String memberName = 'MemberName';
+  static const String isPayee = 'IsPayee';
+  static const String members = 'Members';
 }
 
 abstract class NetworkSettings {
@@ -163,6 +167,7 @@ abstract class ApiMethods {
   static const String getQr = 'GetQr';
   static const String getStaticQr = 'GetStaticQr';
   static const String checkOrder = 'CheckOrder';
+  static const String qrMembersList = 'QrMembersList';
 }
 
 abstract class Ignore {

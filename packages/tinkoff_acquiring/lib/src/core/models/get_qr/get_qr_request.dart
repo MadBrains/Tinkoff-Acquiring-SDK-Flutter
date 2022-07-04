@@ -7,7 +7,7 @@ part 'get_qr_request.g.dart';
 
 /// Метод регистрирует QR и возвращает информацию о нем. Должен быть вызван после метода `Init`
 ///
-/// [GetQrRequest](https://oplata.tinkoff.ru/develop/api/autopayments/getqr-request/)
+/// [GetQrRequest](https://www.tinkoff.ru/kassa/develop/api/payments-sbp/getqr-description/)
 @JsonSerializable(includeIfNull: false)
 class GetQrRequest extends AcquiringRequest {
   /// Создает экземпляр метода регистрации QR
