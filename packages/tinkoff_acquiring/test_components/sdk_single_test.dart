@@ -9,8 +9,6 @@ void start() {
       AddCardRequest(
         customerKey: customerKey,
         checkType: CheckType.no,
-        description: description,
-        payForm: payForm,
         ip: ip,
       ),
     );

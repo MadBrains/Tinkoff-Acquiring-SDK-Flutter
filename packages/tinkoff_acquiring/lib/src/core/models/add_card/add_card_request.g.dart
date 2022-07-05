@@ -10,9 +10,8 @@ AddCardRequest _$AddCardRequestFromJson(Map<String, dynamic> json) =>
     AddCardRequest(
       customerKey: json['CustomerKey'] as String,
       checkType: $enumDecodeNullable(_$CheckTypeEnumMap, json['CheckType']),
-      description: json['Description'] as String?,
-      payForm: json['PayForm'] as String?,
       ip: json['IP'] as String?,
+      residentState: json['ResidentState'] as bool?,
       signToken: json['Token'] as String?,
     );
 
@@ -28,9 +27,8 @@ Map<String, dynamic> _$AddCardRequestToJson(AddCardRequest instance) {
   writeNotNull('Token', instance.signToken);
   val['CustomerKey'] = instance.customerKey;
   writeNotNull('CheckType', _$CheckTypeEnumMap[instance.checkType]);
-  writeNotNull('Description', instance.description);
-  writeNotNull('PayForm', instance.payForm);
   writeNotNull('IP', instance.ip);
+  writeNotNull('ResidentState', instance.residentState);
   return val;
 }
 

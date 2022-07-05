@@ -14,9 +14,8 @@ class AddCardRequest extends AcquiringRequest {
   AddCardRequest({
     required this.customerKey,
     this.checkType,
-    this.description,
-    this.payForm,
     this.ip,
+    this.residentState,
     String? signToken,
   }) : super(signToken);
 
@@ -35,41 +34,31 @@ class AddCardRequest extends AcquiringRequest {
         ...super.equals,
         JsonKeys.customerKey: customerKey,
         JsonKeys.checkType: checkType,
-        JsonKeys.description: description,
-        JsonKeys.payForm: payForm,
         JsonKeys.ip: ip,
+        JsonKeys.residentState: residentState,
       };
 
   @override
   AddCardRequest copyWith({
+    String? signToken,
     String? customerKey,
     CheckType? checkType,
-    String? description,
-    String? payForm,
     String? ip,
-    String? signToken,
+    bool? residentState,
   }) {
     return AddCardRequest(
+      signToken: signToken ?? this.signToken,
       customerKey: customerKey ?? this.customerKey,
       checkType: checkType ?? this.checkType,
-      description: description ?? this.description,
-      payForm: payForm ?? this.payForm,
       ip: ip ?? this.ip,
-      signToken: signToken ?? this.signToken,
+      residentState: residentState ?? this.residentState,
     );
   }
 
   @override
   void validate() {
-    assert(customerKey.length <= 36);
-    final String? _ip = ip;
-    if (_ip != null) {
-      assert(_ip.length >= 7 && _ip.length <= 45);
-    }
-    final String? _description = description;
-    if (_description != null) {
-      assert(_description.length <= 250);
-    }
+    customerKey.validateCustomerKey(JsonKeys.customerKey);
+    ip.validateIp(JsonKeys.ip);
   }
 
   /// Идентификатор платежа в системе банка
@@ -90,15 +79,16 @@ class AddCardRequest extends AcquiringRequest {
   @JsonKey(name: JsonKeys.checkType)
   final CheckType? checkType;
 
-  /// Описание/название карты
-  @JsonKey(name: JsonKeys.description)
-  final String? description;
-
-  /// Название шаблона формы привязки
-  @JsonKey(name: JsonKeys.payForm)
-  final String? payForm;
-
   /// IP-адрес покупателя
   @JsonKey(name: JsonKeys.ip)
   final String? ip;
+
+  /// Признак резидентности добавляемой карты.
+  ///
+  /// Возможные значения:
+  /// - true - Карта РФ
+  /// - false - Карта не РФ
+  /// - null - Не специфицируется (универсальная карта)
+  @JsonKey(name: JsonKeys.residentState)
+  final bool? residentState;
 }
