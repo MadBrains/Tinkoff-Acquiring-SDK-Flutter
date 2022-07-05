@@ -6,7 +6,7 @@ part 'get_card_list_request.g.dart';
 
 /// Метод возвращает список привязанных карт у покупателя
 ///
-/// [GetCardListRequest](http://static2.tinkoff.ru/acquiring/manuals/android_sdk.pdf)
+/// [GetCardListRequest](https://www.tinkoff.ru/kassa/develop/api/autopayments/getcardlist-request/)
 @JsonSerializable(includeIfNull: false)
 class GetCardListRequest extends AcquiringRequest {
   /// Создает экземпляр метода по возвращению списка привязанных карт у покупателя

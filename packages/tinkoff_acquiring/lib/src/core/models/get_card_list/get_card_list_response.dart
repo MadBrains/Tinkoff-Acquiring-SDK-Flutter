@@ -7,7 +7,7 @@ part 'get_card_list_response.g.dart';
 
 /// Ответ от сервера на список привязанных карт у покупателя
 ///
-/// [GetCardListResponse](http://static2.tinkoff.ru/acquiring/manuals/android_sdk.pdf)
+/// [GetCardListResponse](https://www.tinkoff.ru/kassa/develop/api/autopayments/getcardlist-response/)
 @JsonSerializable()
 class GetCardListResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на список привязанных карт у покупателя
