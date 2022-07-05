@@ -6,7 +6,7 @@ part 'remove_card_request.g.dart';
 
 /// Метод удаляет привязанную карту у покупателя
 ///
-/// [RemoveCardRequest](http://static2.tinkoff.ru/acquiring/manuals/android_sdk.pdf)
+/// [RemoveCardRequest](https://www.tinkoff.ru/kassa/develop/api/autopayments/removecard-request/)
 @JsonSerializable(includeIfNull: false)
 class RemoveCardRequest extends AcquiringRequest {
   /// Создает экземпляр метода по удалению привязанной карты у покупателя

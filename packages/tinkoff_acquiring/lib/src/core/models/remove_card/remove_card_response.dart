@@ -2,12 +2,13 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_response.dart';
 import '../enums/card_status.dart';
+import '../enums/card_type.dart';
 
 part 'remove_card_response.g.dart';
 
 /// Ответ от сервера по удалению привязанной карты у покупателя
 ///
-/// [RemoveCardResponse](http://static2.tinkoff.ru/acquiring/manuals/android_sdk.pdf)
+/// [RemoveCardResponse](https://www.tinkoff.ru/kassa/develop/api/autopayments/removecard-response/)
 @JsonSerializable()
 class RemoveCardResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера по удалению привязанной карты у покупателя
@@ -20,6 +21,7 @@ class RemoveCardResponse extends AcquiringResponse {
     this.customerKey,
     this.cardId,
     this.cardStatus,
+    this.cardType,
   }) : super(
           success: success,
           errorCode: errorCode,
@@ -41,6 +43,7 @@ class RemoveCardResponse extends AcquiringResponse {
         JsonKeys.customerKey: customerKey,
         JsonKeys.cardId: cardId,
         JsonKeys.status: cardStatus,
+        JsonKeys.cardType: cardType,
       };
 
   /// Идентификатор терминала.
@@ -62,4 +65,11 @@ class RemoveCardResponse extends AcquiringResponse {
   /// 3. D - удалена
   @JsonKey(name: JsonKeys.status, unknownEnumValue: CardStatus.notExist)
   final CardStatus? cardStatus;
+
+  /// Тип карты:
+  /// - карта списания
+  /// - карта пополнения
+  /// - карта пополнения и списания
+  @JsonKey(name: JsonKeys.cardType)
+  final CardType? cardType;
 }
