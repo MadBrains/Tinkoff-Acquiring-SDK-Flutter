@@ -181,6 +181,7 @@ abstract class ApiMethods {
   static const String getAddAccountQrState = 'GetAddAccountQrState';
   static const String getAccountQrList = 'GetAccountQrList';
   static const String sbpPayTest = 'SbpPayTest';
+  static const String getAddCardState = 'GetAddCardState';
 }
 
 abstract class Ignore {

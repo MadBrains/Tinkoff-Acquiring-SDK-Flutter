@@ -232,4 +232,14 @@ class TinkoffAcquiring {
       (Map<String, dynamic> json) => SbpPayTestResponse.fromJson(json),
     );
   }
+
+  /// Возвращает статус привязки карты
+  Future<GetAddCardStateResponse> getAddCardState(
+    GetAddCardStateRequest request,
+  ) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => GetAddCardStateResponse.fromJson(json),
+    );
+  }
 }
