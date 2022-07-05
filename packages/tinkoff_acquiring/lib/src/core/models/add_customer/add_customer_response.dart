@@ -6,7 +6,7 @@ part 'add_customer_response.g.dart';
 
 /// Ответ от сервера на регистрацию покупателя
 ///
-/// [AddCustomerResponse](https://oplata.tinkoff.ru/develop/api/autopayments/addcustomer-response/)
+/// [AddCustomerResponse](https://www.tinkoff.ru/kassa/develop/api/autopayments/addcustomer-response/)
 @JsonSerializable()
 class AddCustomerResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на регистрацию покупателя

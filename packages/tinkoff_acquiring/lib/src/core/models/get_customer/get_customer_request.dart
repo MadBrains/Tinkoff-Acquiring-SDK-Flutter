@@ -6,7 +6,7 @@ part 'get_customer_request.g.dart';
 
 /// Метод по получению данных покупателя из системы продавца.
 ///
-/// [GetCustomerRequest](https://oplata.tinkoff.ru/develop/api/autopayments/getcustomer-request/)
+/// [GetCustomerRequest](https://www.tinkoff.ru/kassa/develop/api/autopayments/getcustomer-request/)
 @JsonSerializable(includeIfNull: false)
 class GetCustomerRequest extends AcquiringRequest {
   /// Создает экземпляр метода по получению данных покупателя

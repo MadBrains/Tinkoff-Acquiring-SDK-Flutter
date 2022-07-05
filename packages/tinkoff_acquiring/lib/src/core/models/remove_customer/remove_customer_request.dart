@@ -6,7 +6,7 @@ part 'remove_customer_request.g.dart';
 
 /// Метод удаляет данные зарегистрированного покупателя.
 ///
-/// [RemoveCustomerRequest](https://oplata.tinkoff.ru/develop/api/autopayments/removecustomer-request/)
+/// [RemoveCustomerRequest](https://www.tinkoff.ru/kassa/develop/api/autopayments/removecustomer-request/)
 @JsonSerializable(includeIfNull: false)
 class RemoveCustomerRequest extends AcquiringRequest {
   /// Создает экземпляр метода по удалению данных покупателя

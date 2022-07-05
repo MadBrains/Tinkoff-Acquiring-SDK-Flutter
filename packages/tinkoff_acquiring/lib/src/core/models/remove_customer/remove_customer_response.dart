@@ -6,7 +6,7 @@ part 'remove_customer_response.g.dart';
 
 /// Ответ от сервера на удаление данных покупателя
 ///
-/// [RemoveCustomerResponse](https://oplata.tinkoff.ru/develop/api/autopayments/removecustomer-response/)
+/// [RemoveCustomerResponse](https://www.tinkoff.ru/kassa/develop/api/autopayments/removecustomer-response/)
 @JsonSerializable()
 class RemoveCustomerResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на удаление данных покупателя
