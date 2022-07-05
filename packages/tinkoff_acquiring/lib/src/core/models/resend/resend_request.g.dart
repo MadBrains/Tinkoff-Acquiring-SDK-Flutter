@@ -8,6 +8,8 @@ part of 'resend_request.dart';
 
 ResendRequest _$ResendRequestFromJson(Map<String, dynamic> json) =>
     ResendRequest(
+      paymentId: json['PaymentId'] as String?,
+      notificationTypes: json['NotificationTypes'] as String?,
       signToken: json['Token'] as String?,
     );
 
@@ -21,5 +23,7 @@ Map<String, dynamic> _$ResendRequestToJson(ResendRequest instance) {
   }
 
   writeNotNull('Token', instance.signToken);
+  writeNotNull('PaymentId', instance.paymentId);
+  writeNotNull('NotificationTypes', instance.notificationTypes);
   return val;
 }

@@ -135,6 +135,7 @@ abstract class JsonKeys {
   static const String accountTokens = 'AccountTokens';
   static const String isDeadlineExpired = 'IsDeadlineExpired';
   static const String isRejected = 'IsRejected';
+  static const String notificationTypes = 'NotificationTypes';
 }
 
 abstract class NetworkSettings {

@@ -6,7 +6,7 @@ part 'resend_response.g.dart';
 
 /// Ответ от сервера на отправку неотправленных уведомлений
 ///
-/// [ResendResponse](https://oplata.tinkoff.ru/develop/api/payments/resend-response/)
+/// [ResendResponse](https://www.tinkoff.ru/kassa/develop/api/payments/resend-response/)
 @JsonSerializable()
 class ResendResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на отправку неотправленных уведомлений
@@ -43,7 +43,7 @@ class ResendResponse extends AcquiringResponse {
   @JsonKey(name: JsonKeys.terminalKey)
   final String? terminalKey;
 
-  /// Количество сообщений, отправляемых повторно
+  /// Количество сообщений, отправленных на повторную рассылку
   @JsonKey(name: JsonKeys.count)
   final int? count;
 }
