@@ -182,6 +182,7 @@ abstract class ApiMethods {
   static const String getAccountQrList = 'GetAccountQrList';
   static const String sbpPayTest = 'SbpPayTest';
   static const String getAddCardState = 'GetAddCardState';
+  static const String submitRandomAmount = 'SubmitRandomAmount';
 }
 
 abstract class Ignore {

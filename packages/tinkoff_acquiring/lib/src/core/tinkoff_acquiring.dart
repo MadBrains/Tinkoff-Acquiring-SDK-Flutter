@@ -242,4 +242,14 @@ class TinkoffAcquiring {
       (Map<String, dynamic> json) => GetAddCardStateResponse.fromJson(json),
     );
   }
+
+  /// Метод предназначен для подтверждения карты путем блокировки случайной суммы
+  Future<SubmitRandomAmountResponse> submitRandomAmount(
+    SubmitRandomAmountRequest request,
+  ) {
+    return _network(
+      request,
+      (Map<String, dynamic> json) => SubmitRandomAmountResponse.fromJson(json),
+    );
+  }
 }
