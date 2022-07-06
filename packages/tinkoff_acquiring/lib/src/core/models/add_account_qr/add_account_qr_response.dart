@@ -1,7 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:tinkoff_acquiring/src/core/models/enums/data_type.dart';
 
 import '../base/acquiring_response.dart';
+import '../enums/data_type.dart';
 
 part 'add_account_qr_response.g.dart';
 
