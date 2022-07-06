@@ -57,12 +57,13 @@ class WebView3DS extends StatefulWidget {
   /// Загрузка 3-D Secure
   final void Function(bool) onLoad;
 
-  String get _termUrl => Uri.encodeFull(
-        config.apiUrl +
-            (is3DsVersion2
-                ? WebViewMethods.submit3DSAuthorizationV2
-                : WebViewMethods.submit3DSAuthorization),
-      );
+  String get _termUrl => config
+      .url(
+        is3DsVersion2
+            ? WebViewMethods.submit3DSAuthorizationV2
+            : WebViewMethods.submit3DSAuthorization,
+      )
+      .toString();
 
   String get _createCreq {
     final Map<String, String> params = <String, String>{

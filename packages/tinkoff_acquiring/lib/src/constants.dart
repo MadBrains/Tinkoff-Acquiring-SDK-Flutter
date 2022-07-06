@@ -141,10 +141,9 @@ abstract class JsonKeys {
 
 abstract class NetworkSettings {
   static const String apiVersion = 'v2';
-  static const String apiUrlRelease =
-      'https://securepay.tinkoff.ru/$apiVersion/';
-  static const String apiUrlDebug =
-      'https://rest-api-test.tinkoff.ru/$apiVersion/';
+  static const String domainDebug = 'rest-api-test.tinkoff.ru';
+  static const String domainRelease = 'securepay.tinkoff.ru';
+  static const String apiPath = '$apiVersion/';
 
   static const Duration timeout = Duration(seconds: 40);
 

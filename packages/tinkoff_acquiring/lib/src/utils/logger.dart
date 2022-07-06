@@ -26,6 +26,11 @@ class Logger extends BaseLogger {
     Object? error,
     StackTrace? stackTrace,
   }) {
-    dev.log(message, name: name, error: error, stackTrace: stackTrace);
+    dev.log(
+      message,
+      name: 'Tinkoff | $name',
+      error: error,
+      stackTrace: stackTrace,
+    );
   }
 }

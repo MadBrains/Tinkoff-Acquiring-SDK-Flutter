@@ -1,5 +1,5 @@
+import '../utils/network_client.dart';
 import 'models/models.dart';
-import 'network/network_client.dart';
 import 'tinkoff_acquiring_config.dart';
 
 /// {@template tinkoff_acquiring}

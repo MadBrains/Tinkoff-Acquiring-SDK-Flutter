@@ -91,10 +91,10 @@ class _WebViewCollect extends StatelessWidget {
   final void Function(Map<String, String>) onFinished;
 
   String get termUrl =>
-      Uri.encodeFull(config.apiUrl + WebViewMethods.submit3DSAuthorizationV2);
+      config.url(WebViewMethods.submit3DSAuthorizationV2).toString();
 
   String get notificationsUrl =>
-      Uri.encodeFull(config.apiUrl + WebViewMethods.complete3DSMethodv2);
+      config.url(WebViewMethods.complete3DSMethodv2).toString();
 
   String get createCollectData {
     final Map<String, String> params = <String, String>{

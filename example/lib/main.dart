@@ -20,9 +20,10 @@ const String customerKey = 'user-key';
 const int amount = 1400;
 
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
-  TinkoffAcquiringConfig(
+  TinkoffAcquiringConfig.credential(
     terminalKey: terminalKey,
     password: password,
+    isDebugMode: false,
   ),
 );
 
@@ -86,9 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             const Padding(padding: EdgeInsets.only(bottom: 20)),
             ElevatedButton(
-              onPressed: () {
-                if (status.isCompleted) reset();
-                status.complete(_pay());
+              onPressed: () async {
+                await _pay();
               },
               child: const Text('Pay'),
             ),
@@ -135,6 +135,15 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  bool checkError(AcquiringResponse response) {
+    if (response.success == false && response.errorCode != null) {
+      status.complete(response.details);
+      return true;
+    }
+
+    return false;
+  }
+
   Future<void> cancle() async {
     await acquiring
         .cancel(CancelRequest(paymentId: 1191852757, amount: 1500000));
@@ -149,7 +158,9 @@ class _MyHomePageState extends State<MyHomePage> {
         .charge(ChargeRequest(paymentId: 995090973, rebillId: 1642583003390));
   }
 
-  Future<String> _pay() async {
+  Future<void> _pay() async {
+    if (status.isCompleted) reset();
+
     String cardData = '';
 
     if (threeDs) {
@@ -196,6 +207,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
 
+    if (checkError(init)) return;
+
     final Check3DSVersionResponse check3DSVersion =
         await acquiring.check3DSVersion(
       Check3DSVersionRequest(
@@ -203,6 +216,8 @@ class _MyHomePageState extends State<MyHomePage> {
         cardData: cardData,
       ),
     );
+
+    if (checkError(check3DSVersion)) return;
 
     final Completer<Map<String, String>> data =
         Completer<Map<String, String>>();
@@ -227,6 +242,8 @@ class _MyHomePageState extends State<MyHomePage> {
         data: await data.future,
       ),
     );
+
+    if (checkError(fa)) return;
 
     final Completer<Submit3DSAuthorizationResponse?> webView =
         Completer<Submit3DSAuthorizationResponse?>();
@@ -259,14 +276,16 @@ class _MyHomePageState extends State<MyHomePage> {
       webView.complete(null);
     }
 
-    return webView.future.then((_) async {
-      final GetStateResponse getState = await acquiring.getState(
-        GetStateRequest(
-          paymentId: int.parse(init.paymentId!),
-        ),
-      );
+    status.complete(
+      webView.future.then((_) async {
+        final GetStateResponse getState = await acquiring.getState(
+          GetStateRequest(
+            paymentId: int.parse(init.paymentId!),
+          ),
+        );
 
-      return getState.status.toString();
-    });
+        return getState.status.toString();
+      }),
+    );
   }
 }

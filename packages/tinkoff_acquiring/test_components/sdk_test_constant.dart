@@ -33,7 +33,7 @@ final String cardData3DS = CardData(
 ).encode(publicKey);
 
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
-  TinkoffAcquiringConfig(
+  TinkoffAcquiringConfig.credential(
     terminalKey: terminalKey,
     password: password,
   ),
