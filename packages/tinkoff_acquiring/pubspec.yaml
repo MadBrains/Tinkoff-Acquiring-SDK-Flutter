@@ -13,6 +13,7 @@ dependencies:
   crypto: ^3.0.2
   crypton: ^2.0.5
   http: ^0.13.4
+  meta: ^1.8.0
   json_annotation: ^4.5.0
 
 dev_dependencies:
