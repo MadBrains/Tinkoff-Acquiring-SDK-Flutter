@@ -13,3 +13,5 @@ for pkg in {tinkoff_acquiring,tinkoff_acquiring_flutter}; do
   # Bump version in pubspec.yaml
   perl -pi -e "s/^version: .*/version: $NEW_VERSION/" packages/$pkg/pubspec.yaml
 done
+
+perl -pi -e "s/tinkoff_acquiring: .*/tinkoff_acquiring: ^$NEW_VERSION/" packages/tinkoff_acquiring_flutter/pubspec.yaml
