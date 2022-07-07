@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_response.dart';
 import '../enums/data_type.dart';
+import '../enums/status.dart';
 
 part 'add_account_qr_response.g.dart';
 
@@ -12,6 +13,7 @@ part 'add_account_qr_response.g.dart';
 class AddAccountQrResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от инициацию привязки счета покупателя к магазину в СБП и возвращает информацию о нём.
   AddAccountQrResponse({
+    Status? status,
     bool? success,
     String? errorCode,
     String? message,
@@ -20,6 +22,7 @@ class AddAccountQrResponse extends AcquiringResponse {
     this.dataType,
     this.requestKey,
   }) : super(
+          status: status,
           success: success,
           errorCode: errorCode,
           message: message,
@@ -47,7 +50,7 @@ class AddAccountQrResponse extends AcquiringResponse {
   final String? terminalKey;
 
   /// Тип возвращаемых данных
-  @JsonKey(name: JsonKeys.data2)
+  @JsonKey(name: JsonKeys.data2, unknownEnumValue: DataType.notExist)
   final DataType? dataType;
 
   /// Идентификатор запроса на привязку счета

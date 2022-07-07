@@ -4,6 +4,9 @@ import 'package:json_annotation/json_annotation.dart';
 ///
 /// [Status](https://oplata.tinkoff.ru/develop/api/payments/)
 enum Status {
+  /// не существует
+  notExist,
+
   /// NEW - Создан
   @JsonValue('NEW')
   newest,

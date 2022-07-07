@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_response.dart';
+import '../enums/status.dart';
 
 part 'get_static_qr_response.g.dart';
 
@@ -11,6 +12,7 @@ part 'get_static_qr_response.g.dart';
 class GetStaticQrResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на регистрацию статического QR
   GetStaticQrResponse({
+    Status? status,
     bool? success,
     String? errorCode,
     String? message,
@@ -18,6 +20,7 @@ class GetStaticQrResponse extends AcquiringResponse {
     this.terminalKey,
     this.data,
   }) : super(
+          status: status,
           success: success,
           errorCode: errorCode,
           message: message,

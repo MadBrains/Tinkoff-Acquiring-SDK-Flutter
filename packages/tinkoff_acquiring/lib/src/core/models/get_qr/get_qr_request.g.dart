@@ -8,8 +8,8 @@ part of 'get_qr_request.dart';
 
 GetQrRequest _$GetQrRequestFromJson(Map<String, dynamic> json) => GetQrRequest(
       paymentId: json['PaymentId'] as int,
-      dataType: $enumDecodeNullable(_$DataTypeEnumMap, json['DataType']) ??
-          DataType.payload,
+      dataType: $enumDecodeNullable(_$DataTypeEnumMap, json['DataType'],
+          unknownValue: DataType.payload),
       signToken: json['Token'] as String?,
     );
 
@@ -29,6 +29,7 @@ Map<String, dynamic> _$GetQrRequestToJson(GetQrRequest instance) {
 }
 
 const _$DataTypeEnumMap = {
+  DataType.notExist: 'notExist',
   DataType.payload: 'PAYLOAD',
   DataType.image: 'IMAGE',
 };

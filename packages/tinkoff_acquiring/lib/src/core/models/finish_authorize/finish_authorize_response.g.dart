@@ -9,7 +9,8 @@ part of 'finish_authorize_response.dart';
 FinishAuthorizeResponse _$FinishAuthorizeResponseFromJson(
         Map<String, dynamic> json) =>
     FinishAuthorizeResponse(
-      status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      status: $enumDecodeNullable(_$StatusEnumMap, json['Status'],
+          unknownValue: Status.notExist),
       success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
@@ -61,6 +62,7 @@ Map<String, dynamic> _$FinishAuthorizeResponseToJson(
     };
 
 const _$StatusEnumMap = {
+  Status.notExist: 'notExist',
   Status.newest: 'NEW',
   Status.formShowed: 'FORM_SHOWED',
   Status.deadlineExpired: 'DEADLINE_EXPIRED',

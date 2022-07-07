@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_response.dart';
 import '../common/card_info.dart';
+import '../enums/status.dart';
 
 part 'get_card_list_response.g.dart';
 
@@ -12,12 +13,14 @@ part 'get_card_list_response.g.dart';
 class GetCardListResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на список привязанных карт у покупателя
   GetCardListResponse({
+    Status? status,
     bool? success,
     String? errorCode,
     String? message,
     String? details,
     this.cardInfo,
   }) : super(
+          status: status,
           success: success,
           errorCode: errorCode,
           message: message,

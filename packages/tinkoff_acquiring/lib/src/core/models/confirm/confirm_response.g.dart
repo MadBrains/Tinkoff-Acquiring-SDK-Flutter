@@ -8,7 +8,8 @@ part of 'confirm_response.dart';
 
 ConfirmResponse _$ConfirmResponseFromJson(Map<String, dynamic> json) =>
     ConfirmResponse(
-      status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      status: $enumDecodeNullable(_$StatusEnumMap, json['Status'],
+          unknownValue: Status.notExist),
       success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
@@ -31,6 +32,7 @@ Map<String, dynamic> _$ConfirmResponseToJson(ConfirmResponse instance) =>
     };
 
 const _$StatusEnumMap = {
+  Status.notExist: 'notExist',
   Status.newest: 'NEW',
   Status.formShowed: 'FORM_SHOWED',
   Status.deadlineExpired: 'DEADLINE_EXPIRED',

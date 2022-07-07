@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_response.dart';
+import '../enums/status.dart';
 
 part 'resend_response.g.dart';
 
@@ -11,6 +12,7 @@ part 'resend_response.g.dart';
 class ResendResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на отправку неотправленных уведомлений
   ResendResponse({
+    Status? status,
     bool? success,
     String? errorCode,
     String? message,
@@ -18,6 +20,7 @@ class ResendResponse extends AcquiringResponse {
     this.terminalKey,
     this.count,
   }) : super(
+          status: status,
           success: success,
           errorCode: errorCode,
           message: message,

@@ -65,7 +65,7 @@ class AddAccountQrRequest extends AcquiringRequest {
   final String description;
 
   /// Тип возвращаемых данных
-  @JsonKey(name: JsonKeys.dataType, defaultValue: DataType.payload)
+  @JsonKey(name: JsonKeys.dataType, unknownEnumValue: DataType.payload)
   final DataType? dataType;
 
   /// Дополнительные параметры платежа в формате "ключ":"значение" (не более 20 пар).

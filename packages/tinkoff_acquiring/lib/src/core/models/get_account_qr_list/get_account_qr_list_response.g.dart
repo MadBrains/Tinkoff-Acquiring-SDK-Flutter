@@ -9,7 +9,8 @@ part of 'get_account_qr_list_response.dart';
 GetAccountQrListResponse _$GetAccountQrListResponseFromJson(
         Map<String, dynamic> json) =>
     GetAccountQrListResponse(
-      status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      status: $enumDecodeNullable(_$StatusEnumMap, json['Status'],
+          unknownValue: Status.notExist),
       success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
@@ -31,6 +32,7 @@ Map<String, dynamic> _$GetAccountQrListResponseToJson(
     };
 
 const _$StatusEnumMap = {
+  Status.notExist: 'notExist',
   Status.newest: 'NEW',
   Status.formShowed: 'FORM_SHOWED',
   Status.deadlineExpired: 'DEADLINE_EXPIRED',

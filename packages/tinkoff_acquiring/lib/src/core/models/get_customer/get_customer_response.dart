@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_response.dart';
+import '../enums/status.dart';
 
 part 'get_customer_response.g.dart';
 
@@ -11,6 +12,7 @@ part 'get_customer_response.g.dart';
 class GetCustomerResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на получению данных покупателя
   GetCustomerResponse({
+    Status? status,
     bool? success,
     String? errorCode,
     String? message,
@@ -20,6 +22,7 @@ class GetCustomerResponse extends AcquiringResponse {
     this.email,
     this.phone,
   }) : super(
+          status: status,
           success: success,
           errorCode: errorCode,
           message: message,

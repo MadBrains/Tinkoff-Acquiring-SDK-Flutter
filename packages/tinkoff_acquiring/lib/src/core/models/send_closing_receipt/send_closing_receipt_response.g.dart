@@ -9,7 +9,8 @@ part of 'send_closing_receipt_response.dart';
 SendClosingReceiptResponse _$SendClosingReceiptResponseFromJson(
         Map<String, dynamic> json) =>
     SendClosingReceiptResponse(
-      status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      status: $enumDecodeNullable(_$StatusEnumMap, json['Status'],
+          unknownValue: Status.notExist),
       success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
@@ -27,6 +28,7 @@ Map<String, dynamic> _$SendClosingReceiptResponseToJson(
     };
 
 const _$StatusEnumMap = {
+  Status.notExist: 'notExist',
   Status.newest: 'NEW',
   Status.formShowed: 'FORM_SHOWED',
   Status.deadlineExpired: 'DEADLINE_EXPIRED',

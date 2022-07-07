@@ -8,8 +8,8 @@ part of 'get_static_qr_request.dart';
 
 GetStaticQrRequest _$GetStaticQrRequestFromJson(Map<String, dynamic> json) =>
     GetStaticQrRequest(
-      dataType: $enumDecodeNullable(_$DataTypeEnumMap, json['DataType']) ??
-          DataType.payload,
+      dataType: $enumDecodeNullable(_$DataTypeEnumMap, json['DataType'],
+          unknownValue: DataType.payload),
       signToken: json['Token'] as String?,
     );
 
@@ -28,6 +28,7 @@ Map<String, dynamic> _$GetStaticQrRequestToJson(GetStaticQrRequest instance) {
 }
 
 const _$DataTypeEnumMap = {
+  DataType.notExist: 'notExist',
   DataType.payload: 'PAYLOAD',
   DataType.image: 'IMAGE',
 };

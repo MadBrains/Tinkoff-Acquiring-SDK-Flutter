@@ -9,8 +9,8 @@ part of 'add_account_qr_request.dart';
 AddAccountQrRequest _$AddAccountQrRequestFromJson(Map<String, dynamic> json) =>
     AddAccountQrRequest(
       description: json['Description'] as String,
-      dataType: $enumDecodeNullable(_$DataTypeEnumMap, json['DataType']) ??
-          DataType.payload,
+      dataType: $enumDecodeNullable(_$DataTypeEnumMap, json['DataType'],
+          unknownValue: DataType.payload),
       data: (json['DATA'] as Map<String, dynamic>?)?.map(
         (k, e) => MapEntry(k, e as String),
       ),
@@ -36,6 +36,7 @@ Map<String, dynamic> _$AddAccountQrRequestToJson(AddAccountQrRequest instance) {
 }
 
 const _$DataTypeEnumMap = {
+  DataType.notExist: 'notExist',
   DataType.payload: 'PAYLOAD',
   DataType.image: 'IMAGE',
 };

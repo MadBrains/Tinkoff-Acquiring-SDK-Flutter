@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_response.dart';
+import '../enums/status.dart';
 
 part 'add_card_response.g.dart';
 
@@ -11,6 +12,7 @@ part 'add_card_response.g.dart';
 class AddCardResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на привязку карты к покупателю
   AddCardResponse({
+    Status? status,
     bool? success,
     String? errorCode,
     String? message,
@@ -20,6 +22,7 @@ class AddCardResponse extends AcquiringResponse {
     this.requestKey,
     this.paymentURL,
   }) : super(
+          status: status,
           success: success,
           errorCode: errorCode,
           message: message,

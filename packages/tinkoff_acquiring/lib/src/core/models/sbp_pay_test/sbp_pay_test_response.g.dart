@@ -8,7 +8,8 @@ part of 'sbp_pay_test_response.dart';
 
 SbpPayTestResponse _$SbpPayTestResponseFromJson(Map<String, dynamic> json) =>
     SbpPayTestResponse(
-      status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      status: $enumDecodeNullable(_$StatusEnumMap, json['Status'],
+          unknownValue: Status.notExist),
       success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
@@ -25,6 +26,7 @@ Map<String, dynamic> _$SbpPayTestResponseToJson(SbpPayTestResponse instance) =>
     };
 
 const _$StatusEnumMap = {
+  Status.notExist: 'notExist',
   Status.newest: 'NEW',
   Status.formShowed: 'FORM_SHOWED',
   Status.deadlineExpired: 'DEADLINE_EXPIRED',

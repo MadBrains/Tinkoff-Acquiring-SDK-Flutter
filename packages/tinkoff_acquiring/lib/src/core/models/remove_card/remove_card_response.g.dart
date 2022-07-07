@@ -17,7 +17,8 @@ RemoveCardResponse _$RemoveCardResponseFromJson(Map<String, dynamic> json) =>
       cardId: json['CardId'] as String?,
       cardStatus: $enumDecodeNullable(_$CardStatusEnumMap, json['Status'],
           unknownValue: CardStatus.notExist),
-      cardType: $enumDecodeNullable(_$CardTypeEnumMap, json['CardType']),
+      cardType: $enumDecodeNullable(_$CardTypeEnumMap, json['CardType'],
+          unknownValue: CardType.notExist),
     );
 
 Map<String, dynamic> _$RemoveCardResponseToJson(RemoveCardResponse instance) =>
@@ -41,6 +42,7 @@ const _$CardStatusEnumMap = {
 };
 
 const _$CardTypeEnumMap = {
+  CardType.notExist: 'notExist',
   CardType.writeOffs: 0,
   CardType.replenishment: 1,
   CardType.writeOffsAndReplenishment: 2,

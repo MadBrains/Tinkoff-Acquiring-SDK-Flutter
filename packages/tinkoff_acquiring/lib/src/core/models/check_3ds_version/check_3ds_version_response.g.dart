@@ -9,7 +9,8 @@ part of 'check_3ds_version_response.dart';
 Check3DSVersionResponse _$Check3DSVersionResponseFromJson(
         Map<String, dynamic> json) =>
     Check3DSVersionResponse(
-      status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      status: $enumDecodeNullable(_$StatusEnumMap, json['Status'],
+          unknownValue: Status.notExist),
       success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
@@ -35,6 +36,7 @@ Map<String, dynamic> _$Check3DSVersionResponseToJson(
     };
 
 const _$StatusEnumMap = {
+  Status.notExist: 'notExist',
   Status.newest: 'NEW',
   Status.formShowed: 'FORM_SHOWED',
   Status.deadlineExpired: 'DEADLINE_EXPIRED',

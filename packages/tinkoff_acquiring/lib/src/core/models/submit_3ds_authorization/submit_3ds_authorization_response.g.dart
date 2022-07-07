@@ -9,7 +9,8 @@ part of 'submit_3ds_authorization_response.dart';
 Submit3DSAuthorizationResponse _$Submit3DSAuthorizationResponseFromJson(
         Map<String, dynamic> json) =>
     Submit3DSAuthorizationResponse(
-      status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      status: $enumDecodeNullable(_$StatusEnumMap, json['Status'],
+          unknownValue: Status.notExist),
       success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
@@ -39,6 +40,7 @@ Map<String, dynamic> _$Submit3DSAuthorizationResponseToJson(
     };
 
 const _$StatusEnumMap = {
+  Status.notExist: 'notExist',
   Status.newest: 'NEW',
   Status.formShowed: 'FORM_SHOWED',
   Status.deadlineExpired: 'DEADLINE_EXPIRED',

@@ -33,6 +33,7 @@ Map<String, dynamic> _$AccountQrTokenToJson(AccountQrToken instance) {
 }
 
 const _$StatusEnumMap = {
+  Status.notExist: 'notExist',
   Status.newest: 'NEW',
   Status.formShowed: 'FORM_SHOWED',
   Status.deadlineExpired: 'DEADLINE_EXPIRED',

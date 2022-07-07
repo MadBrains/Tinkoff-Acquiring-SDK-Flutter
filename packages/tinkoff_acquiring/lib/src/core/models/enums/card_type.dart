@@ -2,6 +2,9 @@ import 'package:json_annotation/json_annotation.dart';
 
 /// Тип карты
 enum CardType {
+  /// не существует
+  notExist,
+
   /// [writeOffs] — списания
   @JsonValue(0)
   writeOffs,

@@ -70,6 +70,6 @@ class RemoveCardResponse extends AcquiringResponse {
   /// - карта списания
   /// - карта пополнения
   /// - карта пополнения и списания
-  @JsonKey(name: JsonKeys.cardType)
+  @JsonKey(name: JsonKeys.cardType, unknownEnumValue: CardType.notExist)
   final CardType? cardType;
 }

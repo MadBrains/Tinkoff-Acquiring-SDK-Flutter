@@ -9,7 +9,8 @@ part of 'get_add_card_state_response.dart';
 GetAddCardStateResponse _$GetAddCardStateResponseFromJson(
         Map<String, dynamic> json) =>
     GetAddCardStateResponse(
-      status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      status: $enumDecodeNullable(_$StatusEnumMap, json['Status'],
+          unknownValue: Status.notExist),
       success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
@@ -37,6 +38,7 @@ Map<String, dynamic> _$GetAddCardStateResponseToJson(
     };
 
 const _$StatusEnumMap = {
+  Status.notExist: 'notExist',
   Status.newest: 'NEW',
   Status.formShowed: 'FORM_SHOWED',
   Status.deadlineExpired: 'DEADLINE_EXPIRED',

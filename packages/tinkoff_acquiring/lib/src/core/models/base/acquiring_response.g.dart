@@ -1,36 +1,28 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'add_card_response.dart';
+part of 'acquiring_response.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-AddCardResponse _$AddCardResponseFromJson(Map<String, dynamic> json) =>
-    AddCardResponse(
+AcquiringResponse _$AcquiringResponseFromJson(Map<String, dynamic> json) =>
+    AcquiringResponse(
+      success: json['Success'] as bool?,
       status: $enumDecodeNullable(_$StatusEnumMap, json['Status'],
           unknownValue: Status.notExist),
-      success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
       details: json['Details'] as String?,
-      terminalKey: json['TerminalKey'] as String?,
-      customerKey: json['CustomerKey'] as String?,
-      requestKey: json['RequestKey'] as String?,
-      paymentURL: json['PaymentURL'] as String?,
     );
 
-Map<String, dynamic> _$AddCardResponseToJson(AddCardResponse instance) =>
+Map<String, dynamic> _$AcquiringResponseToJson(AcquiringResponse instance) =>
     <String, dynamic>{
       'Success': instance.success,
       'Status': _$StatusEnumMap[instance.status],
       'ErrorCode': instance.errorCode,
       'Message': instance.message,
       'Details': instance.details,
-      'TerminalKey': instance.terminalKey,
-      'CustomerKey': instance.customerKey,
-      'RequestKey': instance.requestKey,
-      'PaymentURL': instance.paymentURL,
     };
 
 const _$StatusEnumMap = {

@@ -52,7 +52,7 @@ class CardInfo extends BaseResponse {
   /// * 0 — списания
   /// * 1 — пополнения
   /// * 2 — списания и пополнения
-  @JsonKey(name: JsonKeys.cardType)
+  @JsonKey(name: JsonKeys.cardType, unknownEnumValue: CardType.notExist)
   final CardType? cardType;
 
   /// Статус карты:

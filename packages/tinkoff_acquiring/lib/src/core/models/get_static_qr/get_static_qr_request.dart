@@ -51,6 +51,6 @@ class GetStaticQrRequest extends AcquiringRequest {
   void validate() {}
 
   /// Тип возвращаемых данных
-  @JsonKey(name: JsonKeys.dataType, defaultValue: DataType.payload)
+  @JsonKey(name: JsonKeys.dataType, unknownEnumValue: DataType.payload)
   final DataType? dataType;
 }

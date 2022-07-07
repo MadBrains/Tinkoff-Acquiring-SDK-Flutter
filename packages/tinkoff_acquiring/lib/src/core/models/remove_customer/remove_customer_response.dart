@@ -1,6 +1,7 @@
 import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_response.dart';
+import '../enums/status.dart';
 
 part 'remove_customer_response.g.dart';
 
@@ -11,6 +12,7 @@ part 'remove_customer_response.g.dart';
 class RemoveCustomerResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на удаление данных покупателя
   RemoveCustomerResponse({
+    Status? status,
     bool? success,
     String? errorCode,
     String? message,
@@ -18,6 +20,7 @@ class RemoveCustomerResponse extends AcquiringResponse {
     this.terminalKey,
     this.customerKey,
   }) : super(
+          status: status,
           success: success,
           errorCode: errorCode,
           message: message,
