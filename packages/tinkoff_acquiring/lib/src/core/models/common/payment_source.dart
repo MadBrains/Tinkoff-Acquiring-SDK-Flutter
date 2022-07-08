@@ -82,7 +82,7 @@ abstract class CardSource implements PaymentSource {
 
 /// Данные карты
 ///
-/// [CardData](https://oplata.tinkoff.ru/develop/api/payments/finishAuthorize-request/#CardData)
+/// [CardData](https://www.tinkoff.ru/kassa/develop/api/payments/finishAuthorize-request/#CardData)
 @immutable
 class CardData extends ComparerMap implements CardSource {
   /// Создает экземпляр данных кард

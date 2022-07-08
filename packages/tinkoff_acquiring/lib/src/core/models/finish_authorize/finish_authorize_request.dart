@@ -10,7 +10,7 @@ part 'finish_authorize_request.g.dart';
 ///
 /// Используется, если у площадки есть сертификация `PCI DSS` и собственная платежная форма.
 ///
-/// [FinishAuthorizeRequest](https://oplata.tinkoff.ru/develop/api/payments/finishauthorize-request/)
+/// [FinishAuthorizeRequest](https://www.tinkoff.ru/kassa/develop/api/payments/finishauthorize-request/)
 ///
 /// ---
 ///

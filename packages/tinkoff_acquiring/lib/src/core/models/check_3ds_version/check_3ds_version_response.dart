@@ -7,7 +7,7 @@ part 'check_3ds_version_response.g.dart';
 
 /// Ответ от сервера по проверки 3DS протокола
 ///
-/// [Check3DSVersionResponse](https://oplata.tinkoff.ru/develop/api/payments/check_3ds_version-response/)
+/// [Check3DSVersionResponse](https://www.tinkoff.ru/kassa/develop/api/payments/check_3ds_version-response/)
 @JsonSerializable()
 class Check3DSVersionResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера по проверки 3DS протокола

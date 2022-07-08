@@ -11,7 +11,7 @@ part 'get_static_qr_request.g.dart';
 /// Перерегистрация статического QR происходит только при смене расчетного счета.
 /// Не привязан к конкретному платежу, может быть вызван в любое время без предварительного вызова Init.
 ///
-/// [GetStaticQrRequest](https://oplata.tinkoff.ru/develop/api/payments-sbp/getstaticqr-description/)
+/// [GetStaticQrRequest](https://www.tinkoff.ru/kassa/develop/api/payments-sbp/getstaticqr-description/)
 @JsonSerializable(includeIfNull: false)
 class GetStaticQrRequest extends AcquiringRequest {
   /// Создает экземпляр метода регистрации статического QR

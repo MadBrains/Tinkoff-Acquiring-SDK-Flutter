@@ -7,7 +7,7 @@ part 'agent_data.g.dart';
 
 /// Данные агента
 ///
-/// [AgentData](https://oplata.tinkoff.ru/develop/api/payments/init-request/#AgentData)
+/// [AgentData](https://www.tinkoff.ru/kassa/develop/api/payments/init-request/#AgentData)
 @JsonSerializable(includeIfNull: false)
 class AgentData extends BaseRequest {
   /// Создает экземпляр данных агента

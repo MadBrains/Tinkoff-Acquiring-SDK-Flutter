@@ -8,7 +8,7 @@ part 'receipts.g.dart';
 
 /// Данные для каждого ShopCode
 ///
-/// [Receipts](https://oplata.tinkoff.ru/develop/api/payments/init-request/#Receipts)
+/// [Receipts](https://www.tinkoff.ru/kassa/develop/api/payments/init-request/#Receipts)
 @JsonSerializable(includeIfNull: false)
 class Receipts extends BaseRequest {
   /// Создает экземпляр данных чека

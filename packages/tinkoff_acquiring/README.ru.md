@@ -27,7 +27,7 @@ dependencies:
 
 Для начала работы с SDK вам понадобятся:
 * **Terminal key** - терминал Продавца; 
-* **Password** - пароль от терминала;
+* **Password** - пароль от терминала (опционально);
 * **Public key** – публичный ключ. Используется для шифрования данных. Необходим для интеграции вашего приложения с интернет-эквайрингом Тинькофф.
 
 Данные выдаются в личном кабинете после подключения к [Интернет-Эквайрингу][acquiring].
@@ -35,22 +35,63 @@ dependencies:
 SDK позволяет настроить режим работы (debug/prod), по умолчанию - режим debug.
 Также SDK позволяет настраивать проксирование запросов, по умолчанию все запросы идут на сервера Tinkoff.
 
+### Credential
+
 Чтобы настроить режим работы, установите параметры:
 ```dart
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
-  TinkoffAcquiringConfig(
+  TinkoffAcquiringConfig.credential(
     terminalKey: terminalKey,
-    password: password,
-    debug: false,
+    password: password, // if not passed, it will work in passwordless mode
+    isDebugMode: false,
   ),
 );
 ```
+
+### Token
+
+Если у вас подпись запроса происходит на стороне, то можно использовать следующий конструктор:
+```dart
+final TinkoffAcquiring acquiring = TinkoffAcquiring(
+  TinkoffAcquiringConfig.token(
+    terminalKey: terminalKey,
+    isDebugMode: false,
+  ),
+);
+```
+
+При этом в модели запроса нужно добавить signToken:
+```dart
+InitRequest(
+  signToken: ...,
+  ...
+)
+
+request.copyWith(signToken: ...);
+```
+
+### Proxy
 
 Если вы хотите использовать proxy, то воспользуйтесь следующим конструктором:
 ```dart
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
   TinkoffAcquiringConfig.proxy(
-    proxyUrl: 'https://server.com/'
+    proxyDomain: terminalKey,
+    proxyPath: password,
+    isDebugMode: false,
+    globalHeaders: <String, String>{...},
+    mapping: (AcquiringRequest request, bool isDebugMode) {
+      if (request is InitRequest) {
+        return const ProxyRequest(
+          headers: <String, String>{...},
+          methodPath: '/Init',
+        );
+      }
+
+      ...
+
+      return null;
+    },
   ),
 );
 ```

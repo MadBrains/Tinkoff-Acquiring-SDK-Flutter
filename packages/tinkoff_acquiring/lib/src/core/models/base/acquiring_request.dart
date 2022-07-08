@@ -18,6 +18,9 @@ abstract class AcquiringRequest extends BaseRequest {
   /// Заголовок метода
   Map<String, String> get headers => NetworkSettings.baseHeaders;
 
+  /// Список игнорируемых полей при создании токена запроса
+  Set<String> get ignoredFields => Ignore.ignoredFields;
+
   /// Метод запроса
   String get apiMethod;
 

@@ -6,7 +6,7 @@ part 'check_3ds_version_request.g.dart';
 
 /// Метод проверяет поддерживаемую версию 3DS протокола по карточным данным из входящих параметров
 ///
-/// [Check3DSVersionRequest](https://oplata.tinkoff.ru/develop/api/payments/check_3ds_version-request/)
+/// [Check3DSVersionRequest](https://www.tinkoff.ru/kassa/develop/api/payments/check_3ds_version-request/)
 @JsonSerializable(includeIfNull: false)
 class Check3DSVersionRequest extends AcquiringRequest {
   /// Создает экземпляр метода по проверки 3DS протокола

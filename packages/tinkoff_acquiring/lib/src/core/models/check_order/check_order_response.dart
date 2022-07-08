@@ -8,7 +8,7 @@ part 'check_order_response.g.dart';
 
 /// Ответ от сервера на получение статуса платежа
 ///
-/// [CheckOrderResponse](https://oplata.tinkoff.ru/develop/api/payments/CheckOrder-response/)
+/// [CheckOrderResponse](https://www.tinkoff.ru/kassa/develop/api/payments/CheckOrder-response/)
 @JsonSerializable()
 class CheckOrderResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на получение статуса платежа

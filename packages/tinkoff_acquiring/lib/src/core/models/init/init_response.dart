@@ -7,7 +7,7 @@ part 'init_response.g.dart';
 
 /// Ответ от сервера на создание платежа
 ///
-/// [InitResponse](https://oplata.tinkoff.ru/develop/api/payments/init-response/)
+/// [InitResponse](https://www.tinkoff.ru/kassa/develop/api/payments/init-response/)
 @JsonSerializable()
 class InitResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на создание платежа

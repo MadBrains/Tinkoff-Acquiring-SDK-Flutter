@@ -14,15 +14,18 @@ typedef ProxyMapping = ProxyRequest? Function(
 /// Класс позволяет конфигурировать SDK.
 /// {@endtemplate}
 abstract class TinkoffAcquiringConfig {
-  /// Создает экземпляр класса для конфигурирования SDK, через `password`
+  /// Создает экземпляр класса для конфигурирования SDK, через `terminalKey` и `password`.
+  ///
+  /// Если не передать `password`, то SDK будет работать в режиме passwordless.
+  /// Внимание, не все методы поддерживают passwordless режим.
   factory TinkoffAcquiringConfig.credential({
     required String terminalKey,
-    required String password,
+    String? password,
     bool isDebugMode,
     BaseLogger logger,
   }) = TinkoffAcquiringConfigCredential;
 
-  /// Создает экземпляр класса для конфигурирования SDK, через `signToken`
+  /// Создает экземпляр класса для конфигурирования SDK, через `terminalKey` при работе с `signToken`
   factory TinkoffAcquiringConfig.token({
     required String terminalKey,
     bool isDebugMode,
@@ -39,7 +42,6 @@ abstract class TinkoffAcquiringConfig {
     BaseLogger logger,
   }) = TinkoffAcquiringConfigProxy;
 
-  /// Создает экземпляр класса для конфигурирования SDK
   const TinkoffAcquiringConfig._({
     this.isDebugMode = true,
     this.logger = const Logger(),
@@ -51,6 +53,7 @@ abstract class TinkoffAcquiringConfig {
   /// Позволяет использовать свой логгер или заданный
   final BaseLogger logger;
 
+  /// Uri до Tinkoff Acquiring
   Uri url(String path) => Uri.https(
         isDebugMode
             ? NetworkSettings.domainDebug
@@ -59,12 +62,18 @@ abstract class TinkoffAcquiringConfig {
       );
 }
 
-/// Создает экземпляр класса для конфигурирования SDK, через `terminalKey` и `password`
+/// Создает экземпляр класса для конфигурирования SDK, через `terminalKey` и `password`.
+///
+/// Если не передать `password`, то SDK будет работать в режиме passwordless.
+/// Внимание, не все методы поддерживают passwordless режим.
 class TinkoffAcquiringConfigCredential extends TinkoffAcquiringConfig {
-  /// Создает экземпляр класса для конфигурирования SDK, через `terminalKey` и `password`
+  /// Создает экземпляр класса для конфигурирования SDK, через `terminalKey` и `password`.
+  ///
+  /// Если не передать `password`, то SDK будет работать в режиме passwordless.
+  /// Внимание, не все методы поддерживают passwordless режим.
   const TinkoffAcquiringConfigCredential({
     required this.terminalKey,
-    required this.password,
+    this.password,
     bool isDebugMode = true,
     BaseLogger logger = const Logger(),
   }) : super._(isDebugMode: isDebugMode, logger: logger);
@@ -76,7 +85,7 @@ class TinkoffAcquiringConfigCredential extends TinkoffAcquiringConfig {
   /// Пароль терминала из личного кабинета
   ///
   /// Выдается продавцу банком при заведении терминала
-  final String password;
+  final String? password;
 }
 
 /// Создает экземпляр класса для конфигурирования SDK, через `terminalKey` при работе с `signToken`

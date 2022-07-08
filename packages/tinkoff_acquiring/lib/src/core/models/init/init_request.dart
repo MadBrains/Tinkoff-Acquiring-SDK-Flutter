@@ -12,7 +12,7 @@ part 'init_request.g.dart';
 /// Метод создает платеж: продавец получает ссылку на платежную форму
 /// и должен перенаправить по ней покупателя
 ///
-/// [InitRequest](https://oplata.tinkoff.ru/develop/api/payments/init-request/)
+/// [InitRequest](https://www.tinkoff.ru/kassa/develop/api/payments/init-request/)
 @JsonSerializable(includeIfNull: false)
 class InitRequest extends AcquiringRequest {
   /// Создает экземпляр метода создании платежа

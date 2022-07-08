@@ -2,7 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 /// Статус в ответе на запрос методов
 ///
-/// [Status](https://oplata.tinkoff.ru/develop/api/payments/)
+/// [Status](https://www.tinkoff.ru/kassa/develop/api/payments/)
 enum Status {
   /// не существует
   notExist,

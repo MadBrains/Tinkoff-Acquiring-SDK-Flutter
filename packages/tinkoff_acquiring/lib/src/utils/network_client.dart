@@ -39,7 +39,8 @@ class NetworkClient {
         ...?setting?.headers
       };
 
-      url = config.url(config.proxyPath + (setting?.path ?? request.apiMethod));
+      url = config
+          .url(config.proxyPath + (setting?.methodPath ?? request.apiMethod));
     }
 
     final Map<String, String> headers = <String, String>{
@@ -114,9 +115,9 @@ class NetworkClient {
 
     if (config is TinkoffAcquiringConfigCredential) {
       final String token = SignToken.generate(
-        config.terminalKey,
-        config.password,
-        request,
+        terminalKey: config.terminalKey,
+        password: config.password,
+        request: request,
       );
 
       final Map<String, dynamic> _request = temp
@@ -147,21 +148,22 @@ class NetworkClient {
 class SignToken {
   /// {@macro sign_token}
   @visibleForTesting
-  static String generate(
-    String terminalKey,
-    String password,
-    AcquiringRequest request,
-  ) {
+  static String generate({
+    required String terminalKey,
+    required AcquiringRequest request,
+    String? password,
+  }) {
     final Map<String, dynamic> temp = request.toJson()
       ..addAll(<String, dynamic>{
         JsonKeys.terminalKey: terminalKey,
-        JsonKeys.password: password,
+        if (password != null && password.isNotEmpty)
+          JsonKeys.password: password,
       });
     final List<String> sortedKeys = List<String>.from(temp.keys)..sort();
     final StringBuffer buffer = StringBuffer();
 
     for (int i = 0; i < sortedKeys.length; i++) {
-      if (!Ignore.ignoredFields.contains(sortedKeys[i])) {
+      if (!request.ignoredFields.contains(sortedKeys[i])) {
         buffer.write(temp[sortedKeys[i]]);
       }
     }

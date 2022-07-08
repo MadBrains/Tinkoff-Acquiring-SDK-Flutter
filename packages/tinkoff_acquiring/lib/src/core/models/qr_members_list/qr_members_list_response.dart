@@ -6,7 +6,7 @@ part 'qr_members_list_response.g.dart';
 
 /// Ответ от сервера на получение cписока участников куда может быть осуществлен возврат платежа, совершенного по QR.
 ///
-/// [QrMembersListResponse](https://oplata.tinkoff.ru/develop/api/payments/QrMembersList-response/)
+/// [QrMembersListResponse](https://www.tinkoff.ru/kassa/develop/api/payments/QrMembersList-response/)
 @JsonSerializable()
 class QrMembersListResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на получение cписока участников куда может быть осуществлен возврат платежа, совершенного по QR.

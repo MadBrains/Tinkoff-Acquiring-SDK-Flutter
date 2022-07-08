@@ -7,7 +7,7 @@ part 'get_state_response.g.dart';
 
 /// Ответ от сервера на получение статуса платежа
 ///
-/// [GetStateResponse](https://oplata.tinkoff.ru/develop/api/payments/getstate-response/)
+/// [GetStateResponse](https://www.tinkoff.ru/kassa/develop/api/payments/getstate-response/)
 @JsonSerializable()
 class GetStateResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на получение статуса платежа

@@ -7,7 +7,7 @@ part 'get_static_qr_response.g.dart';
 
 /// Ответ от сервера на регистрацию статического QR
 ///
-/// [GetStaticQrResponse](https://oplata.tinkoff.ru/develop/api/autopayments/getstaticqr-response/)
+/// [GetStaticQrResponse](https://www.tinkoff.ru/kassa/develop/api/autopayments/getstaticqr-response/)
 @JsonSerializable()
 class GetStaticQrResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на регистрацию статического QR

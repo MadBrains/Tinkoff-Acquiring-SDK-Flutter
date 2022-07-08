@@ -27,6 +27,13 @@ final TinkoffAcquiring acquiring = TinkoffAcquiring(
   ),
 );
 
+final TinkoffAcquiring acquiring = TinkoffAcquiring(
+  TinkoffAcquiringConfig.token(
+    terminalKey: terminalKey,
+    isDebugMode: false,
+  ),
+);
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -204,7 +211,7 @@ class _MyHomePageState extends State<MyHomePage> {
         amount: amount,
         language: Language.ru,
         payType: PayType.one,
-      ),
+      ).copyWith(signToken: ...),
     );
 
     if (checkError(init)) return;

@@ -6,7 +6,6 @@ abstract class JsonKeys {
   static const String checkType = 'CheckType';
   static const String description = 'Description';
   static const String currency = 'Currency';
-  static const String payForm = 'PayForm';
   static const String ip = 'IP';
   static const String token = 'Token';
   static const String requestKey = 'RequestKey';
@@ -188,7 +187,8 @@ abstract class Ignore {
   static const Set<String> ignoredFields = <String>{
     JsonKeys.data,
     JsonKeys.receipt,
-    JsonKeys.payForm,
+    JsonKeys.receipts,
+    JsonKeys.shops,
   };
 }
 

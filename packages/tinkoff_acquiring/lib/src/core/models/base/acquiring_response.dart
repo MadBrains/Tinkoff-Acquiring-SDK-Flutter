@@ -45,7 +45,7 @@ class AcquiringResponse extends BaseResponse {
 
   /// Статус в ответе на запрос методов
   ///
-  /// [Status](https://oplata.tinkoff.ru/develop/api/payments/)
+  /// [Status](https://www.tinkoff.ru/kassa/develop/api/payments/)
   @JsonKey(name: JsonKeys.status, unknownEnumValue: Status.notExist)
   final Status? status;
 

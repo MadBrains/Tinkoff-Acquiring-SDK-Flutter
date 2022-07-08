@@ -29,7 +29,7 @@ dependencies:
 
 To get started with the SDK, you'll need:
 * **Terminal key** - seller's terminal key; 
-* **Password** - terminal password;
+* **Password** - terminal password (optional);
 * **Public key** – public key. Used to encrypt data. Required to integrate your application with Tinkoff Internet acquiring.
 
 These values are issued in your personal account after connecting to [Tinkoff Internet Acquiring][acquiring].
@@ -37,22 +37,63 @@ These values are issued in your personal account after connecting to [Tinkoff In
 SDK allows you to configure operating mode (debug / prod), by default - debug.
 The SDK also allows you to configure request proxying, by default all requests go to Tinkoff servers.
 
+### Credential
+
 To configure the operation mode, set the following parameters:
 ```dart
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
-  TinkoffAcquiringConfig(
+  TinkoffAcquiringConfig.credential(
     terminalKey: terminalKey,
-    password: password,
-    debug: false,
+    password: password, // if not passed, it will work in passwordless mode
+    isDebugMode: false,
   ),
 );
 ```
+
+### Token
+
+If your request is signed on the side, then you can use the following constructor:
+```dart
+final TinkoffAcquiring acquiring = TinkoffAcquiring(
+  TinkoffAcquiringConfig.token(
+    terminalKey: terminalKey,
+    isDebugMode: false,
+  ),
+);
+```
+
+In this case, you need to add signToken to the request model:
+```dart
+InitRequest(
+  signToken: ...,
+  ...
+)
+
+request.copyWith(signToken: ...);
+```
+
+### Proxy
 
 If you want to use a proxy, use the following constructor:
 ```dart
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
   TinkoffAcquiringConfig.proxy(
-    proxyUrl: 'https://server.com/'
+    proxyDomain: terminalKey,
+    proxyPath: password,
+    isDebugMode: false,
+    globalHeaders: <String, String>{...},
+    mapping: (AcquiringRequest request, bool isDebugMode) {
+      if (request is InitRequest) {
+        return const ProxyRequest(
+          headers: <String, String>{...},
+          methodPath: '/Init',
+        );
+      }
+
+      ...
+
+      return null;
+    },
   ),
 );
 ```

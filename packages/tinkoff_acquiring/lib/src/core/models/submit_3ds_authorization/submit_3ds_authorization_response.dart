@@ -9,7 +9,7 @@ part 'submit_3ds_authorization_response.g.dart';
 ///
 /// При успешном результате прохождения 3-D Secure подтверждает инициированный платеж.
 ///
-/// [Submit3DSAuthorizationResponse](https://oplata.tinkoff.ru/develop/api/payments/Submit3DSAuthorization-response/)
+/// [Submit3DSAuthorizationResponse](https://www.tinkoff.ru/kassa/develop/api/payments/Submit3DSAuthorization-response/)
 @JsonSerializable()
 class Submit3DSAuthorizationResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на прохождение 3-D Secure

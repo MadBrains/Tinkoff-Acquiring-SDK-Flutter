@@ -10,7 +10,7 @@ part 'finish_authorize_response.g.dart';
 /// Если в ответе метода FinishAuthorize возвращается статус 3DS_CHECKING,
 /// мерчанту необходимо сформировать запрос на URL ACS банка, выпустившего карту (в ответе параметр ACSUrl).
 ///
-/// [FinishAuthorizeResponse](https://oplata.tinkoff.ru/develop/api/payments/finishauthorize-response/)
+/// [FinishAuthorizeResponse](https://www.tinkoff.ru/kassa/develop/api/payments/finishauthorize-response/)
 @JsonSerializable()
 class FinishAuthorizeResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на подтверждение платежа

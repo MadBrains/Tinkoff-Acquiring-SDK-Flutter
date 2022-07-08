@@ -6,7 +6,7 @@ part 'supplier_info.g.dart';
 
 /// Данные поставщика платежного агента
 ///
-/// [AgentData](https://oplata.tinkoff.ru/develop/api/payments/init-request/#SupplierInfo)
+/// [AgentData](https://www.tinkoff.ru/kassa/develop/api/payments/init-request/#SupplierInfo)
 @JsonSerializable(includeIfNull: false)
 class SupplierInfo extends BaseRequest {
   /// Создает экземпляр данных поставщика платежного агента
