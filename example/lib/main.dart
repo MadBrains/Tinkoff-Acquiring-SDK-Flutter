@@ -23,7 +23,7 @@ final TinkoffAcquiring acquiring = TinkoffAcquiring(
   TinkoffAcquiringConfig.credential(
     terminalKey: terminalKey,
     password: password,
-    isDebugMode: false,
+    isDebugMode: true,
   ),
 );
 
@@ -44,9 +44,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  bool threeDs = false;
-  bool threeDsV2 = false;
-  Completer<String> status = Completer<String>();
+  ValueNotifier<bool> threeDs = ValueNotifier<bool>(false);
+  ValueNotifier<bool> threeDsV2 = ValueNotifier<bool>(false);
+  ValueNotifier<String?> status = ValueNotifier<String?>('');
+  ValueNotifier<String?> cardType = ValueNotifier<String?>('');
 
   @override
   Widget build(BuildContext context) {
@@ -59,13 +60,18 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Text('3DS'),
-                Switch(
-                  value: threeDs,
-                  onChanged: (bool v) {
-                    setState(() {
-                      threeDs = v;
-                    });
-                  },
+                ValueListenableBuilder<bool>(
+                  valueListenable: threeDs,
+                  builder: (BuildContext context, bool value, _) => Switch(
+                    value: value,
+                    onChanged: (bool v) {
+                      if (v) {
+                        threeDsV2.value = false;
+                      }
+
+                      threeDs.value = v;
+                    },
+                  ),
                 ),
               ],
             ),
@@ -73,15 +79,18 @@ class _MyHomePageState extends State<MyHomePage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 const Text('3DS V2'),
-                Switch(
-                  value: threeDsV2,
-                  onChanged: threeDs
-                      ? (bool v) {
-                          setState(() {
-                            threeDsV2 = v;
-                          });
-                        }
-                      : null,
+                ValueListenableBuilder<bool>(
+                  valueListenable: threeDsV2,
+                  builder: (BuildContext context, bool value, _) => Switch(
+                    value: value,
+                    onChanged: (bool v) {
+                      if (v) {
+                        threeDs.value = false;
+                      }
+
+                      threeDsV2.value = v;
+                    },
+                  ),
                 ),
               ],
             ),
@@ -111,16 +120,16 @@ class _MyHomePageState extends State<MyHomePage> {
               child: const Text('charge'),
             ),
             const Padding(padding: EdgeInsets.only(bottom: 20)),
-            FutureBuilder<String>(
-              future: status.future,
-              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-                if (!snapshot.hasError &&
-                    snapshot.hasData &&
-                    snapshot.connectionState == ConnectionState.done) {
-                  return Text(snapshot.data ?? 'null');
-                } else {
-                  return const CircularProgressIndicator();
-                }
+            ValueListenableBuilder<String?>(
+              valueListenable: cardType,
+              builder: (BuildContext context, String? value, _) {
+                return Text('Card type: $value');
+              },
+            ),
+            ValueListenableBuilder<String?>(
+              valueListenable: status,
+              builder: (BuildContext context, String? value, _) {
+                return Text('Status: \n$value');
               },
             ),
           ],
@@ -130,14 +139,18 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void reset() {
-    setState(() {
-      status = Completer<String>();
-    });
+    status.value = '';
+    cardType.value = '';
   }
 
   bool checkError(AcquiringResponse response) {
     if (response.success == false && response.errorCode != null) {
-      status.complete(response.details);
+      status.value = '''
+errorCode: ${response.errorCode}
+status: ${response.status}
+message: ${response.message}
+details: ${response.details}
+''';
       return true;
     }
 
@@ -145,47 +158,54 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Future<void> cancle() async {
-    await acquiring
+    final CancelResponse res = await acquiring
         .cancel(CancelRequest(paymentId: 1191852757, amount: 1500000));
+
+    if (checkError(res)) return;
   }
 
   Future<void> state() async {
-    await acquiring.getState(GetStateRequest(paymentId: 995090973));
+    final GetStateResponse res =
+        await acquiring.getState(GetStateRequest(paymentId: 995090973));
+
+    if (checkError(res)) return;
   }
 
   Future<void> charge() async {
-    await acquiring
+    final ChargeResponse res = await acquiring
         .charge(ChargeRequest(paymentId: 995090973, rebillId: 1642583003390));
+
+    if (checkError(res)) return;
   }
 
   Future<void> _pay() async {
-    if (status.isCompleted) reset();
+    reset();
 
     String cardData = '';
 
-    if (threeDs) {
-      if (threeDsV2) {
-        // a. Issuer not enrolled 2201382000000062/1224/any
-        // b. Card not enrolled, Attempt 2201382000000039/1224/any
-        // c. Card enrolled, frictionless 2201382000000013/1224/any
-        // d. Restricted, 2201382000000005/1220/any
-        // e. Challenge(пароль на ACS 1qwezxc), 2201382000000047/1224/any
-        cardData = CardData(
-          pan: '2201382000000047',
-          expDate: '1224',
-          cvv: '123',
-          cardHolder: 'T. TESTING',
-        ).encode(publicKey);
-      } else {
-        // 3ds v1
-        cardData = CardData(
-          pan: '5411420000000002',
-          expDate: '1122',
-          cvv: '111',
-          cardHolder: 'T. TESTING',
-        ).encode(publicKey);
-      }
+    if (threeDs.value) {
+      cardType.value = '3ds v1';
+      cardData = CardData(
+        pan: '5411420000000002',
+        expDate: '1122',
+        cvv: '111',
+        cardHolder: 'T. TESTING',
+      ).encode(publicKey);
+    } else if (threeDsV2.value) {
+      cardType.value = '3ds v2';
+      // a. Issuer not enrolled 2201382000000062/1224/any
+      // b. Card not enrolled, Attempt 2201382000000039/1224/any
+      // c. Card enrolled, frictionless 2201382000000013/1224/any
+      // d. Restricted, 2201382000000005/1220/any
+      // e. Challenge(пароль на ACS 1qwezxc), 2201382000000047/1224/any
+      cardData = CardData(
+        pan: '2201382000000047',
+        expDate: '1224',
+        cvv: '123',
+        cardHolder: 'T. TESTING',
+      ).encode(publicKey);
     } else {
+      cardType.value = 'non 3ds';
       cardData = CardData(
         pan: '4000000000000119',
         expDate: '1122',
@@ -276,16 +296,16 @@ class _MyHomePageState extends State<MyHomePage> {
       webView.complete(null);
     }
 
-    status.complete(
-      webView.future.then((_) async {
-        final GetStateResponse getState = await acquiring.getState(
-          GetStateRequest(
-            paymentId: int.parse(init.paymentId!),
-          ),
-        );
+    status.value = await webView.future.then<String>((_) async {
+      final GetStateResponse getState = await acquiring.getState(
+        GetStateRequest(
+          paymentId: int.parse(init.paymentId!),
+        ),
+      );
 
-        return getState.status.toString();
-      }),
-    );
+      if (checkError(getState)) return '';
+
+      return getState.status.toString();
+    });
   }
 }
