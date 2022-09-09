@@ -1,0 +1,3 @@
+dependency_overrides:
+  tinkoff_acquiring:
+    path: ../tinkoff_acquiring
