@@ -77,5 +77,3 @@ export 'sbp_pay_test/sbp_pay_test_response.dart';
 export 'send_closing_receipt/send_closing_receipt_request.dart';
 export 'send_closing_receipt/send_closing_receipt_response.dart';
 export 'submit_3ds_authorization/submit_3ds_authorization_response.dart';
-export 'submit_random_amount/submit_random_amount_request.dart';
-export 'submit_random_amount/submit_random_amount_response.dart';

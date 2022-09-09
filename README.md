@@ -6,6 +6,8 @@ Acquiring SDK allows you to integrate [Tinkoff Internet Acquiring][acquiring] in
 
 [Available API Documentation][documentation].
 
+EACQ protocol version with PCI DSS: 1.42 (30.08.2022)
+
 ## SDK Features
 
 - Making payments (including recurring payments);
