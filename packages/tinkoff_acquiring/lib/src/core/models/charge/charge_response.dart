@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_response.dart';
 import '../enums/status.dart';
 
@@ -8,7 +7,7 @@ part 'charge_response.g.dart';
 
 /// Ответ от сервера на автоплатеж
 ///
-/// [ChargeResponse](https://oplata.tinkoff.ru/develop/api/autopayments/charge-response/)
+/// [ChargeResponse](https://www.tinkoff.ru/kassa/develop/api/autopayments/charge-response/)
 @JsonSerializable()
 class ChargeResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на автоплатеж

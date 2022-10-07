@@ -91,10 +91,10 @@ class _WebViewCollect extends StatelessWidget {
   final void Function(Map<String, String>) onFinished;
 
   String get termUrl =>
-      Uri.encodeFull(config.apiUrl + WebViewMethods.submit3DSAuthorizationV2);
+      config.url(WebViewMethods.submit3DSAuthorizationV2).toString();
 
   String get notificationsUrl =>
-      Uri.encodeFull(config.apiUrl + WebViewMethods.complete3DSMethodv2);
+      config.url(WebViewMethods.complete3DSMethodv2).toString();
 
   String get createCollectData {
     final Map<String, String> params = <String, String>{
@@ -103,8 +103,8 @@ class _WebViewCollect extends StatelessWidget {
     };
 
     return base64WithoutPadding(
-            Uint8List.fromList(jsonEncode(params).codeUnits))
-        .trim();
+      Uint8List.fromList(jsonEncode(params).codeUnits),
+    ).trim();
   }
 
   String get collect => '''
@@ -128,11 +128,13 @@ class _WebViewCollect extends StatelessWidget {
       gestureNavigationEnabled: true,
       javascriptMode: JavascriptMode.unrestricted,
       onWebViewCreated: (WebViewController webViewController) {
-        webViewController.loadUrl(Uri.dataFromString(
-          collect,
-          mimeType: 'text/html',
-          encoding: Encoding.getByName('utf-8'),
-        ).toString());
+        webViewController.loadUrl(
+          Uri.dataFromString(
+            collect,
+            mimeType: 'text/html',
+            encoding: Encoding.getByName('utf-8'),
+          ).toString(),
+        );
       },
       onPageFinished: (String url) async {
         if (url == notificationsUrl) {

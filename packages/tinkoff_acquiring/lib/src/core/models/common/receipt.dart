@@ -1,25 +1,57 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/base_request.dart';
 import '../enums/taxation.dart';
+import 'client_info.dart';
 import 'items.dart';
+import 'payments.dart';
 
 part 'receipt.g.dart';
 
 /// Данные чека
 ///
-/// [Receipt](https://oplata.tinkoff.ru/develop/api/payments/init-request/#Receipt)
+/// Поля для ФФД 1.2: [customer], [customerInn], [clientInfo]
+/// [Receipt](https://www.tinkoff.ru/kassa/develop/api/receipt/)
 @JsonSerializable(includeIfNull: false)
 class Receipt extends BaseRequest {
   /// Создает экземпляр данных чека
+  ///
+  /// Поля для ФФД 1.2: [customer], [customerInn], [clientInfo]
   Receipt({
+    required this.taxation,
+    required this.items,
+    required this.ffdVersion,
+    this.email,
+    this.phone,
+    this.payments,
+    this.customer,
+    this.customerInn,
+    this.clientInfo,
+  });
+
+  /// Создает экземпляр данных чека ФФД 1.05
+  Receipt.ffd105({
     required this.taxation,
     required this.items,
     this.email,
     this.phone,
-    this.emailCompany,
-  });
+    this.payments,
+  })  : ffdVersion = '1.05',
+        customer = null,
+        customerInn = null,
+        clientInfo = null;
+
+  /// Создает экземпляр данных чека ФФД 1.2
+  Receipt.ffd12({
+    required this.taxation,
+    required this.items,
+    this.email,
+    this.phone,
+    this.payments,
+    this.customer,
+    this.customerInn,
+    this.clientInfo,
+  }) : ffdVersion = '1.2';
 
   /// Преобразование json в модель
   factory Receipt.fromJson(Map<String, dynamic> json) =>
@@ -29,9 +61,13 @@ class Receipt extends BaseRequest {
   Map<String, Object?> get equals => <String, Object?>{
         JsonKeys.taxation: taxation,
         JsonKeys.items: items,
+        JsonKeys.ffdVersion: ffdVersion,
         JsonKeys.email: email,
         JsonKeys.phone: phone,
-        JsonKeys.emailCompany: emailCompany,
+        JsonKeys.payments: payments,
+        JsonKeys.customer: customer,
+        JsonKeys.customerInn: customerInn,
+        JsonKeys.clientInfo: clientInfo,
       };
 
   @override
@@ -41,16 +77,24 @@ class Receipt extends BaseRequest {
   Receipt copyWith({
     String? email,
     String? phone,
-    String? emailCompany,
     Taxation? taxation,
     List<Items>? items,
+    Payments? payments,
+    String? ffdVersion,
+    String? customer,
+    String? customerInn,
+    ClientInfo? clientInfo,
   }) {
     return Receipt(
       email: email ?? this.email,
       phone: phone ?? this.phone,
-      emailCompany: emailCompany ?? this.emailCompany,
       taxation: taxation ?? this.taxation,
       items: items ?? this.items,
+      payments: payments ?? this.payments,
+      ffdVersion: ffdVersion ?? this.ffdVersion,
+      customer: customer ?? this.customer,
+      customerInn: customerInn ?? this.customerInn,
+      clientInfo: clientInfo ?? this.clientInfo,
     );
   }
 
@@ -60,30 +104,12 @@ class Receipt extends BaseRequest {
       items[i].validate();
     }
 
-    final String? _email = email;
-    final String? _phone = phone;
-    if (_email != null || _phone != null) {
-      assert((_email != null) ^ (_phone != null));
+    payments?.validate();
+    clientInfo?.validate();
 
-      if (_email != null) {
-        final bool match =
-            RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-                .hasMatch(_email);
-        assert(_email.length <= 100 && match);
-      }
-      if (_phone != null) {
-        final bool match = RegExp(r'^\+[0-9](?:[\d]*)$').hasMatch(_phone);
-        assert(_phone.length <= 19 && match);
-      }
-    }
-
-    final String? _emailCompany = emailCompany;
-    if (_emailCompany != null) {
-      final bool match =
-          RegExp(r'^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$')
-              .hasMatch(_emailCompany);
-      assert(_emailCompany.length <= 100 && match);
-    }
+    assert(email != null || phone != null);
+    email.validateEmail(JsonKeys.email);
+    phone.validateEmail(JsonKeys.phone);
   }
 
   /// Электронная почта покупателя
@@ -100,12 +126,6 @@ class Receipt extends BaseRequest {
   @JsonKey(name: JsonKeys.phone)
   final String? phone;
 
-  /// Электронная почта продавца
-  ///
-  /// Пример: `a@test.ru`
-  @JsonKey(name: JsonKeys.emailCompany)
-  final String? emailCompany;
-
   /// Система налогообложения:
   /// 1. osn — общая
   /// 2. usn_income — упрощенная (доходы)
@@ -121,4 +141,32 @@ class Receipt extends BaseRequest {
   /// См. Структура объекта [Items]
   @JsonKey(name: JsonKeys.items)
   final List<Items> items;
+
+  /// Объект с информацией о видах оплаты заказа.
+  ///
+  /// Если объект не передан, будет автоматически указана итоговая сумма чека с видом оплаты "Безналичный"
+  ///
+  /// Обязателен для товаров с маркировкой!
+  @JsonKey(name: JsonKeys.payments)
+  final Payments? payments;
+
+  /// Версия ФФД. Возможные значения:
+  /// - 1.2
+  /// - 1.05
+  @JsonKey(name: JsonKeys.ffdVersion)
+  final String ffdVersion;
+
+  /// Идентификатор/Имя покупателя, только для ФФД 1.2
+  @JsonKey(name: JsonKeys.customer)
+  final String? customer;
+
+  /// ИНН покупателя, только для ФФД 1.2
+  @JsonKey(name: JsonKeys.customerInn)
+  final String? customerInn;
+
+  /// Информация по покупателю, только для ФФД 1.2
+  ///
+  /// Обязательный для товаров с маркировкой
+  @JsonKey(name: JsonKeys.clientInfo)
+  final ClientInfo? clientInfo;
 }

@@ -1,13 +1,17 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_request.dart';
 
 part 'add_customer_request.g.dart';
 
 /// Метод регистрирует покупателя и его данные в системе продавца.
 ///
-/// [AddCustomerRequest](https://oplata.tinkoff.ru/develop/api/autopayments/addcustomer-request/)
+/// Возможна автоматическая привязка покупателя и карты, по которой был совершен платеж,
+/// при передаче параметра CustomerKey в методе Init.
+/// Это можно использовать для сохранения и последующего отображения Покупателю замаскированного номера карты,
+/// по которой будет совершен рекуррентный платеж.
+///
+/// [AddCustomerRequest](https://www.tinkoff.ru/kassa/develop/api/autopayments/addcustomer-request/)
 @JsonSerializable(includeIfNull: false)
 class AddCustomerRequest extends AcquiringRequest {
   /// Создает экземпляр метода регистрации покупателя
@@ -17,9 +21,7 @@ class AddCustomerRequest extends AcquiringRequest {
     this.phone,
     this.ip,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory AddCustomerRequest.fromJson(Map<String, dynamic> json) =>

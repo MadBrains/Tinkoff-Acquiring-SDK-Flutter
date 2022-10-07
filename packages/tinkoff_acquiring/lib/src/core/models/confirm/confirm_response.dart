@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_response.dart';
 import '../enums/status.dart';
 
@@ -8,7 +7,7 @@ part 'confirm_response.g.dart';
 
 /// Ответ от сервера на подтверждения платежа
 ///
-/// [ConfirmResponse](https://oplata.tinkoff.ru/develop/api/payments/confirm-response/)
+/// [ConfirmResponse](https://www.tinkoff.ru/kassa/develop/api/payments/confirm-response/)
 @JsonSerializable()
 class ConfirmResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на подтверждения платежа

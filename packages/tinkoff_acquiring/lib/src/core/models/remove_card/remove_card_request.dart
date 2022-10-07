@@ -1,14 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
-import '../../../utils/extensions.dart';
 import '../base/acquiring_request.dart';
 
 part 'remove_card_request.g.dart';
 
 /// Метод удаляет привязанную карту у покупателя
 ///
-/// [RemoveCardRequest](http://static2.tinkoff.ru/acquiring/manuals/android_sdk.pdf)
+/// [RemoveCardRequest](https://www.tinkoff.ru/kassa/develop/api/autopayments/removecard-request/)
 @JsonSerializable(includeIfNull: false)
 class RemoveCardRequest extends AcquiringRequest {
   /// Создает экземпляр метода по удалению привязанной карты у покупателя
@@ -17,9 +15,7 @@ class RemoveCardRequest extends AcquiringRequest {
     required this.customerKey,
     this.ip,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory RemoveCardRequest.fromJson(Map<String, dynamic> json) =>

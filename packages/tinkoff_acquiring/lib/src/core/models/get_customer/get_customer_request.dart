@@ -1,13 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_request.dart';
 
 part 'get_customer_request.g.dart';
 
 /// Метод по получению данных покупателя из системы продавца.
 ///
-/// [GetCustomerRequest](https://oplata.tinkoff.ru/develop/api/autopayments/getcustomer-request/)
+/// [GetCustomerRequest](https://www.tinkoff.ru/kassa/develop/api/autopayments/getcustomer-request/)
 @JsonSerializable(includeIfNull: false)
 class GetCustomerRequest extends AcquiringRequest {
   /// Создает экземпляр метода по получению данных покупателя
@@ -15,9 +14,7 @@ class GetCustomerRequest extends AcquiringRequest {
     required this.customerKey,
     this.ip,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory GetCustomerRequest.fromJson(Map<String, dynamic> json) =>

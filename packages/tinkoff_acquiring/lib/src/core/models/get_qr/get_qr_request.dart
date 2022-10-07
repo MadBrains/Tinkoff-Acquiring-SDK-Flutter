@@ -1,7 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
-import '../../../utils/extensions.dart';
 import '../base/acquiring_request.dart';
 import '../enums/data_type.dart';
 
@@ -9,7 +7,7 @@ part 'get_qr_request.g.dart';
 
 /// Метод регистрирует QR и возвращает информацию о нем. Должен быть вызван после метода `Init`
 ///
-/// [GetQrRequest](https://oplata.tinkoff.ru/develop/api/autopayments/getqr-request/)
+/// [GetQrRequest](https://www.tinkoff.ru/kassa/develop/api/payments-sbp/getqr-description/)
 @JsonSerializable(includeIfNull: false)
 class GetQrRequest extends AcquiringRequest {
   /// Создает экземпляр метода регистрации QR
@@ -17,9 +15,7 @@ class GetQrRequest extends AcquiringRequest {
     required this.paymentId,
     this.dataType,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory GetQrRequest.fromJson(Map<String, dynamic> json) =>
@@ -61,6 +57,6 @@ class GetQrRequest extends AcquiringRequest {
   final int paymentId;
 
   /// Тип возвращаемых данных
-  @JsonKey(name: JsonKeys.dataType, defaultValue: DataType.payload)
+  @JsonKey(name: JsonKeys.dataType, unknownEnumValue: DataType.payload)
   final DataType? dataType;
 }

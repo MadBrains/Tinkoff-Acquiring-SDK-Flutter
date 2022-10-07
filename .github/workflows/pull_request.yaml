@@ -5,54 +5,20 @@ on:
     branches:
       - main
 
-jobs:
-  analyze:
-    timeout-minutes: 15
-    runs-on: ubuntu-latest
-    steps:
-      - name: 'Git Checkout'
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: 'Install Flutter'
-        uses: subosito/flutter-action@v1
-      - name: 'Install Tools'
-        run: |
-          flutter pub global activate melos
-          flutter pub global activate pana
-      - name: 'Clean Workspace'
-        run: melos clean
-      - name: 'Bootstrap Workspace'
-        run: melos bootstrap
-      - name: 'Dart Analyze'
-        run: |
-          melos run analyze
-      - name: 'Pub Check'
-        run: |
-          melos run lint:pub
-      - name: 'Pana Check'
-        run: |
-          melos run lint:pana
-          
+jobs:   
   format:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
       - name: 'Git Checkout'
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v3
       - name: 'Install Flutter'
-        uses: subosito/flutter-action@v1
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
       - name: 'Install Tools'
-        run: |
-          flutter pub global activate melos
-      - name: 'Clean Workspace'
-        run: melos clean
-      - name: 'Bootstrap Workspace'
-        run: melos bootstrap
+        run: flutter pub global activate fvm; make init;
       - name: 'Format Code'
-        run: melos run format
+        run: make fix
       - name: 'Validate Formatting'
-        run: |
-          ./.github/workflows/scripts/validate-formatting.sh
+        run: ./tool/validate-formatting.sh

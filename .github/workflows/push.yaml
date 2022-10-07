@@ -1,0 +1,17 @@
+name: push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: jacopocarlini/action-autotag@master
+      with:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+        package_root: "/packages/tinkoff_acquiring"
+        tag_prefix: "v"

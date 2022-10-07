@@ -1,13 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/base_request.dart';
 
 part 'supplier_info.g.dart';
 
 /// Данные поставщика платежного агента
 ///
-/// [AgentData](https://oplata.tinkoff.ru/develop/api/payments/init-request/#SupplierInfo)
+/// [AgentData](https://www.tinkoff.ru/kassa/develop/api/payments/init-request/#SupplierInfo)
 @JsonSerializable(includeIfNull: false)
 class SupplierInfo extends BaseRequest {
   /// Создает экземпляр данных поставщика платежного агента
@@ -46,10 +45,12 @@ class SupplierInfo extends BaseRequest {
 
   @override
   void validate() {
-    assert(phones.isNotEmpty && phones.length <= 19);
-    assert(name.length <= 239);
-    assert(inn.length >= 10);
-    assert(inn.length <= 12);
+    assert(phones.isNotEmpty);
+    for (int i = 0; i < phones.length; i++) {
+      phones[i].validatePhone(JsonKeys.phones);
+    }
+
+    inn.validateInn(JsonKeys.inn, checkNull: true);
   }
 
   /// Телефон поставщика

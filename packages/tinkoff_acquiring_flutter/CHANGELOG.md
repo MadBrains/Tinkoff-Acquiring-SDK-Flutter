@@ -1,3 +1,11 @@
+# 3.0.6
+
+* Update dependencies
+* Fixed & add new request and response models (Sync with documentation)
+* Reworked TinkoffAcquiringConfig
+* New PaymentSource
+* Payment through the Fast Payment System (SBP) by QR
+
 # 3.0.5
 
 * Update dependencies

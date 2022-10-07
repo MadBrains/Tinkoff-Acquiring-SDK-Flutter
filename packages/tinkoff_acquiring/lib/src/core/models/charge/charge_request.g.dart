@@ -10,9 +10,9 @@ ChargeRequest _$ChargeRequestFromJson(Map<String, dynamic> json) =>
     ChargeRequest(
       paymentId: json['PaymentId'] as int,
       rebillId: json['RebillId'] as int,
+      ip: json['IP'] as String?,
       sendEmail: json['SendEmail'] as bool?,
       infoEmail: json['InfoEmail'] as String?,
-      ip: json['IP'] as String?,
       signToken: json['Token'] as String?,
     );
 

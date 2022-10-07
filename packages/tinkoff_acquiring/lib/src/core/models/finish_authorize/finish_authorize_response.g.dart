@@ -9,23 +9,29 @@ part of 'finish_authorize_response.dart';
 FinishAuthorizeResponse _$FinishAuthorizeResponseFromJson(
         Map<String, dynamic> json) =>
     FinishAuthorizeResponse(
-      status: _$enumDecodeNullable(_$StatusEnumMap, json['Status']),
+      status: $enumDecodeNullable(_$StatusEnumMap, json['Status'],
+          unknownValue: Status.notExist),
       success: json['Success'] as bool?,
       errorCode: json['ErrorCode'] as String?,
       message: json['Message'] as String?,
       details: json['Details'] as String?,
       terminalKey: json['TerminalKey'] as String?,
-      amount: json['Amount'] as int?,
       orderId: json['OrderId'] as String?,
+      amount: json['Amount'] as int?,
       paymentId: json['PaymentId'] as String?,
+      rebillId: json['RebillId'] as String?,
       cardId: json['CardId'] as String?,
-      acsUrl: json['ACSUrl'] as String?,
-      acsTransId: json['AcsTransId'] as String?,
       md: json['MD'] as String?,
       paReq: json['PaReq'] as String?,
-      rebillId: json['RebillId'] as String?,
       fallbackOnTdsV1: json['FallbackOnTdsV1'] as bool?,
-      serverTransId: json['TdsServerTransId'] as String?,
+      tdsServerTransId: json['TdsServerTransId'] as String?,
+      acsUrl: json['ACSUrl'] as String?,
+      acsTransId: json['AcsTransId'] as String?,
+      acsInterface: json['AcsInterface'] as String?,
+      acsUiTemplate: json['AcsUiTemplate'] as String?,
+      acsSignedContent: json['AcsSignedContent'] as String?,
+      acsReferenceNumber: json['AcsReferenceNumber'] as String?,
+      sdkTransID: json['SdkTransID'] as String?,
     );
 
 Map<String, dynamic> _$FinishAuthorizeResponseToJson(
@@ -41,70 +47,48 @@ Map<String, dynamic> _$FinishAuthorizeResponseToJson(
       'Amount': instance.amount,
       'PaymentId': instance.paymentId,
       'CardId': instance.cardId,
-      'ACSUrl': instance.acsUrl,
-      'AcsTransId': instance.acsTransId,
       'MD': instance.md,
       'PaReq': instance.paReq,
       'RebillId': instance.rebillId,
       'FallbackOnTdsV1': instance.fallbackOnTdsV1,
-      'TdsServerTransId': instance.serverTransId,
+      'TdsServerTransId': instance.tdsServerTransId,
+      'ACSUrl': instance.acsUrl,
+      'AcsTransId': instance.acsTransId,
+      'AcsInterface': instance.acsInterface,
+      'AcsUiTemplate': instance.acsUiTemplate,
+      'AcsSignedContent': instance.acsSignedContent,
+      'AcsReferenceNumber': instance.acsReferenceNumber,
+      'SdkTransID': instance.sdkTransID,
     };
 
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
-}
-
-K? _$enumDecodeNullable<K, V>(
-  Map<K, V> enumValues,
-  dynamic source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    return null;
-  }
-  return _$enumDecode<K, V>(enumValues, source, unknownValue: unknownValue);
-}
-
 const _$StatusEnumMap = {
+  Status.notExist: 'notExist',
   Status.newest: 'NEW',
   Status.formShowed: 'FORM_SHOWED',
   Status.deadlineExpired: 'DEADLINE_EXPIRED',
   Status.canceled: 'CANCELED',
   Status.preAuthorizing: 'PREAUTHORIZING',
   Status.authorizing: 'AUTHORIZING',
-  Status.authorized: 'AUTHORIZED',
   Status.authFail: 'AUTH_FAIL',
   Status.rejected: 'REJECTED',
   Status.threeDsChecking: '3DS_CHECKING',
   Status.threeDsChecked: '3DS_CHECKED',
+  Status.payChecked: 'PAY_CHECKING',
+  Status.authorized: 'AUTHORIZED',
   Status.reversing: 'REVERSING',
   Status.partialReversed: 'PARTIAL_REVERSED',
   Status.reversed: 'REVERSED',
   Status.confirming: 'CONFIRMING',
+  Status.confirmChecking: 'CONFIRM_CHECKING',
   Status.confirmed: 'CONFIRMED',
   Status.refunding: 'REFUNDING',
+  Status.asyncRefunding: 'ASYNC_REFUNDING',
   Status.partialRefunded: 'PARTIAL_REFUNDED',
   Status.refunded: 'REFUNDED',
+  Status.unknown: 'UNKNOWN',
+  Status.loopChecking: 'LOOP_CHECKING',
+  Status.completed: 'COMPLETED',
+  Status.proccesing: 'PROCCESING',
+  Status.active: 'ACTIVE',
+  Status.inacitve: 'INACITVE',
 };
