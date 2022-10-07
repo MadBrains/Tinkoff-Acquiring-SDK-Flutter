@@ -16,7 +16,7 @@ const String password = '12345678';
 const String publicKey =
     'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA5Yg3RyEkszggDVMDHCAGzJm0mYpYT53BpasrsKdby8iaWJVACj8ueR0Wj3Tu2BY64HdIoZFvG0v7UqSFztE/zUvnznbXVYguaUcnRdwao9gLUQO2I/097SHF9r++BYI0t6EtbbcWbfi755A1EWfu9tdZYXTrwkqgU9ok2UIZCPZ4evVDEzDCKH6ArphVc4+iKFrzdwbFBmPmwi5Xd6CB9Na2kRoPYBHePGzGgYmtKgKMNs+6rdv5v9VB3k7CS/lSIH4p74/OPRjyryo6Q7NbL+evz0+s60Qz5gbBRGfqCA57lUiB3hfXQZq5/q1YkABOHf9cR6Ov5nTRSOnjORgPjwIDAQAB';
 
-const String customerKey = 'user-key';
+const String customerKey = 'madbrains-user-key';
 const int amount = 1400;
 
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
@@ -183,34 +183,42 @@ details: ${response.details}
 
     String cardData = '';
 
+    // Список тестовых карт
+    // Вы можете использовать любой срок действия для тестовой карт
+    //
+    // 3ds 1 & 2
+    // 1. Ошибка оплаты, Ошибка при списании: 2201382000000021 / 1225 / 123
+    // 2. Ошибка оплаты, Недостаточно средств: 2201382000000831 / 1225 / 123
+    // 3. Успешная оплата, 3ds2 Frictionless Flow: 2201382000000013 / 1225 / 123
+    // 4. Успешная оплата, 3ds2 Challenge Flow: 2201382000000047 / 1225 / 123 / 1qwezxc
+    // 5. Ошибка оплаты, 3ds2 Restricted: 2201382000000005 / 1225 / 123
+    // 6. Ошибка оплаты, Frictionless Flow: 2201382000000021 / 1225 / 123
+    //
+    // No 3ds
+    // 1. Успешная оплата, Card not Enrolled (Attempt): 2201382000000039 / 1225 / 123
+    // 2. Успешная оплата: 2200770239097761 / 1225 / 123
+    // 3. Ошибка оплаты, Недостаточно средств: 4249170392197566 / 1225 / 123
+    // 4. Ошибка оплаты, Ошибка при списании: 5586200071492075 / 1225 / 123
     if (threeDs.value) {
       cardType.value = '3ds v1';
       cardData = CardData(
-        pan: '5411420000000002',
-        expDate: '1122',
-        cvv: '111',
-        cardHolder: 'T. TESTING',
+        pan: '2201382000000013',
+        expDate: '1225',
+        cvv: '123',
       ).encode(publicKey);
     } else if (threeDsV2.value) {
       cardType.value = '3ds v2';
-      // a. Issuer not enrolled 2201382000000062/1224/any
-      // b. Card not enrolled, Attempt 2201382000000039/1224/any
-      // c. Card enrolled, frictionless 2201382000000013/1224/any
-      // d. Restricted, 2201382000000005/1220/any
-      // e. Challenge(пароль на ACS 1qwezxc), 2201382000000047/1224/any
       cardData = CardData(
         pan: '2201382000000047',
         expDate: '1224',
         cvv: '123',
-        cardHolder: 'T. TESTING',
       ).encode(publicKey);
     } else {
       cardType.value = 'non 3ds';
       cardData = CardData(
-        pan: '4000000000000119',
-        expDate: '1122',
-        cvv: '111',
-        cardHolder: 'T. TESTING',
+        pan: '2200770239097761',
+        expDate: '1225',
+        cvv: '123',
       ).encode(publicKey);
     }
 

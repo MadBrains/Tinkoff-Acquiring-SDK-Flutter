@@ -142,7 +142,7 @@ Future<void> main() async {
       final GetAddAccountQrStateResponse value =
           await acquiring.getAddAccountQrState(
         GetAddAccountQrStateRequest(
-          requestKey: 'requestKey',
+          requestKey: requestKey,
         ),
       );
       expect(value.runtimeType, GetAddAccountQrStateResponse);
@@ -151,7 +151,7 @@ Future<void> main() async {
     test('getAddCardState', () async {
       final GetAddCardStateResponse value = await acquiring.getAddCardState(
         GetAddCardStateRequest(
-          requestKey: 'requestKey',
+          requestKey: requestKey,
         ),
       );
       expect(value.runtimeType, GetAddCardStateResponse);

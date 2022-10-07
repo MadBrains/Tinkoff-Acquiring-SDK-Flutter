@@ -15,6 +15,7 @@ EACQ protocol version with PCI DSS: 1.42 (30.08.2022)
 - Getting information about customers and saved bank cards;
 - Management of saved bank cards;
 - Integration with online checkouts;
+- Payment through the Faster Payments System (SPB) by QR;
 
 ## Packages
 |  |  |

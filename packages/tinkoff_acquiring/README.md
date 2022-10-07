@@ -15,7 +15,7 @@ Acquiring SDK allows you to integrate [Tinkoff Internet Acquiring][acquiring] in
 - Getting information about customers and saved bank cards;
 - Management of saved bank cards;
 - Integration with online checkouts;
-- Payment through the Fast Payment System (SBP) by QR
+- Payment through the Fast Payment System (SBP) by QR;
 
 ## Installing
 Add this to your package's pubspec.yaml file:
