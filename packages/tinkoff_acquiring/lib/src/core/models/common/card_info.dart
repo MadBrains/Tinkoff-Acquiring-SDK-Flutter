@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/base_response.dart';
 import '../enums/card_status.dart';
 import '../enums/card_type.dart';
@@ -53,7 +52,7 @@ class CardInfo extends BaseResponse {
   /// * 0 — списания
   /// * 1 — пополнения
   /// * 2 — списания и пополнения
-  @JsonKey(name: JsonKeys.cardType)
+  @JsonKey(name: JsonKeys.cardType, unknownEnumValue: CardType.notExist)
   final CardType? cardType;
 
   /// Статус карты:

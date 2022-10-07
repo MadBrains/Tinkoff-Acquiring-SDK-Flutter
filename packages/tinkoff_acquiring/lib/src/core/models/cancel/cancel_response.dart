@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_response.dart';
 import '../enums/status.dart';
 
@@ -8,7 +7,7 @@ part 'cancel_response.g.dart';
 
 /// Ответ от сервера на отмену платежа
 ///
-/// [CancelResponse](https://oplata.tinkoff.ru/develop/api/payments/cancel-response/)
+/// [CancelResponse](https://www.tinkoff.ru/kassa/develop/api/payments/cancel-response/)
 @JsonSerializable()
 class CancelResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на отмену платежа

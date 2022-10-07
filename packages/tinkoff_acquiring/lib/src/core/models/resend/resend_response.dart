@@ -1,17 +1,18 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_response.dart';
+import '../enums/status.dart';
 
 part 'resend_response.g.dart';
 
 /// Ответ от сервера на отправку неотправленных уведомлений
 ///
-/// [ResendResponse](https://oplata.tinkoff.ru/develop/api/payments/resend-response/)
+/// [ResendResponse](https://www.tinkoff.ru/kassa/develop/api/payments/resend-response/)
 @JsonSerializable()
 class ResendResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на отправку неотправленных уведомлений
   ResendResponse({
+    Status? status,
     bool? success,
     String? errorCode,
     String? message,
@@ -19,6 +20,7 @@ class ResendResponse extends AcquiringResponse {
     this.terminalKey,
     this.count,
   }) : super(
+          status: status,
           success: success,
           errorCode: errorCode,
           message: message,
@@ -44,7 +46,7 @@ class ResendResponse extends AcquiringResponse {
   @JsonKey(name: JsonKeys.terminalKey)
   final String? terminalKey;
 
-  /// Количество сообщений, отправляемых повторно
+  /// Количество сообщений, отправленных на повторную рассылку
   @JsonKey(name: JsonKeys.count)
   final int? count;
 }

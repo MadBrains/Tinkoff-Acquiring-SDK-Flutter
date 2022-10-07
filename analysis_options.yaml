@@ -1,4 +1,8 @@
 analyzer:
+  language:
+    strict-casts: true
+    strict-inference: true
+    strict-raw-types: true
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false
@@ -16,6 +20,7 @@ linter:
   rules:
     - public_member_api_docs
     - always_declare_return_types
+    - always_require_non_null_named_parameters
     - annotate_overrides
     - avoid_bool_literals_in_conditional_expressions
     - avoid_catching_errors
@@ -135,3 +140,4 @@ linter:
     - sort_constructors_first
     - prefer_single_quotes
     - always_specify_types
+    - require_trailing_commas

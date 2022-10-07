@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/base_request.dart';
 import '../enums/agent_sign.dart';
 
@@ -8,7 +7,7 @@ part 'agent_data.g.dart';
 
 /// Данные агента
 ///
-/// [AgentData](https://oplata.tinkoff.ru/develop/api/payments/init-request/#AgentData)
+/// [AgentData](https://www.tinkoff.ru/kassa/develop/api/payments/init-request/#AgentData)
 @JsonSerializable(includeIfNull: false)
 class AgentData extends BaseRequest {
   /// Создает экземпляр данных агента
@@ -84,17 +83,21 @@ class AgentData extends BaseRequest {
     final List<String>? _receiverPhones = receiverPhones;
     if (agentSign == AgentSign.payingAgent ||
         agentSign == AgentSign.payingSubagent) {
-      assert(_receiverPhones != null &&
-          _receiverPhones.isNotEmpty &&
-          _receiverPhones.length <= 19);
+      assert(
+        _receiverPhones != null &&
+            _receiverPhones.isNotEmpty &&
+            _receiverPhones.length <= 19,
+      );
     }
 
     final List<String>? _transferPhones = transferPhones;
     if (agentSign == AgentSign.bankPayingAgent ||
         agentSign == AgentSign.bankPayingSubagent) {
-      assert(_transferPhones != null &&
-          _transferPhones.isNotEmpty &&
-          _transferPhones.length <= 19);
+      assert(
+        _transferPhones != null &&
+            _transferPhones.isNotEmpty &&
+            _transferPhones.length <= 19,
+      );
     }
 
     final String? _operatorName = operatorName;
@@ -112,9 +115,11 @@ class AgentData extends BaseRequest {
     final String? _operatorInn = operatorInn;
     if (agentSign == AgentSign.bankPayingAgent ||
         agentSign == AgentSign.bankPayingSubagent) {
-      assert(_operatorInn != null &&
-          _operatorInn.length >= 10 &&
-          _operatorInn.length <= 12);
+      assert(
+        _operatorInn != null &&
+            _operatorInn.length >= 10 &&
+            _operatorInn.length <= 12,
+      );
     }
   }
 

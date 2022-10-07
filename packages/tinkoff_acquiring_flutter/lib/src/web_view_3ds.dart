@@ -57,10 +57,13 @@ class WebView3DS extends StatefulWidget {
   /// Загрузка 3-D Secure
   final void Function(bool) onLoad;
 
-  String get _termUrl => Uri.encodeFull(config.apiUrl +
-      (is3DsVersion2
-          ? WebViewMethods.submit3DSAuthorizationV2
-          : WebViewMethods.submit3DSAuthorization));
+  String get _termUrl => config
+      .url(
+        is3DsVersion2
+            ? WebViewMethods.submit3DSAuthorizationV2
+            : WebViewMethods.submit3DSAuthorization,
+      )
+      .toString();
 
   String get _createCreq {
     final Map<String, String> params = <String, String>{
@@ -73,8 +76,8 @@ class WebView3DS extends StatefulWidget {
     };
 
     return base64WithoutPadding(
-            Uint8List.fromList(jsonEncode(params).codeUnits))
-        .trim();
+      Uint8List.fromList(jsonEncode(params).codeUnits),
+    ).trim();
   }
 
   String get _v1 => '''
@@ -150,11 +153,13 @@ class _WebView3DSState extends State<WebView3DS> {
 
   void _loadHTML(String content) {
     _controller.future.then((WebViewController v) {
-      v.loadUrl(Uri.dataFromString(
-        content,
-        mimeType: 'text/html',
-        encoding: Encoding.getByName('utf-8'),
-      ).toString());
+      v.loadUrl(
+        Uri.dataFromString(
+          content,
+          mimeType: 'text/html',
+          encoding: Encoding.getByName('utf-8'),
+        ).toString(),
+      );
     });
   }
 
@@ -172,7 +177,8 @@ class _WebView3DSState extends State<WebView3DS> {
 
     final Submit3DSAuthorizationResponse response =
         Submit3DSAuthorizationResponse.fromJson(
-            jsonDecode(rawResponse) as Map<String, dynamic>);
+      jsonDecode(rawResponse) as Map<String, dynamic>,
+    );
 
     widget.config.logger.log(message: response.toString(), name: 'Response');
     widget.onFinished(response);

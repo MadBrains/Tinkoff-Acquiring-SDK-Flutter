@@ -9,11 +9,17 @@ part of 'cancel_request.dart';
 CancelRequest _$CancelRequestFromJson(Map<String, dynamic> json) =>
     CancelRequest(
       paymentId: json['PaymentId'] as int,
-      amount: json['Amount'] as int?,
       ip: json['IP'] as String?,
+      amount: json['Amount'] as int?,
       receipt: json['Receipt'] == null
           ? null
           : Receipt.fromJson(json['Receipt'] as Map<String, dynamic>),
+      shops: (json['Shops'] as List<dynamic>?)
+          ?.map((e) => Shops.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      receipts: (json['Receipts'] as List<dynamic>?)
+          ?.map((e) => Receipts.fromJson(e as Map<String, dynamic>))
+          .toList(),
       signToken: json['Token'] as String?,
     );
 
@@ -31,5 +37,7 @@ Map<String, dynamic> _$CancelRequestToJson(CancelRequest instance) {
   writeNotNull('Amount', instance.amount);
   writeNotNull('IP', instance.ip);
   writeNotNull('Receipt', instance.receipt);
+  writeNotNull('Shops', instance.shops);
+  writeNotNull('Receipts', instance.receipts);
   return val;
 }

@@ -1,21 +1,22 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
-import '../../../utils/extensions.dart';
 import '../base/acquiring_request.dart';
 import '../common/receipt.dart';
+import '../common/receipts.dart';
+import '../common/shops.dart';
 
 part 'confirm_request.g.dart';
 
 /// Метод подтверждает платеж и списывает ранее заблокированные средства.
-///
 /// Используется при двухстадийной оплате. При одностадийной оплате вызывается автоматически.
-/// Применим к платежу только в статусе `AUTHORIZED` и только один раз.
 ///
+/// Применим только к платежам в статусе `AUTHORIZED`.
+/// Статус транзакции перед разблокировкой выставляется в `CONFIRMING`.
+/// Сумма списания может быть меньше или равна сумме авторизации.
 /// Сумма подтверждения не может быть больше заблокированной.
 /// Если сумма подтверждения меньше заблокированной, будет выполнено частичное подтверждение.
 ///
-/// [ConfirmRequest](https://oplata.tinkoff.ru/develop/api/payments/confirm-request/)
+/// [ConfirmRequest](https://www.tinkoff.ru/kassa/develop/api/payments/confirm-description/)
 @JsonSerializable(includeIfNull: false)
 class ConfirmRequest extends AcquiringRequest {
   /// Создает экземпляр метода подтверждения платежа
@@ -24,10 +25,10 @@ class ConfirmRequest extends AcquiringRequest {
     this.amount,
     this.ip,
     this.receipt,
+    this.shops,
+    this.receipts,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory ConfirmRequest.fromJson(Map<String, dynamic> json) =>
@@ -46,38 +47,51 @@ class ConfirmRequest extends AcquiringRequest {
         JsonKeys.amount: amount,
         JsonKeys.ip: ip,
         JsonKeys.receipt: receipt,
+        JsonKeys.shops: shops,
+        JsonKeys.receipts: receipts,
       };
 
   @override
   ConfirmRequest copyWith({
+    String? signToken,
     int? paymentId,
     int? amount,
     String? ip,
     Receipt? receipt,
-    String? signToken,
+    List<Shops>? shops,
+    List<Receipts>? receipts,
   }) {
     return ConfirmRequest(
+      signToken: signToken ?? this.signToken,
       paymentId: paymentId ?? this.paymentId,
       amount: amount ?? this.amount,
       ip: ip ?? this.ip,
       receipt: receipt ?? this.receipt,
-      signToken: signToken ?? this.signToken,
+      shops: shops ?? this.shops,
+      receipts: receipts ?? this.receipts,
     );
   }
 
   @override
   void validate() {
-    assert(paymentId.length <= 20);
-
-    final int? _amount = amount;
-    if (_amount != null) {
-      assert(_amount.length <= 10);
+    receipt?.validate();
+    final List<Shops>? shops = this.shops;
+    if (shops != null) {
+      for (int i = 0; i < shops.length; i++) {
+        shops[i].validate();
+      }
     }
 
-    final String? _ip = ip;
-    if (_ip != null) {
-      assert(_ip.length >= 7 && _ip.length <= 45);
+    final List<Receipts>? receipts = this.receipts;
+    if (receipts != null) {
+      for (int i = 0; i < receipts.length; i++) {
+        receipts[i].validate();
+      }
     }
+
+    paymentId.validateId(JsonKeys.paymentId, checkNull: true);
+    amount.validateId(JsonKeys.amount);
+    ip.validateId(JsonKeys.ip);
   }
 
   /// Идентификатор платежа в системе банка
@@ -101,4 +115,16 @@ class ConfirmRequest extends AcquiringRequest {
   /// Имеет приоритет над данными, переданными в методе `Init`
   @JsonKey(name: JsonKeys.receipt)
   final Receipt? receipt;
+
+  /// Массив объектов с данными Маркетплейса
+  ///
+  /// Имеет приоритет над данными, переданными в методе `Init`
+  @JsonKey(name: JsonKeys.shops)
+  final List<Shops>? shops;
+
+  /// Массив объектов с чеками для каждого ShopCode из объекта Shops
+  ///
+  /// Имеет приоритет над данными, переданными в методе `Init`
+  @JsonKey(name: JsonKeys.receipts)
+  final List<Receipts>? receipts;
 }

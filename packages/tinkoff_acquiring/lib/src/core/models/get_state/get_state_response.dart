@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_response.dart';
 import '../enums/status.dart';
 
@@ -8,7 +7,7 @@ part 'get_state_response.g.dart';
 
 /// Ответ от сервера на получение статуса платежа
 ///
-/// [GetStateResponse](https://oplata.tinkoff.ru/develop/api/payments/getstate-response/)
+/// [GetStateResponse](https://www.tinkoff.ru/kassa/develop/api/payments/getstate-response/)
 @JsonSerializable()
 class GetStateResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на получение статуса платежа
@@ -21,6 +20,7 @@ class GetStateResponse extends AcquiringResponse {
     this.terminalKey,
     this.orderId,
     this.paymentId,
+    this.amount,
   }) : super(
           status: status,
           success: success,
@@ -42,6 +42,7 @@ class GetStateResponse extends AcquiringResponse {
         JsonKeys.terminalKey: terminalKey,
         JsonKeys.orderId: orderId,
         JsonKeys.paymentId: paymentId,
+        JsonKeys.amount: amount,
       };
 
   /// Идентификатор терминала.
@@ -56,4 +57,8 @@ class GetStateResponse extends AcquiringResponse {
   /// Идентификатор платежа в системе банка
   @JsonKey(name: JsonKeys.paymentId)
   final String? paymentId;
+
+  /// Сумма операции в копейках
+  @JsonKey(name: JsonKeys.amount)
+  final int? amount;
 }

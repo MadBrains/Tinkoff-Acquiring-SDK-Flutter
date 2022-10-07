@@ -1,17 +1,18 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_response.dart';
+import '../enums/status.dart';
 
 part 'add_customer_response.g.dart';
 
 /// Ответ от сервера на регистрацию покупателя
 ///
-/// [AddCustomerResponse](https://oplata.tinkoff.ru/develop/api/autopayments/addcustomer-response/)
+/// [AddCustomerResponse](https://www.tinkoff.ru/kassa/develop/api/autopayments/addcustomer-response/)
 @JsonSerializable()
 class AddCustomerResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на регистрацию покупателя
   AddCustomerResponse({
+    Status? status,
     bool? success,
     String? errorCode,
     String? message,
@@ -19,6 +20,7 @@ class AddCustomerResponse extends AcquiringResponse {
     this.terminalKey,
     this.customerKey,
   }) : super(
+          status: status,
           success: success,
           errorCode: errorCode,
           message: message,

@@ -1,14 +1,12 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
-import '../../../utils/extensions.dart';
 import '../base/acquiring_request.dart';
 
 part 'get_state_request.g.dart';
 
 /// Метод возвращает текущий статус платежа.
 ///
-/// [GetStateRequest](https://oplata.tinkoff.ru/develop/api/payments/getstate-request/)
+/// [GetStateRequest](https://www.tinkoff.ru/kassa/develop/api/payments-sbp/getqrstate-description/)
 @JsonSerializable(includeIfNull: false)
 class GetStateRequest extends AcquiringRequest {
   /// Создает экземпляр метода по получению статуса платежа
@@ -16,9 +14,7 @@ class GetStateRequest extends AcquiringRequest {
     required this.paymentId,
     this.ip,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory GetStateRequest.fromJson(Map<String, dynamic> json) =>
@@ -52,12 +48,8 @@ class GetStateRequest extends AcquiringRequest {
 
   @override
   void validate() {
-    assert(paymentId.length <= 20);
-
-    final String? _ip = ip;
-    if (_ip != null) {
-      assert(_ip.length >= 7 && _ip.length <= 45);
-    }
+    paymentId.validateId(JsonKeys.paymentId);
+    ip.validateIp(JsonKeys.ip);
   }
 
   /// Идентификатор платежа в системе банка

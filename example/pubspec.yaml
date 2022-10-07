@@ -10,10 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  tinkoff_acquiring:
-    path: ../packages/tinkoff_acquiring
-  tinkoff_acquiring_flutter:
-    path: ../packages/tinkoff_acquiring_flutter
+  tinkoff_acquiring: ^3.0.6
+  tinkoff_acquiring_flutter: ^3.0.6
 
 dependency_overrides:
   tinkoff_acquiring:

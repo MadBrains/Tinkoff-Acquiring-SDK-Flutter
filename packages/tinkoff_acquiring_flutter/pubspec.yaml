@@ -1,6 +1,6 @@
 name: tinkoff_acquiring_flutter
 description: Flutter Tinkoff Acquiring SDK is a simple way to integrate payments into your mobile application.
-version: 3.0.5
+version: 3.0.6
 repository: https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter
 issue_tracker: https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/issues
 homepage: https://madbrains.ru/
@@ -14,8 +14,8 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  tinkoff_acquiring: ^3.0.5
-  webview_flutter: ^3.0.2
+  tinkoff_acquiring: ^3.0.6
+  webview_flutter: ^3.0.4
 
 dev_dependencies:
   flutter_test:

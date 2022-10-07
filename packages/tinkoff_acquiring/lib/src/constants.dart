@@ -5,7 +5,7 @@ abstract class JsonKeys {
   static const String customerKey = 'CustomerKey';
   static const String checkType = 'CheckType';
   static const String description = 'Description';
-  static const String payForm = 'PayForm';
+  static const String currency = 'Currency';
   static const String ip = 'IP';
   static const String token = 'Token';
   static const String requestKey = 'RequestKey';
@@ -18,6 +18,9 @@ abstract class JsonKeys {
   static const String phone = 'Phone';
   static const String data = 'DATA';
   static const String data2 = 'Data';
+  static const String shops = 'Shops';
+  static const String receipts = 'Receipts';
+  static const String fee = 'Fee';
   static const String rebillId = 'RebillId';
   static const String cardId = 'CardId';
   static const String status = 'Status';
@@ -43,6 +46,8 @@ abstract class JsonKeys {
   static const String expDate = 'ExpDate';
   static const String cardHolder = 'CardHolder';
   static const String cvv = 'CVV';
+  static const String eci = 'ECI';
+  static const String cavv = 'CAVV';
   static const String name = 'Name';
   static const String quantity = 'Quantity';
   static const String price = 'Price';
@@ -77,22 +82,74 @@ abstract class JsonKeys {
   static const String tdsServerTransID = 'TdsServerTransID';
   static const String threeDsMethodUrl = 'ThreeDSMethodURL';
   static const String acsTransId = 'AcsTransId';
+  static const String acsInterface = 'AcsInterface';
+  static const String acsUiTemplate = 'AcsUiTemplate';
+  static const String acsSignedContent = 'AcsSignedContent';
+  static const String acsReferenceNumber = 'AcsReferenceNumber';
+  static const String sdkTransID = 'SdkTransID';
   static const String fallbackOnTdsV1 = 'FallbackOnTdsV1';
   static const String count = 'Count';
   static const String dataType = 'DataType';
+  static const String ffdVersion = 'FfdVersion';
+  static const String payments = 'Payments';
+  static const String customer = 'Customer';
+  static const String customerInn = 'CustomerInn';
+  static const String clientInfo = 'ClientInfo';
+  static const String descriptor = 'Descriptor';
+  static const String userData = 'UserData';
+  static const String markCodeType = 'MarkCodeType';
+  static const String value = 'Value';
+  static const String numerator = 'numerator';
+  static const String denominator = 'denominator';
+  static const String federalId = 'FederalId';
+  static const String date = 'Date';
+  static const String number = 'Number';
+  static const String excise = 'Excise';
+  static const String countryCode = 'CountryCode';
+  static const String declarationNumber = 'DeclarationNumber';
+  static const String measurementUnit = 'MeasurementUnit';
+  static const String markProcessingMode = 'MarkProcessingMode';
+  static const String markCode = 'MarkCode';
+  static const String markQuantity = 'MarkQuantity';
+  static const String sectoralItemProps = 'SectoralItemProps';
+  static const String cash = 'Cash';
+  static const String electronic = 'Electronic';
+  static const String advancePayment = 'AdvancePayment';
+  static const String credit = 'Credit';
+  static const String provision = 'Provision';
+  static const String birthdate = 'Birthdate';
+  static const String citizenship = 'citizenship';
+  static const String documentCode = 'DocumentСode';
+  static const String documentData = 'DocumentData';
+  static const String address = 'Address';
+  static const String paymentSystem = 'PaymentSystem';
+  static const String rrn = 'RRN';
+  static const String memberId = 'MemberId';
+  static const String memberName = 'MemberName';
+  static const String isPayee = 'IsPayee';
+  static const String members = 'Members';
+  static const String accountToken = 'AccountToken';
+  static const String bankMemberId = 'BankMemberId';
+  static const String bankMemberName = 'BankMemberName';
+  static const String accountTokens = 'AccountTokens';
+  static const String isDeadlineExpired = 'IsDeadlineExpired';
+  static const String isRejected = 'IsRejected';
+  static const String notificationTypes = 'NotificationTypes';
+  static const String residentState = 'ResidentState';
 }
 
 abstract class NetworkSettings {
   static const String apiVersion = 'v2';
-  static const String apiUrlRelease =
-      'https://securepay.tinkoff.ru/$apiVersion/';
-  static const String apiUrlDebug =
-      'https://rest-api-test.tcsbank.ru/$apiVersion/';
+  static const String domainDebug = 'rest-api-test.tinkoff.ru';
+  static const String domainRelease = 'securepay.tinkoff.ru';
+  static const String apiPath = '$apiVersion/';
 
   static const Duration timeout = Duration(seconds: 40);
 
-  static const Map<String, String> headers = <String, String>{
-    'content-type': 'application/json',
+  static const String contentType = 'content-type';
+  static const String contentTypeJson = 'application/json';
+  static const Map<String, String> baseHeaders = <String, String>{
+    contentType: contentTypeJson,
   };
 }
 
@@ -115,13 +172,22 @@ abstract class ApiMethods {
   static const String sendClosingReceipt = 'SendClosingReceipt';
   static const String getQr = 'GetQr';
   static const String getStaticQr = 'GetStaticQr';
+  static const String checkOrder = 'CheckOrder';
+  static const String qrMembersList = 'QrMembersList';
+  static const String addAccountQr = 'AddAccountQr';
+  static const String chargeQr = 'ChargeQr';
+  static const String getAddAccountQrState = 'GetAddAccountQrState';
+  static const String getAccountQrList = 'GetAccountQrList';
+  static const String sbpPayTest = 'SbpPayTest';
+  static const String getAddCardState = 'GetAddCardState';
 }
 
 abstract class Ignore {
   static const Set<String> ignoredFields = <String>{
     JsonKeys.data,
     JsonKeys.receipt,
-    JsonKeys.payForm,
+    JsonKeys.receipts,
+    JsonKeys.shops,
   };
 }
 

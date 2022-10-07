@@ -1,9 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
-import '../../../utils/extensions.dart';
 import '../base/acquiring_request.dart';
 import '../common/receipt.dart';
+import '../common/receipts.dart';
+import '../common/shops.dart';
 import '../enums/language.dart';
 import '../enums/pay_type.dart';
 
@@ -12,7 +12,7 @@ part 'init_request.g.dart';
 /// Метод создает платеж: продавец получает ссылку на платежную форму
 /// и должен перенаправить по ней покупателя
 ///
-/// [InitRequest](https://oplata.tinkoff.ru/develop/api/payments/init-request/)
+/// [InitRequest](https://www.tinkoff.ru/kassa/develop/api/payments/init-request/)
 @JsonSerializable(includeIfNull: false)
 class InitRequest extends AcquiringRequest {
   /// Создает экземпляр метода создании платежа
@@ -21,9 +21,10 @@ class InitRequest extends AcquiringRequest {
     this.amount,
     this.ip,
     this.description,
-    this.language,
-    this.recurrent,
+    this.currency,
     this.customerKey,
+    this.recurrent,
+    this.language,
     this.redirectDueDate,
     this.notificationUrl,
     this.successUrl,
@@ -31,10 +32,11 @@ class InitRequest extends AcquiringRequest {
     this.payType,
     this.receipt,
     this.data,
+    this.shops,
+    this.receipts,
+    this.descriptor,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory InitRequest.fromJson(Map<String, dynamic> json) =>
@@ -53,9 +55,10 @@ class InitRequest extends AcquiringRequest {
         JsonKeys.amount: amount,
         JsonKeys.ip: ip,
         JsonKeys.description: description,
-        JsonKeys.language: language,
-        JsonKeys.recurrent: recurrent,
+        JsonKeys.currency: currency,
         JsonKeys.customerKey: customerKey,
+        JsonKeys.recurrent: recurrent,
+        JsonKeys.language: language,
         JsonKeys.redirectDueDate: redirectDueDate,
         JsonKeys.notificationUrl: notificationUrl,
         JsonKeys.successUrl: successUrl,
@@ -63,14 +66,19 @@ class InitRequest extends AcquiringRequest {
         JsonKeys.payType: payType,
         JsonKeys.receipt: receipt,
         JsonKeys.data: data,
+        JsonKeys.shops: shops,
+        JsonKeys.receipts: receipts,
+        JsonKeys.descriptor: descriptor,
       };
 
   @override
   InitRequest copyWith({
+    String? signToken,
     int? amount,
     String? orderId,
     String? ip,
     String? description,
+    int? currency,
     Language? language,
     String? recurrent,
     String? customerKey,
@@ -81,13 +89,17 @@ class InitRequest extends AcquiringRequest {
     PayType? payType,
     Receipt? receipt,
     Map<String, String>? data,
-    String? signToken,
+    List<Shops>? shops,
+    List<Receipts>? receipts,
+    String? descriptor,
   }) {
     return InitRequest(
-      orderId: orderId ?? this.orderId,
+      signToken: signToken ?? this.signToken,
       amount: amount ?? this.amount,
+      orderId: orderId ?? this.orderId,
       ip: ip ?? this.ip,
       description: description ?? this.description,
+      currency: currency ?? this.currency,
       language: language ?? this.language,
       recurrent: recurrent ?? this.recurrent,
       customerKey: customerKey ?? this.customerKey,
@@ -98,37 +110,39 @@ class InitRequest extends AcquiringRequest {
       payType: payType ?? this.payType,
       receipt: receipt ?? this.receipt,
       data: data ?? this.data,
-      signToken: signToken ?? this.signToken,
+      shops: shops ?? this.shops,
+      receipts: receipts ?? this.receipts,
+      descriptor: descriptor ?? this.descriptor,
     );
   }
 
   @override
   void validate() {
-    assert(orderId.length <= 20);
-
-    final int? _amount = amount;
-    if (_amount != null) {
-      assert(_amount.length <= 10);
+    receipt?.validate();
+    final List<Shops>? shops = this.shops;
+    if (shops != null) {
+      for (int i = 0; i < shops.length; i++) {
+        shops[i].validate();
+      }
     }
 
-    final String? _ip = ip;
-    if (_ip != null) {
-      assert(_ip.length >= 7 && _ip.length <= 45);
+    final List<Receipts>? receipts = this.receipts;
+    if (receipts != null) {
+      for (int i = 0; i < receipts.length; i++) {
+        receipts[i].validate();
+      }
     }
 
-    final String? _description = description;
-    if (_description != null) {
-      assert(_description.length <= 250);
-    }
+    orderId.validateId(JsonKeys.orderId, checkNull: true);
+    amount.validateAmount(JsonKeys.amount);
+    ip.validateIp(JsonKeys.ip);
+    description.validateDescription(JsonKeys.description);
 
     final String? _recurrent = recurrent;
-    final String? _customerKey = customerKey;
     if (_recurrent != null) {
       assert(_recurrent.length <= 1);
-      assert(_customerKey != null && _customerKey.length <= 36);
+      customerKey.validateCustomerKey(JsonKeys.customerKey, checkNull: true);
     }
-
-    receipt?.validate();
   }
 
   /// Сумма в копейках
@@ -149,16 +163,26 @@ class InitRequest extends AcquiringRequest {
   @JsonKey(name: JsonKeys.description)
   final String? description;
 
+  /// Код валюты ISO 421. Если Currency передан и валюта разрешена для Продавца,
+  /// транзакция будет инициирована в переданной валюте.
+  /// Иначе будет использована валюта по умолчанию для данного терминала.
+  ///
+  /// В текущей версии допустимы только рубли - код 643
+  @JsonKey(name: JsonKeys.currency)
+  final int? currency;
+
   /// Язык платежной формы
   ///
   /// 1. ru — русский
   /// 2. en — английский
+  ///
+  /// По умолчанию (если параметр не передан) - форма оплаты на русском языке
   @JsonKey(name: JsonKeys.language)
   final Language? language;
 
-  /// Идентификатор родительского платежа
-  ///
-  /// Передается со значением Y
+  /// Если передается и установлен в Y, то регистрирует платеж как рекуррентный.
+  /// В этом случае после оплаты в нотификации на AUTHORIZED будет передан параметр RebillId
+  /// для использования в методе Charge
   @JsonKey(name: JsonKeys.recurrent)
   final String? recurrent;
 
@@ -174,21 +198,38 @@ class InitRequest extends AcquiringRequest {
   @JsonKey(name: JsonKeys.customerKey)
   final String? customerKey;
 
-  /// Cрок жизни ссылки (не более 90 дней)
+  /// Cрок жизни ссылки или динамического QR-кода СБП (если выбран данный способ оплаты).
+  /// Если текущая дата превышает дату, переданную в данном параметре,
+  /// ссылка для оплаты или возможность платежа по QR-коду становятся недоступными и платёж выполнить нельзя.
   ///
-  /// Временная метка по стандарту ISO8601 в формате YYYY-MM-DDThh:mm:ss±hh:mm
+  /// - Максимальное значение: 90 дней от текущей даты.
+  /// - Минимальное значение: 1 минута от текущей даты.
+  ///
+  /// Формат даты: YYYY-MM-DDTHH24:MI:SS+GMT; Пример даты: 2016-08-31T12:28:00+03:00
   @JsonKey(name: JsonKeys.redirectDueDate)
   final String? redirectDueDate;
 
-  /// Адрес для получения http нотификаций
+  /// URL на веб-сайте продавца, куда будет отправлен POST запрос
+  /// о статусе выполнения вызываемых методов (настраивается в Личном кабинете).
+  ///
+  /// Если параметр передан – используется его значение.
+  /// Если нет – значение в настройках терминала.
   @JsonKey(name: JsonKeys.notificationUrl)
   final String? notificationUrl;
 
-  /// Страница успеха
+  /// URL на веб-сайте продавца, куда будет переведен покупатель
+  /// в случае успешной оплаты (настраивается в Личном кабинете).
+  ///
+  /// Если параметр передан – используется его значение.
+  /// Если нет – значение в настройках терминала.
   @JsonKey(name: JsonKeys.successUrl)
   final String? successUrl;
 
-  /// Страница ошибки
+  /// URL на веб-сайте продавца, куда будет переведен покупатель
+  /// в случае неуспешной оплаты (настраивается в Личном кабинете)
+  ///
+  /// Если параметр передан – используется его значение.
+  /// Если нет – значение в настройках терминала.
   @JsonKey(name: JsonKeys.failUrl)
   final String? failUrl;
 
@@ -209,14 +250,64 @@ class InitRequest extends AcquiringRequest {
   ///
   /// Наименование самого параметра должно быть в верхнем регистре, иначе его содержимое будет игнорироваться.
   ///
-  /// 1. Если у терминала включена опция привязки покупателя после успешной оплаты и передается параметр CustomerKey, то в передаваемых параметрах DATA могут присутствовать параметры метода AddCustomer. Если они присутствуют, то автоматически привязываются к покупателю.
-  /// Например, если указать: "DATA":{"Phone":"+71234567890", "Email":"a@test.com"}, к покупателю автоматически будут привязаны данные Email и телефон, и они будут возвращаться при вызове метода GetCustomer.
+  /// Если у терминала включена опция привязки покупателя после успешной оплаты и передается параметр CustomerKey,
+  /// то в передаваемых параметрах DATA могут присутствовать параметры метода AddCustomer.
+  /// Если они присутствуют, то автоматически привязываются к покупателю.
+  /// Например, если указать: "DATA": {"Phone":"+71234567890", "Email":"a@test.com"}
+  /// к покупателю автоматически будут привязаны данные Email и телефон, и они будут возвращаться при вызове метода GetCustomer.
   ///
-  /// 2. Если используется функционал сохранения карт на платежной форме, то при помощи опционального параметра "DefaultCard" можно задать какая карта будет выбираться по умолчанию. Возможные варианты:
-  /// Оставить платежную форму пустой. Пример: "DATA":{"DefaultCard":"none"};
-  /// Заполнить данными передаваемой карты. В этом случае передается CardId. Пример: "DATA":{"DefaultCard":"894952"};
-  /// Заполнить данными последней сохраненной карты. Применяется, если параметр "DefaultCard" не передан, передан с некорректным значением или в значении null.
-  /// По умолчанию возможность сохранения карт на платежной форме может быть отключена. Для активации обратитесь в службу технической поддержки.
+  /// Для МСС 4814 обязательно передать значение в параметре "Phone".
+  /// Для МСС 6051 и 6050 обязательно передать параметр “account”
+  /// (номер электронного кошелька, не должен превышать 30 символов). Пример: "DATA": {"account":"123456789"}
+  ///
+  /// Если используется функционал сохранения карт на платежной форме, то при помощи опционального параметра
+  /// "DefaultCard" можно задать какая карта будет выбираться по умолчанию. Возможные варианты:
+  /// - Оставить платежную форму пустой. Пример: "DATA": {"DefaultCard":"none"};
+  /// - Заполнить данными передаваемой карты. В этом случае передается CardId. Пример: "DATA": {"DefaultCard":"894952"};
+  /// - Заполнить данными последней сохраненной карты. Применяется, если параметр "DefaultCard" не передан,
+  /// передан с некорректным значением или в значении null.
+  ///
+  /// По умолчанию возможность сохранения карт на платежной форме может быть отключена.
+  /// Для активации обратитесь в службу технической поддержки.
+  ///
+  /// При реализации подключения оплаты Apple Pay Web на сайте мерчанта
+  /// необходимо обязательно передавать следующие параметр в объекте Data: "DATA": {"ApplePayWeb":"true"}
+  ///
+  /// При реализации подключения оплаты Yandex Pay Web необходимо передавать следующий параметр в объекте Data:
+  /// "DATA": {"YandexPayWeb":"true"}
+  ///
+  /// При реализации подключения оплаты Tinkoff Pay Web на сайте мерчанта
+  ///  необходимо обязательно передавать следующие параметр в объекте Data:
+  /// "DATA": {
+  /// "TinkoffPayWeb": "true",
+  /// "Device": "Desktop",
+  /// "DeviceOs": "iOS",
+  /// "DeviceWebView": "true",
+  /// "DeviceBrowser": "Safari"
+  /// },
+  /// где следует передать параметры устройства, с которого будет осуществлен переход
+  ///
+  /// | Наименование | Тип | Обязательность | Описание |
+  /// |--------------|-----|----------------|----------|
+  /// | Device | String | Нет | Тип устройства: SDK (вызов из мобильных приложений), Desktop (вызов из браузера с десктопа), MobileWeb (вызов из браузера с мобильных устройств) |
+  /// | DeviceOs | String | Нет | ОС устройства |
+  /// | DeviceWebView | Boolean | Нет | Признак открытия в WebView |
+  /// | DeviceBrowser | String | Нет | Браузер |
+  /// | TinkoffPayWeb | Boolean | Нет | Признак проведения операции через Tinkoff Pay по API |
+  ///
+  /// В случае если не удается определить параметр гарантированно (режим инкогнито и пр.) – не передавать параметр.
   @JsonKey(name: JsonKeys.data)
   final Map<String, String>? data;
+
+  /// Массив объектов с данными Маркетплейса
+  @JsonKey(name: JsonKeys.shops)
+  final List<Shops>? shops;
+
+  /// Массив объектов с чеками для каждого ShopCode из объекта Shops
+  @JsonKey(name: JsonKeys.receipts)
+  final List<Receipts>? receipts;
+
+  /// Динамический дескриптор точки
+  @JsonKey(name: JsonKeys.descriptor)
+  final String? descriptor;
 }

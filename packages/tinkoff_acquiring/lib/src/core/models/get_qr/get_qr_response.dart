@@ -1,17 +1,18 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_response.dart';
+import '../enums/status.dart';
 
 part 'get_qr_response.g.dart';
 
 /// Ответ от сервера на регистрацию QR
 ///
-/// [GetQrResponse](https://oplata.tinkoff.ru/develop/api/autopayments/getqr-response/)
+/// [GetQrResponse](https://www.tinkoff.ru/kassa/develop/api/autopayments/getqr-response/)
 @JsonSerializable()
 class GetQrResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на регистрацию QR
   GetQrResponse({
+    Status? status,
     bool? success,
     String? errorCode,
     String? message,
@@ -21,6 +22,7 @@ class GetQrResponse extends AcquiringResponse {
     this.orderId,
     this.data,
   }) : super(
+          status: status,
           success: success,
           errorCode: errorCode,
           message: message,

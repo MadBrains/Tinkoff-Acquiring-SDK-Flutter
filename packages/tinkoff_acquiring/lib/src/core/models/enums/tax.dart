@@ -14,6 +14,10 @@ enum Tax {
   @JsonValue('vat10')
   vat10,
 
+  /// vat18 — 18%
+  @JsonValue('vat18')
+  vat18,
+
   /// vat20 — 20%
   @JsonValue('vat20')
   vat20,
@@ -21,6 +25,10 @@ enum Tax {
   /// vat110 — 10/110
   @JsonValue('vat110')
   vat110,
+
+  /// vat118 — 18/118
+  @JsonValue('vat118')
+  vat118,
 
   /// vat120 — 20/120
   @JsonValue('vat120')

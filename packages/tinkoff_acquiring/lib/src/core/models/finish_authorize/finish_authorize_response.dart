@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_response.dart';
 import '../enums/status.dart';
 
@@ -11,7 +10,7 @@ part 'finish_authorize_response.g.dart';
 /// Если в ответе метода FinishAuthorize возвращается статус 3DS_CHECKING,
 /// мерчанту необходимо сформировать запрос на URL ACS банка, выпустившего карту (в ответе параметр ACSUrl).
 ///
-/// [FinishAuthorizeResponse](https://oplata.tinkoff.ru/develop/api/payments/finishauthorize-response/)
+/// [FinishAuthorizeResponse](https://www.tinkoff.ru/kassa/develop/api/payments/finishauthorize-response/)
 @JsonSerializable()
 class FinishAuthorizeResponse extends AcquiringResponse {
   /// Создает экземпляр ответа от сервера на подтверждение платежа
@@ -22,17 +21,22 @@ class FinishAuthorizeResponse extends AcquiringResponse {
     String? message,
     String? details,
     this.terminalKey,
-    this.amount,
     this.orderId,
+    this.amount,
     this.paymentId,
+    this.rebillId,
     this.cardId,
-    this.acsUrl,
-    this.acsTransId,
     this.md,
     this.paReq,
-    this.rebillId,
     this.fallbackOnTdsV1,
-    this.serverTransId,
+    this.tdsServerTransId,
+    this.acsUrl,
+    this.acsTransId,
+    this.acsInterface,
+    this.acsUiTemplate,
+    this.acsSignedContent,
+    this.acsReferenceNumber,
+    this.sdkTransID,
   }) : super(
           status: status,
           success: success,
@@ -62,12 +66,12 @@ class FinishAuthorizeResponse extends AcquiringResponse {
         JsonKeys.paReq: paReq,
         JsonKeys.rebillId: rebillId,
         JsonKeys.fallbackOnTdsV1: fallbackOnTdsV1,
-        JsonKeys.tdsServerTransId: serverTransId,
+        JsonKeys.tdsServerTransId: tdsServerTransId,
       };
 
   /// Определение версии 3DS протокола
   bool get is3DsVersion2 =>
-      serverTransId?.isNotEmpty == true && acsTransId?.isNotEmpty == true;
+      tdsServerTransId?.isNotEmpty == true && acsTransId?.isNotEmpty == true;
 
   /// Идентификатор терминала.
   /// Выдается продавцу банком при заведении терминала
@@ -90,15 +94,6 @@ class FinishAuthorizeResponse extends AcquiringResponse {
   @JsonKey(name: JsonKeys.cardId)
   final String? cardId;
 
-  /// Адрес перенаправления после аутентификации 3-D Secure
-  /// (URL обработчик на стороне мерчанта, принимающий результаты прохождения 3-D Secure)
-  @JsonKey(name: JsonKeys.acsUrl)
-  final String? acsUrl;
-
-  /// Уникальный идентификатор транзакции, присвоенный ACS
-  @JsonKey(name: JsonKeys.acsTransId)
-  final String? acsTransId;
-
   /// Уникальный идентификатор транзакции в системе Банка (возвращается в ответе на FinishAuthorize)
   @JsonKey(name: JsonKeys.md)
   final String? md;
@@ -118,5 +113,35 @@ class FinishAuthorizeResponse extends AcquiringResponse {
   /// Уникальный идентификатор транзакции, генерируемый 3DS-Server,
   /// обязательный параметр для 3DS второй версии
   @JsonKey(name: JsonKeys.tdsServerTransId)
-  final String? serverTransId;
+  final String? tdsServerTransId;
+
+  /// Адрес перенаправления после аутентификации 3-D Secure
+  /// (URL обработчик на стороне мерчанта, принимающий результаты прохождения 3-D Secure)
+  @JsonKey(name: JsonKeys.acsUrl)
+  final String? acsUrl;
+
+  /// Уникальный идентификатор транзакции, присвоенный ACS
+  @JsonKey(name: JsonKeys.acsTransId)
+  final String? acsTransId;
+
+  /// Интерфейс ACS
+  @JsonKey(name: JsonKeys.acsInterface)
+  final String? acsInterface;
+
+  /// UI шаблон для ACS
+  @JsonKey(name: JsonKeys.acsUiTemplate)
+  final String? acsUiTemplate;
+
+  /// Подписанный контент
+  @JsonKey(name: JsonKeys.acsSignedContent)
+  final String? acsSignedContent;
+
+  /// Справочный номер
+  @JsonKey(name: JsonKeys.acsReferenceNumber)
+  final String? acsReferenceNumber;
+
+  /// Уникальный идентификатор транзакции, назначенный 3DS SDK для идентификации одной транзакции,
+  /// полученный в ответе на FinishAuthorize
+  @JsonKey(name: JsonKeys.sdkTransID)
+  final String? sdkTransID;
 }

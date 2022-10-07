@@ -1,6 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../constants.dart';
 import '../base/acquiring_request.dart';
 import '../enums/data_type.dart';
 
@@ -12,16 +11,14 @@ part 'get_static_qr_request.g.dart';
 /// Перерегистрация статического QR происходит только при смене расчетного счета.
 /// Не привязан к конкретному платежу, может быть вызван в любое время без предварительного вызова Init.
 ///
-/// [GetStaticQrRequest](https://oplata.tinkoff.ru/develop/api/autopayments/getstaticqr-request/)
+/// [GetStaticQrRequest](https://www.tinkoff.ru/kassa/develop/api/payments-sbp/getstaticqr-description/)
 @JsonSerializable(includeIfNull: false)
 class GetStaticQrRequest extends AcquiringRequest {
   /// Создает экземпляр метода регистрации статического QR
   GetStaticQrRequest({
     this.dataType,
     String? signToken,
-  }) : super(signToken) {
-    validate();
-  }
+  }) : super(signToken);
 
   /// Преобразование json в модель
   factory GetStaticQrRequest.fromJson(Map<String, dynamic> json) =>
@@ -54,6 +51,6 @@ class GetStaticQrRequest extends AcquiringRequest {
   void validate() {}
 
   /// Тип возвращаемых данных
-  @JsonKey(name: JsonKeys.dataType, defaultValue: DataType.payload)
+  @JsonKey(name: JsonKeys.dataType, unknownEnumValue: DataType.payload)
   final DataType? dataType;
 }

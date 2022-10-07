@@ -7,13 +7,21 @@ part of 'receipt.dart';
 // **************************************************************************
 
 Receipt _$ReceiptFromJson(Map<String, dynamic> json) => Receipt(
-      taxation: _$enumDecode(_$TaxationEnumMap, json['Taxation']),
+      taxation: $enumDecode(_$TaxationEnumMap, json['Taxation']),
       items: (json['Items'] as List<dynamic>)
           .map((e) => Items.fromJson(e as Map<String, dynamic>))
           .toList(),
+      ffdVersion: json['FfdVersion'] as String,
       email: json['Email'] as String?,
       phone: json['Phone'] as String?,
-      emailCompany: json['EmailCompany'] as String?,
+      payments: json['Payments'] == null
+          ? null
+          : Payments.fromJson(json['Payments'] as Map<String, dynamic>),
+      customer: json['Customer'] as String?,
+      customerInn: json['CustomerInn'] as String?,
+      clientInfo: json['ClientInfo'] == null
+          ? null
+          : ClientInfo.fromJson(json['ClientInfo'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$ReceiptToJson(Receipt instance) {
@@ -27,36 +35,14 @@ Map<String, dynamic> _$ReceiptToJson(Receipt instance) {
 
   writeNotNull('Email', instance.email);
   writeNotNull('Phone', instance.phone);
-  writeNotNull('EmailCompany', instance.emailCompany);
   val['Taxation'] = _$TaxationEnumMap[instance.taxation];
   val['Items'] = instance.items;
+  writeNotNull('Payments', instance.payments);
+  val['FfdVersion'] = instance.ffdVersion;
+  writeNotNull('Customer', instance.customer);
+  writeNotNull('CustomerInn', instance.customerInn);
+  writeNotNull('ClientInfo', instance.clientInfo);
   return val;
-}
-
-K _$enumDecode<K, V>(
-  Map<K, V> enumValues,
-  Object? source, {
-  K? unknownValue,
-}) {
-  if (source == null) {
-    throw ArgumentError(
-      'A value must be provided. Supported values: '
-      '${enumValues.values.join(', ')}',
-    );
-  }
-
-  return enumValues.entries.singleWhere(
-    (e) => e.value == source,
-    orElse: () {
-      if (unknownValue == null) {
-        throw ArgumentError(
-          '`$source` is not one of the supported values: '
-          '${enumValues.values.join(', ')}',
-        );
-      }
-      return MapEntry(unknownValue, enumValues.values.first);
-    },
-  ).key;
 }
 
 const _$TaxationEnumMap = {
