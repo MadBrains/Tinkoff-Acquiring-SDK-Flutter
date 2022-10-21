@@ -21,6 +21,7 @@ class AddCardResponse extends AcquiringResponse {
     this.customerKey,
     this.requestKey,
     this.paymentURL,
+    this.paymentId,
   }) : super(
           status: status,
           success: success,
@@ -62,4 +63,8 @@ class AddCardResponse extends AcquiringResponse {
   /// На данную страницу необходимо переадресовать клиента для привязки карты
   @JsonKey(name: JsonKeys.paymentUrl)
   final String? paymentURL;
+
+  /// Уникальный идентификатор транзакции в системе Банка
+  @JsonKey(name: JsonKeys.paymentId)
+  final int? paymentId;
 }
