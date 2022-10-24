@@ -18,6 +18,7 @@ AddCardResponse _$AddCardResponseFromJson(Map<String, dynamic> json) =>
       customerKey: json['CustomerKey'] as String?,
       requestKey: json['RequestKey'] as String?,
       paymentURL: json['PaymentURL'] as String?,
+      paymentId: json['PaymentId'] as int?,
     );
 
 Map<String, dynamic> _$AddCardResponseToJson(AddCardResponse instance) =>
@@ -31,6 +32,7 @@ Map<String, dynamic> _$AddCardResponseToJson(AddCardResponse instance) =>
       'CustomerKey': instance.customerKey,
       'RequestKey': instance.requestKey,
       'PaymentURL': instance.paymentURL,
+      'PaymentId': instance.paymentId,
     };
 
 const _$StatusEnumMap = {
