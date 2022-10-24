@@ -1,3 +1,7 @@
+# 3.0.7
+
+* Add PaymentId to AddCardResponse
+
 # 3.0.6
 
 * Update dependencies
