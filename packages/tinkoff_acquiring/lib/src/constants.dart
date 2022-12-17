@@ -72,9 +72,9 @@ abstract class JsonKeys {
   static const String language = 'Language';
   static const String recurrent = 'Recurrent';
   static const String redirectDueDate = 'RedirectDueDate';
-  static const String notificationUrl = 'NotificationUrl';
-  static const String successUrl = 'SuccessUrl';
-  static const String failUrl = 'FailUrl';
+  static const String notificationUrl = 'NotificationURL';
+  static const String successUrl = 'SuccessURL';
+  static const String failUrl = 'FailURL';
   static const String payType = 'PayType';
   static const String cardInfo = 'CardInfo';
   static const String version = 'Version';
