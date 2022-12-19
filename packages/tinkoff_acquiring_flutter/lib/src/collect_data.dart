@@ -76,7 +76,7 @@ class CollectData {
   }
 }
 
-class _WebViewCollect extends StatelessWidget {
+class _WebViewCollect extends StatefulWidget {
   const _WebViewCollect({
     Key? key,
     required this.onFinished,
@@ -89,6 +89,9 @@ class _WebViewCollect extends StatelessWidget {
   final String serverTransId;
   final String threeDsMethodUrl;
   final void Function(Map<String, String>) onFinished;
+
+  @override
+  State<_WebViewCollect> createState() => _WebViewCollectState();
 
   String get termUrl =>
       config.url(WebViewMethods.submit3DSAuthorizationV2).toString();
@@ -120,40 +123,42 @@ class _WebViewCollect extends StatelessWidget {
         </body>
       </html>
     ''';
+}
+
+class _WebViewCollectState extends State<_WebViewCollect> {
+  late final WebViewController _controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..setNavigationDelegate(
+      NavigationDelegate(
+        // initialUrl: '',
+        // gestureNavigationEnabled: true,
+        onPageFinished: (String url) async {
+          if (url == widget.notificationsUrl) {
+            final double screenHeight = MediaQuery.of(context).size.height *
+                MediaQuery.of(context).devicePixelRatio;
+            final double screenWidth = MediaQuery.of(context).size.width *
+                MediaQuery.of(context).devicePixelRatio;
+
+            widget.onFinished(<String, String>{
+              WebViewKeys.threeDSCompInd: 'Y',
+              WebViewKeys.language:
+                  Localizations.localeOf(context).toLanguageTag(),
+              WebViewKeys.timezone:
+                  '${DateTime.now().timeZoneOffset.inMinutes}',
+              WebViewKeys.screenHeight: screenHeight.toStringAsFixed(0),
+              WebViewKeys.screenWidth: screenWidth.toStringAsFixed(0),
+              WebViewKeys.cresCallbackUrl: widget.termUrl,
+            });
+          }
+        },
+      ),
+    )
+    ..loadHtmlString(widget.collect);
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: '',
-      gestureNavigationEnabled: true,
-      javascriptMode: JavascriptMode.unrestricted,
-      onWebViewCreated: (WebViewController webViewController) {
-        webViewController.loadUrl(
-          Uri.dataFromString(
-            collect,
-            mimeType: 'text/html',
-            encoding: Encoding.getByName('utf-8'),
-          ).toString(),
-        );
-      },
-      onPageFinished: (String url) async {
-        if (url == notificationsUrl) {
-          final double screenHeight = MediaQuery.of(context).size.height *
-              MediaQuery.of(context).devicePixelRatio;
-          final double screenWidth = MediaQuery.of(context).size.width *
-              MediaQuery.of(context).devicePixelRatio;
-
-          onFinished(<String, String>{
-            WebViewKeys.threeDSCompInd: 'Y',
-            WebViewKeys.language:
-                Localizations.localeOf(context).toLanguageTag(),
-            WebViewKeys.timezone: '${DateTime.now().timeZoneOffset.inMinutes}',
-            WebViewKeys.screenHeight: screenHeight.toStringAsFixed(0),
-            WebViewKeys.screenWidth: screenWidth.toStringAsFixed(0),
-            WebViewKeys.cresCallbackUrl: termUrl,
-          });
-        }
-      },
+    return WebViewWidget(
+      controller: _controller,
     );
   }
 }

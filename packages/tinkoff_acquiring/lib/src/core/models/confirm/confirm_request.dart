@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_request.dart';
 import '../common/receipt.dart';
-import '../common/receipts.dart';
 import '../common/shops.dart';
 
 part 'confirm_request.g.dart';
@@ -26,7 +25,6 @@ class ConfirmRequest extends AcquiringRequest {
     this.ip,
     this.receipt,
     this.shops,
-    this.receipts,
     String? signToken,
   }) : super(signToken);
 
@@ -48,7 +46,6 @@ class ConfirmRequest extends AcquiringRequest {
         JsonKeys.ip: ip,
         JsonKeys.receipt: receipt,
         JsonKeys.shops: shops,
-        JsonKeys.receipts: receipts,
       };
 
   @override
@@ -59,7 +56,6 @@ class ConfirmRequest extends AcquiringRequest {
     String? ip,
     Receipt? receipt,
     List<Shops>? shops,
-    List<Receipts>? receipts,
   }) {
     return ConfirmRequest(
       signToken: signToken ?? this.signToken,
@@ -68,7 +64,6 @@ class ConfirmRequest extends AcquiringRequest {
       ip: ip ?? this.ip,
       receipt: receipt ?? this.receipt,
       shops: shops ?? this.shops,
-      receipts: receipts ?? this.receipts,
     );
   }
 
@@ -79,13 +74,6 @@ class ConfirmRequest extends AcquiringRequest {
     if (shops != null) {
       for (int i = 0; i < shops.length; i++) {
         shops[i].validate();
-      }
-    }
-
-    final List<Receipts>? receipts = this.receipts;
-    if (receipts != null) {
-      for (int i = 0; i < receipts.length; i++) {
-        receipts[i].validate();
       }
     }
 
@@ -121,10 +109,4 @@ class ConfirmRequest extends AcquiringRequest {
   /// Имеет приоритет над данными, переданными в методе `Init`
   @JsonKey(name: JsonKeys.shops)
   final List<Shops>? shops;
-
-  /// Массив объектов с чеками для каждого ShopCode из объекта Shops
-  ///
-  /// Имеет приоритет над данными, переданными в методе `Init`
-  @JsonKey(name: JsonKeys.receipts)
-  final List<Receipts>? receipts;
 }

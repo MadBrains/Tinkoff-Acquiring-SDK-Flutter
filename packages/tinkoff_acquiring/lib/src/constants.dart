@@ -136,13 +136,20 @@ abstract class JsonKeys {
   static const String isRejected = 'IsRejected';
   static const String notificationTypes = 'NotificationTypes';
   static const String residentState = 'ResidentState';
+  static const String qrMemberId = 'QrMemberId';
+  static const String operatingCheckProps = 'OperatingCheckProps';
+  static const String sectoralCheckProps = 'SectoralCheckProps';
+  static const String addUserProp = 'AddUserProp';
+  static const String additionalCheckProps = 'AdditionalCheckProps';
+  static const String timestamp = 'Timestamp';
 }
 
 abstract class NetworkSettings {
-  static const String apiVersion = 'v2';
   static const String domainDebug = 'rest-api-test.tinkoff.ru';
   static const String domainRelease = 'securepay.tinkoff.ru';
-  static const String apiPath = '$apiVersion/';
+  static const String apiPath = '/';
+  static const String apiVersion2 = 'v2';
+  static const String apiVersionCashbox = 'cashbox';
 
   static const Duration timeout = Duration(seconds: 40);
 

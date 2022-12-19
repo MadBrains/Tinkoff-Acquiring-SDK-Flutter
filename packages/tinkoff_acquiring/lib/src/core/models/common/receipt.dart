@@ -2,9 +2,12 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../base/base_request.dart';
 import '../enums/taxation.dart';
+import 'add_user_prop.dart';
 import 'client_info.dart';
 import 'items.dart';
+import 'operating_check_props.dart';
 import 'payments.dart';
+import 'sectoral_check_props.dart';
 
 part 'receipt.g.dart';
 
@@ -12,12 +15,13 @@ part 'receipt.g.dart';
 ///
 /// Поля для ФФД 1.2: [customer], [customerInn], [clientInfo]
 /// [Receipt](https://www.tinkoff.ru/kassa/develop/api/receipt/)
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(constructor: 'all', includeIfNull: false)
 class Receipt extends BaseRequest {
-  /// Создает экземпляр данных чека
+  /// Создает экземпляр данных чека.
   ///
-  /// Поля для ФФД 1.2: [customer], [customerInn], [clientInfo]
-  Receipt({
+  /// Внимание, тут представлены все поля.
+  /// Если вам нужны ФФД определенных версий используйте нужные конструкторы.
+  Receipt.all({
     required this.taxation,
     required this.items,
     required this.ffdVersion,
@@ -27,6 +31,10 @@ class Receipt extends BaseRequest {
     this.customer,
     this.customerInn,
     this.clientInfo,
+    this.operatingCheckProps,
+    this.sectoralCheckProps,
+    this.addUserProp,
+    this.additionalCheckProps,
   });
 
   /// Создает экземпляр данных чека ФФД 1.05
@@ -39,7 +47,11 @@ class Receipt extends BaseRequest {
   })  : ffdVersion = '1.05',
         customer = null,
         customerInn = null,
-        clientInfo = null;
+        clientInfo = null,
+        operatingCheckProps = null,
+        sectoralCheckProps = null,
+        addUserProp = null,
+        additionalCheckProps = null;
 
   /// Создает экземпляр данных чека ФФД 1.2
   Receipt.ffd12({
@@ -51,6 +63,10 @@ class Receipt extends BaseRequest {
     this.customer,
     this.customerInn,
     this.clientInfo,
+    this.operatingCheckProps,
+    this.sectoralCheckProps,
+    this.addUserProp,
+    this.additionalCheckProps,
   }) : ffdVersion = '1.2';
 
   /// Преобразование json в модель
@@ -85,7 +101,7 @@ class Receipt extends BaseRequest {
     String? customerInn,
     ClientInfo? clientInfo,
   }) {
-    return Receipt(
+    return Receipt.all(
       email: email ?? this.email,
       phone: phone ?? this.phone,
       taxation: taxation ?? this.taxation,
@@ -169,4 +185,20 @@ class Receipt extends BaseRequest {
   /// Обязательный для товаров с маркировкой
   @JsonKey(name: JsonKeys.clientInfo)
   final ClientInfo? clientInfo;
+
+  /// Операционный реквизит чека (тег 1270), только для ФФД 1.2
+  @JsonKey(name: JsonKeys.operatingCheckProps)
+  final List<OperatingCheckProps>? operatingCheckProps;
+
+  /// Отраслевой реквизит чека (тег 1261), только для ФФД 1.2
+  @JsonKey(name: JsonKeys.sectoralCheckProps)
+  final List<SectoralCheckProps>? sectoralCheckProps;
+
+  /// Дополнительный реквизит пользователя (тег 1084), только для ФФД 1.2
+  @JsonKey(name: JsonKeys.addUserProp)
+  final List<AddUserProp>? addUserProp;
+
+  /// Дополнительный реквизит чека (БСО) (тег 1192), только для ФФД 1.2
+  @JsonKey(name: JsonKeys.additionalCheckProps)
+  final List<String>? additionalCheckProps;
 }

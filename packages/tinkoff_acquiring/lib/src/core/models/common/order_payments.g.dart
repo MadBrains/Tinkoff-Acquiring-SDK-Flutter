@@ -62,6 +62,7 @@ const _$StatusEnumMap = {
   Status.refunded: 'REFUNDED',
   Status.unknown: 'UNKNOWN',
   Status.loopChecking: 'LOOP_CHECKING',
+  Status.loopChecked: 'LOOP_CHECKED',
   Status.completed: 'COMPLETED',
   Status.proccesing: 'PROCCESING',
   Status.active: 'ACTIVE',

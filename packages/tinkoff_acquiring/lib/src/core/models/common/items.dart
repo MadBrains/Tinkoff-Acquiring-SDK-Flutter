@@ -15,10 +15,10 @@ part 'items.g.dart';
 /// Массив позиций чека с информацией о товарах.
 ///
 /// [Items](https://www.tinkoff.ru/kassa/develop/api/receipt#Items)
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(constructor: 'all', includeIfNull: false)
 class Items extends BaseRequest {
   /// Создает экземпляр массива позиций чека с информацией о товарах.
-  Items({
+  Items.all({
     required this.name,
     required this.price,
     required this.quantity,
@@ -140,7 +140,7 @@ class Items extends BaseRequest {
     MarkQuantity? markQuantity,
     List<SectoralItemProps>? sectoralItemProps,
   }) {
-    return Items(
+    return Items.all(
       name: name ?? this.name,
       quantity: quantity ?? this.quantity,
       amount: amount ?? this.amount,

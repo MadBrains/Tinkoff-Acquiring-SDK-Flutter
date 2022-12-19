@@ -30,6 +30,10 @@ class SendClosingReceiptRequest extends AcquiringRequest {
   String get apiMethod => ApiMethods.sendClosingReceipt;
 
   @override
+  // TODO: implement apiVersion
+  String get apiVersion => NetworkSettings.apiVersionCashbox;
+
+  @override
   Map<String, dynamic> toJson() => _$SendClosingReceiptRequestToJson(this);
 
   @override

@@ -17,9 +17,7 @@ CancelRequest _$CancelRequestFromJson(Map<String, dynamic> json) =>
       shops: (json['Shops'] as List<dynamic>?)
           ?.map((e) => Shops.fromJson(e as Map<String, dynamic>))
           .toList(),
-      receipts: (json['Receipts'] as List<dynamic>?)
-          ?.map((e) => Receipts.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      qrMemberId: json['QrMemberId'] as String?,
       signToken: json['Token'] as String?,
     );
 
@@ -38,6 +36,6 @@ Map<String, dynamic> _$CancelRequestToJson(CancelRequest instance) {
   writeNotNull('IP', instance.ip);
   writeNotNull('Receipt', instance.receipt);
   writeNotNull('Shops', instance.shops);
-  writeNotNull('Receipts', instance.receipts);
+  writeNotNull('QrMemberId', instance.qrMemberId);
   return val;
 }

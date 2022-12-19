@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_request.dart';
 import '../common/receipt.dart';
-import '../common/receipts.dart';
 import '../common/shops.dart';
 import '../enums/language.dart';
 import '../enums/pay_type.dart';
@@ -33,7 +32,6 @@ class InitRequest extends AcquiringRequest {
     this.receipt,
     this.data,
     this.shops,
-    this.receipts,
     this.descriptor,
     String? signToken,
   }) : super(signToken);
@@ -67,7 +65,6 @@ class InitRequest extends AcquiringRequest {
         JsonKeys.receipt: receipt,
         JsonKeys.data: data,
         JsonKeys.shops: shops,
-        JsonKeys.receipts: receipts,
         JsonKeys.descriptor: descriptor,
       };
 
@@ -90,7 +87,6 @@ class InitRequest extends AcquiringRequest {
     Receipt? receipt,
     Map<String, String>? data,
     List<Shops>? shops,
-    List<Receipts>? receipts,
     String? descriptor,
   }) {
     return InitRequest(
@@ -111,7 +107,6 @@ class InitRequest extends AcquiringRequest {
       receipt: receipt ?? this.receipt,
       data: data ?? this.data,
       shops: shops ?? this.shops,
-      receipts: receipts ?? this.receipts,
       descriptor: descriptor ?? this.descriptor,
     );
   }
@@ -123,13 +118,6 @@ class InitRequest extends AcquiringRequest {
     if (shops != null) {
       for (int i = 0; i < shops.length; i++) {
         shops[i].validate();
-      }
-    }
-
-    final List<Receipts>? receipts = this.receipts;
-    if (receipts != null) {
-      for (int i = 0; i < receipts.length; i++) {
-        receipts[i].validate();
       }
     }
 
@@ -302,10 +290,6 @@ class InitRequest extends AcquiringRequest {
   /// Массив объектов с данными Маркетплейса
   @JsonKey(name: JsonKeys.shops)
   final List<Shops>? shops;
-
-  /// Массив объектов с чеками для каждого ShopCode из объекта Shops
-  @JsonKey(name: JsonKeys.receipts)
-  final List<Receipts>? receipts;
 
   /// Динамический дескриптор точки
   @JsonKey(name: JsonKeys.descriptor)

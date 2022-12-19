@@ -24,6 +24,12 @@ abstract class AcquiringRequest extends BaseRequest {
   /// Метод запроса
   String get apiMethod;
 
+  /// Версия метода запроса
+  String get apiVersion => NetworkSettings.apiVersion2;
+
+  /// Полный путь до метода запроса (версия + метод)
+  String get apiMethodPath => '$apiVersion/$apiMethod';
+
   /// Опциональный параметр: готовая подпись запроса
   @JsonKey(name: JsonKeys.token)
   final String? signToken;

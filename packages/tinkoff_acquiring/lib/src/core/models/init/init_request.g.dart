@@ -29,9 +29,6 @@ InitRequest _$InitRequestFromJson(Map<String, dynamic> json) => InitRequest(
       shops: (json['Shops'] as List<dynamic>?)
           ?.map((e) => Shops.fromJson(e as Map<String, dynamic>))
           .toList(),
-      receipts: (json['Receipts'] as List<dynamic>?)
-          ?.map((e) => Receipts.fromJson(e as Map<String, dynamic>))
-          .toList(),
       descriptor: json['Descriptor'] as String?,
       signToken: json['Token'] as String?,
     );
@@ -62,7 +59,6 @@ Map<String, dynamic> _$InitRequestToJson(InitRequest instance) {
   writeNotNull('Receipt', instance.receipt);
   writeNotNull('DATA', instance.data);
   writeNotNull('Shops', instance.shops);
-  writeNotNull('Receipts', instance.receipts);
   writeNotNull('Descriptor', instance.descriptor);
   return val;
 }
