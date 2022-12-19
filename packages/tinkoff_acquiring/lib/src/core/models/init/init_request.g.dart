@@ -16,9 +16,9 @@ InitRequest _$InitRequestFromJson(Map<String, dynamic> json) => InitRequest(
       recurrent: json['Recurrent'] as String?,
       language: $enumDecodeNullable(_$LanguageEnumMap, json['Language']),
       redirectDueDate: json['RedirectDueDate'] as String?,
-      notificationUrl: json['NotificationUrl'] as String?,
-      successUrl: json['SuccessUrl'] as String?,
-      failUrl: json['FailUrl'] as String?,
+      notificationUrl: json['NotificationURL'] as String?,
+      successUrl: json['SuccessURL'] as String?,
+      failUrl: json['FailURL'] as String?,
       payType: $enumDecodeNullable(_$PayTypeEnumMap, json['PayType']),
       receipt: json['Receipt'] == null
           ? null
@@ -55,9 +55,9 @@ Map<String, dynamic> _$InitRequestToJson(InitRequest instance) {
   writeNotNull('Recurrent', instance.recurrent);
   writeNotNull('CustomerKey', instance.customerKey);
   writeNotNull('RedirectDueDate', instance.redirectDueDate);
-  writeNotNull('NotificationUrl', instance.notificationUrl);
-  writeNotNull('SuccessUrl', instance.successUrl);
-  writeNotNull('FailUrl', instance.failUrl);
+  writeNotNull('NotificationURL', instance.notificationUrl);
+  writeNotNull('SuccessURL', instance.successUrl);
+  writeNotNull('FailURL', instance.failUrl);
   writeNotNull('PayType', _$PayTypeEnumMap[instance.payType]);
   writeNotNull('Receipt', instance.receipt);
   writeNotNull('DATA', instance.data);
