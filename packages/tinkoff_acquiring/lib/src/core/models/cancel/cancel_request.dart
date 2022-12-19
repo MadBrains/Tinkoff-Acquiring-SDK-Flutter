@@ -2,7 +2,6 @@ import 'package:json_annotation/json_annotation.dart';
 
 import '../base/acquiring_request.dart';
 import '../common/receipt.dart';
-import '../common/receipts.dart';
 import '../common/shops.dart';
 
 part 'cancel_request.g.dart';
@@ -15,6 +14,12 @@ part 'cancel_request.g.dart';
 /// - CONFIRMED -> PARTIAL_REFUNDED – если отмена не на полную сумму
 /// - CONFIRMED -> REFUNDED – если отмена на полную сумму
 ///
+/// \* в случае отмены статуса NEW поле Amount, даже если оно проставлено, игнорируется.
+/// Отмена производится на полную сумму.
+///
+/// \** в случае полной отмены структура чека не передается.
+/// В случае частичной отмены необходимо передавать те товары, которые нужно отменить.
+///
 /// [CancelRequest](https://www.tinkoff.ru/kassa/develop/api/payments/cancel-description/)
 @JsonSerializable(includeIfNull: false)
 class CancelRequest extends AcquiringRequest {
@@ -25,7 +30,7 @@ class CancelRequest extends AcquiringRequest {
     this.amount,
     this.receipt,
     this.shops,
-    this.receipts,
+    this.qrMemberId,
     String? signToken,
   }) : super(signToken);
 
@@ -47,7 +52,6 @@ class CancelRequest extends AcquiringRequest {
         JsonKeys.ip: ip,
         JsonKeys.receipt: receipt,
         JsonKeys.shops: shops,
-        JsonKeys.receipts: receipts,
       };
 
   @override
@@ -58,7 +62,6 @@ class CancelRequest extends AcquiringRequest {
     String? ip,
     Receipt? receipt,
     List<Shops>? shops,
-    List<Receipts>? receipts,
   }) {
     return CancelRequest(
       signToken: signToken ?? this.signToken,
@@ -67,7 +70,6 @@ class CancelRequest extends AcquiringRequest {
       ip: ip ?? this.ip,
       receipt: receipt ?? this.receipt,
       shops: shops ?? this.shops,
-      receipts: receipts ?? this.receipts,
     );
   }
 
@@ -78,13 +80,6 @@ class CancelRequest extends AcquiringRequest {
     if (shops != null) {
       for (int i = 0; i < shops.length; i++) {
         shops[i].validate();
-      }
-    }
-
-    final List<Receipts>? receipts = this.receipts;
-    if (receipts != null) {
-      for (int i = 0; i < receipts.length; i++) {
-        receipts[i].validate();
       }
     }
 
@@ -121,9 +116,9 @@ class CancelRequest extends AcquiringRequest {
   @JsonKey(name: JsonKeys.shops)
   final List<Shops>? shops;
 
-  /// Массив объектов с чеками для каждого ShopCode из объекта Shops
+  /// Код банка в классификации СБП, в который необходимо выполнить возврат
   ///
-  /// Имеет приоритет над данными, переданными в методе `Init`
-  @JsonKey(name: JsonKeys.receipts)
-  final List<Receipts>? receipts;
+  /// См параметр [memberId] в Методе [QrMembersList]
+  @JsonKey(name: JsonKeys.qrMemberId)
+  final String? qrMemberId;
 }

@@ -115,63 +115,52 @@ class WebView3DS extends StatefulWidget {
 }
 
 class _WebView3DSState extends State<WebView3DS> {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
+  late final WebViewController _controller = WebViewController()
+    ..setJavaScriptMode(JavaScriptMode.unrestricted)
+    ..setNavigationDelegate(
+      NavigationDelegate(
+        // initialUrl: '',
+        // gestureNavigationEnabled: true,
+        onPageStarted: (String url) {
+          if (url == widget._termUrl) {
+            widget.onLoad(true);
+          }
+        },
+        onPageFinished: (String url) async {
+          // Отмена проверки 3-D Secure
+          for (final String action in WebViewSettings.cancelActions) {
+            if (url.contains(action)) {
+              widget.onFinished(null);
+              return;
+            }
+          }
+
+          if (url == widget._termUrl) {
+            await _response();
+          } else {
+            widget.onLoad(false);
+          }
+        },
+      ),
+    )
+    ..loadHtmlString(widget.is3DsVersion2 ? widget._v2 : widget._v1);
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: '',
-      gestureNavigationEnabled: true,
-      javascriptMode: JavascriptMode.unrestricted,
-      onWebViewCreated: (WebViewController webViewController) {
-        _controller.complete(webViewController);
-        _loadHTML(widget.is3DsVersion2 ? widget._v2 : widget._v1);
-      },
-      onPageStarted: (String url) {
-        if (url == widget._termUrl) {
-          widget.onLoad(true);
-        }
-      },
-      onPageFinished: (String url) async {
-        // Отмена проверки 3-D Secure
-        for (final String action in WebViewSettings.cancelActions) {
-          if (url.contains(action)) {
-            widget.onFinished(null);
-            return;
-          }
-        }
-
-        if (url == widget._termUrl) {
-          await _response();
-        } else {
-          widget.onLoad(false);
-        }
-      },
+    return WebViewWidget(
+      controller: _controller,
     );
   }
 
-  void _loadHTML(String content) {
-    _controller.future.then((WebViewController v) {
-      v.loadUrl(
-        Uri.dataFromString(
-          content,
-          mimeType: 'text/html',
-          encoding: Encoding.getByName('utf-8'),
-        ).toString(),
-      );
-    });
-  }
-
   Future<void> _response() async {
-    final String rawResponse =
-        await _controller.future.then<String>((WebViewController v) async {
-      final String document = await v
-          .runJavascriptReturningResult('document.documentElement.innerHTML');
-      final String? response = RegExp('{.+}').firstMatch(document)?.group(0);
+    final String _document = await _controller.runJavaScriptReturningResult(
+      'document.documentElement.innerHTML',
+    ) as String;
 
-      return response?.replaceAll(RegExp('\\"').pattern, '"') ?? document;
-    });
+    final String? _response = RegExp('{.+}').firstMatch(_document)?.group(0);
+
+    final String rawResponse =
+        _response?.replaceAll(RegExp('\\"').pattern, '"') ?? _document;
 
     widget.config.logger.log(message: rawResponse, name: 'RawResponse');
 

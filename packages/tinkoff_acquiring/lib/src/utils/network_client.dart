@@ -39,8 +39,9 @@ class NetworkClient {
         ...?setting?.headers
       };
 
-      url = config
-          .url(config.proxyPath + (setting?.methodPath ?? request.apiMethod));
+      url = config.url(
+        config.proxyPath + (setting?.methodPath ?? request.apiMethodPath),
+      );
     }
 
     final Map<String, String> headers = <String, String>{
@@ -48,7 +49,7 @@ class NetworkClient {
       ...?proxyHeaders,
     };
 
-    url ??= config.url(NetworkSettings.apiPath + request.apiMethod);
+    url ??= config.url(NetworkSettings.apiPath + request.apiMethodPath);
 
     final String rawRequest = jsonEncode(_modifyRequest(request, config));
 

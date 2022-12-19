@@ -6,7 +6,7 @@ part of 'items.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Items _$ItemsFromJson(Map<String, dynamic> json) => Items(
+Items _$ItemsFromJson(Map<String, dynamic> json) => Items.all(
       name: json['Name'] as String,
       price: json['Price'] as int,
       quantity: json['Quantity'] as int,
@@ -57,7 +57,7 @@ Map<String, dynamic> _$ItemsToJson(Items instance) {
 
   writeNotNull('PaymentMethod', _$PaymentMethodEnumMap[instance.paymentMethod]);
   writeNotNull('PaymentObject', _$PaymentObjectEnumMap[instance.paymentObject]);
-  val['Tax'] = _$TaxEnumMap[instance.tax];
+  val['Tax'] = _$TaxEnumMap[instance.tax]!;
   writeNotNull('AgentData', instance.agentData);
   writeNotNull('SupplierInfo', instance.supplierInfo);
   writeNotNull('Ean13', instance.ean13);
@@ -78,10 +78,8 @@ const _$TaxEnumMap = {
   Tax.none: 'none',
   Tax.vat0: 'vat0',
   Tax.vat10: 'vat10',
-  Tax.vat18: 'vat18',
   Tax.vat20: 'vat20',
   Tax.vat110: 'vat110',
-  Tax.vat118: 'vat118',
   Tax.vat120: 'vat120',
 };
 

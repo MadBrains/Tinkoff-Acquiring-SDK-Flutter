@@ -21,8 +21,8 @@ Acquiring SDK allows you to integrate [Tinkoff Internet Acquiring][acquiring] in
 Add this to your package's pubspec.yaml file:
 ```yaml
 dependencies:
-  tinkoff_acquiring: <lastles>
-  tinkoff_acquiring_flutter: <lastles> # for UI
+  tinkoff_acquiring: ^3.0.8
+  tinkoff_acquiring_flutter: ^3.0.8
 ```
 
 ## Before usage
@@ -78,8 +78,8 @@ If you want to use a proxy, use the following constructor:
 ```dart
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
   TinkoffAcquiringConfig.proxy(
-    proxyDomain: terminalKey,
-    proxyPath: password,
+    proxyDomain: 'myserver.com',
+    proxyPath: '/acquiring',
     isDebugMode: false,
     globalHeaders: <String, String>{...},
     mapping: (AcquiringRequest request, bool isDebugMode) {

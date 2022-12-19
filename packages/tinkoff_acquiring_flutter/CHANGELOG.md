@@ -1,3 +1,9 @@
+# 3.0.8
+
+* Fixed & add/remove new request and response models (Sync with documentation)
+* Fix readme
+* Update dependency webview_flutter to 4.0.0
+
 # 3.0.7
 
 * Add PaymentId to AddCardResponse

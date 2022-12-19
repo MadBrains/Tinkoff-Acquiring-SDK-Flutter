@@ -220,7 +220,7 @@ Future<void> main() async {
           receipt: Receipt.ffd105(
             taxation: Taxation.esn,
             items: <Items>[
-              Items(
+              Items.ffd105(
                 name: 'testItem',
                 quantity: 1,
                 price: amount,
@@ -309,7 +309,7 @@ Future<void> main() async {
           receipt: Receipt.ffd105(
             taxation: Taxation.esn,
             items: <Items>[
-              Items(
+              Items.ffd105(
                 name: 'testItem',
                 quantity: 1,
                 price: amount,

@@ -12,7 +12,7 @@ MarkCode _$MarkCodeFromJson(Map<String, dynamic> json) => MarkCode(
     );
 
 Map<String, dynamic> _$MarkCodeToJson(MarkCode instance) => <String, dynamic>{
-      'MarkCodeType': _$MarkCodeTypeEnumMap[instance.markCodeType],
+      'MarkCodeType': _$MarkCodeTypeEnumMap[instance.markCodeType]!,
       'Value': instance.value,
     };
 

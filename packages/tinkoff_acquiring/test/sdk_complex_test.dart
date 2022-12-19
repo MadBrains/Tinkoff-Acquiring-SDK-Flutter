@@ -72,7 +72,12 @@ Future<void> main() async {
             ip: ip,
           ),
         );
-        expect(getCardList.cardInfo?.first.status, CardStatus.active);
+        expect(
+          getCardList.cardInfo
+              ?.firstWhere((CardInfo v) => v.cardId == attachCard.cardId)
+              .status,
+          CardStatus.active,
+        );
 
         /*------------------------Normal------------------------*/
 
