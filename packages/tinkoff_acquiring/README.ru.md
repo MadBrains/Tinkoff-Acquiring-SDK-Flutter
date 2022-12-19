@@ -19,8 +19,8 @@ Acquiring SDK позволяет интегрировать [Интернет-Э
 Для подключения добавьте в файл Pubspec зависимости:
 ```yaml
 dependencies:
-  tinkoff_acquiring: <lastles>
-  tinkoff_acquiring_flutter: <lastles> # for UI
+  tinkoff_acquiring: ^3.0.8
+  tinkoff_acquiring_flutter: ^3.0.8
 ```
 
 ## Подготовка к работе
@@ -76,8 +76,8 @@ request.copyWith(signToken: ...);
 ```dart
 final TinkoffAcquiring acquiring = TinkoffAcquiring(
   TinkoffAcquiringConfig.proxy(
-    proxyDomain: terminalKey,
-    proxyPath: password,
+    proxyDomain: 'myserver.com',
+    proxyPath: '/acquiring',
     isDebugMode: false,
     globalHeaders: <String, String>{...},
     mapping: (AcquiringRequest request, bool isDebugMode) {
