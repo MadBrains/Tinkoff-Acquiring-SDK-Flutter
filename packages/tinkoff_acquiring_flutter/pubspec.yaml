@@ -15,7 +15,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   tinkoff_acquiring: ^3.0.7
-  webview_flutter: ^3.0.4
+  webview_flutter: ">=3.0.4 <5.0.0"
 
 dev_dependencies:
   flutter_test:
