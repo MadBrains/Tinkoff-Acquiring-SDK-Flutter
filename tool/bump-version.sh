@@ -17,3 +17,7 @@ done
 perl -pi -e "s/tinkoff_acquiring: .*/tinkoff_acquiring: ^$NEW_VERSION/" packages/tinkoff_acquiring_flutter/pubspec.yaml
 perl -pi -e "s/tinkoff_acquiring: .*/tinkoff_acquiring: ^$NEW_VERSION/" example/pubspec.yaml
 perl -pi -e "s/tinkoff_acquiring_flutter: .*/tinkoff_acquiring_flutter: ^$NEW_VERSION/" example/pubspec.yaml
+perl -pi -e "s/tinkoff_acquiring: .*/tinkoff_acquiring: ^$NEW_VERSION/"  packages/tinkoff_acquiring/README.md
+perl -pi -e "s/tinkoff_acquiring: .*/tinkoff_acquiring: ^$NEW_VERSION/"  packages/tinkoff_acquiring/README.ru.md
+perl -pi -e "s/tinkoff_acquiring_flutter: .*/tinkoff_acquiring_flutter: ^$NEW_VERSION/"  packages/tinkoff_acquiring/README.md
+perl -pi -e "s/tinkoff_acquiring_flutter: .*/tinkoff_acquiring_flutter: ^$NEW_VERSION/"  packages/tinkoff_acquiring/README.ru.md
