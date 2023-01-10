@@ -8,7 +8,7 @@ part of 'order_payments.dart';
 
 OrderPayments _$OrderPaymentsFromJson(Map<String, dynamic> json) =>
     OrderPayments(
-      paymentId: json['PaymentId'] as int?,
+      paymentId: json['PaymentId'] as String?,
       amount: json['Amount'] as int?,
       status: $enumDecodeNullable(_$StatusEnumMap, json['Status']),
       rrn: json['RRN'] as String?,

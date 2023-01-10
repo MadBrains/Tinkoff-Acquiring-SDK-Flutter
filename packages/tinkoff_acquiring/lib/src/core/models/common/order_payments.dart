@@ -39,7 +39,7 @@ class OrderPayments extends BaseRequest {
 
   @override
   OrderPayments copyWith({
-    int? paymentId,
+    String? paymentId,
     int? amount,
     Status? status,
     String? rrn,
@@ -63,7 +63,7 @@ class OrderPayments extends BaseRequest {
 
   /// Уникальный идентификатор транзакции в системе Банка
   @JsonKey(name: JsonKeys.paymentId)
-  final int? paymentId;
+  final String? paymentId;
 
   /// Сумма операции в копейках
   @JsonKey(name: JsonKeys.amount)
