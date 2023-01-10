@@ -1,3 +1,7 @@
+# 3.0.9
+
+* Fix paymentId type in OrderPayments
+
 # 3.0.8
 
 * Fixed & add/remove new request and response models (Sync with documentation)
