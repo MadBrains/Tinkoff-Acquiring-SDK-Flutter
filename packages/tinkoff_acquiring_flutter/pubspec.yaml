@@ -15,7 +15,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   tinkoff_acquiring: ^3.0.9
-  webview_flutter: ^4.0.0
+  webview_flutter: ^4.0.2
 
 dev_dependencies:
   flutter_test:

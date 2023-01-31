@@ -53,13 +53,17 @@ abstract class TinkoffAcquiringConfig {
   /// Позволяет использовать свой логгер или заданный
   final BaseLogger logger;
 
-  /// Uri до Tinkoff Acquiring
+  /// Uri (`/`) до Tinkoff Acquiring
   Uri url(String path) => Uri.https(
         isDebugMode
             ? NetworkSettings.domainDebug
             : NetworkSettings.domainRelease,
         path,
       );
+
+  /// Api Uri (`/v2/`) до Tinkoff Acquiring
+  Uri apiUrl(String methodPath) =>
+      url(NetworkSettings.apiVersion2 + NetworkSettings.apiPath + methodPath);
 }
 
 /// Создает экземпляр класса для конфигурирования SDK, через `terminalKey` и `password`.

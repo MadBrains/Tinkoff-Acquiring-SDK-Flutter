@@ -58,7 +58,7 @@ class WebView3DS extends StatefulWidget {
   final void Function(bool) onLoad;
 
   String get _termUrl => config
-      .url(
+      .apiUrl(
         is3DsVersion2
             ? WebViewMethods.submit3DSAuthorizationV2
             : WebViewMethods.submit3DSAuthorization,
@@ -66,27 +66,43 @@ class WebView3DS extends StatefulWidget {
       .toString();
 
   String get _createCreq {
+    final String? serverTransId = this.serverTransId;
+    final String? acsTransId = this.acsTransId;
+    final String? version = this.version;
+
     final Map<String, String> params = <String, String>{
       if (serverTransId != null)
-        WebViewKeys.threeDSServerTransId: serverTransId!,
-      if (acsTransId != null) WebViewKeys.acsTransId: acsTransId!,
-      if (version != null) WebViewKeys.messageVersion: version!,
+        WebViewKeys.threeDSServerTransId: serverTransId,
+      if (acsTransId != null) WebViewKeys.acsTransId: acsTransId,
+      if (version != null) WebViewKeys.messageVersion: version,
       WebViewKeys.challengeWindowSize: WebViewSettings.challengeWindowSize,
       WebViewKeys.messageType: WebViewSettings.messageType,
     };
 
-    return base64WithoutPadding(
+    config.logger.log(
+      message: params.toString(),
+      name: 'WebView3DS',
+    );
+
+    final String base = base64WithoutPadding(
       Uint8List.fromList(jsonEncode(params).codeUnits),
     ).trim();
+
+    config.logger.log(
+      message: base,
+      name: 'WebView3DS',
+    );
+
+    return Uri.encodeFull(base);
   }
 
   String get _v1 => '''
       <html>
-        <body onload="document.f.submit();">
+        <body onload="document.form.submit();">
           <form name="payForm" action="$acsUrl" method="POST">
-            <input type="hidden" name="PaReq" value="$paReq">
-            <input type="hidden" name="MD" value="$md">
             <input type="hidden" name="TermUrl" value="$_termUrl">
+            <input type="hidden" name="MD" value="$md">
+            <input type="hidden" name="PaReq" value="$paReq">
           </form>
           <script>
             window.onload = submitForm;
@@ -98,7 +114,7 @@ class WebView3DS extends StatefulWidget {
 
   String get _v2 => '''
       <html>
-        <body onload="document.f.submit();">
+        <body onload="document.form.submit();">
           <form name="payForm" action="$acsUrl" method="POST">
             <input type="hidden" name="creq" value="$_createCreq">
           </form>
@@ -119,14 +135,16 @@ class _WebView3DSState extends State<WebView3DS> {
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setNavigationDelegate(
       NavigationDelegate(
-        // initialUrl: '',
-        // gestureNavigationEnabled: true,
-        onPageStarted: (String url) {
+        onPageStarted: (String url) async {
+          await _logNavigationDelegate('onPageStarted', url);
+
           if (url == widget._termUrl) {
             widget.onLoad(true);
           }
         },
         onPageFinished: (String url) async {
+          await _logNavigationDelegate('onPageFinished', url);
+
           // Отмена проверки 3-D Secure
           for (final String action in WebViewSettings.cancelActions) {
             if (url.contains(action)) {
@@ -152,24 +170,46 @@ class _WebView3DSState extends State<WebView3DS> {
     );
   }
 
-  Future<void> _response() async {
+  Future<void> _logNavigationDelegate(String name, String url) async {
     final String _document = await _controller.runJavaScriptReturningResult(
-      'document.documentElement.innerHTML',
+      'document.documentElement.outerHTML',
     ) as String;
 
-    final String? _response = RegExp('{.+}').firstMatch(_document)?.group(0);
-
-    final String rawResponse =
-        _response?.replaceAll(RegExp('\\"').pattern, '"') ?? _document;
-
-    widget.config.logger.log(message: rawResponse, name: 'RawResponse');
-
-    final Submit3DSAuthorizationResponse response =
-        Submit3DSAuthorizationResponse.fromJson(
-      jsonDecode(rawResponse) as Map<String, dynamic>,
+    widget.config.logger.log(
+      message: '$name: $url\n$_document\n',
+      name: 'WebView3DS',
     );
+  }
 
-    widget.config.logger.log(message: response.toString(), name: 'Response');
-    widget.onFinished(response);
+  Future<void> _response() async {
+    try {
+      final String _document = await _controller.runJavaScriptReturningResult(
+        'document.documentElement.innerHTML',
+      ) as String;
+
+      final String? _response = RegExp('{.+}').firstMatch(_document)?.group(0);
+
+      final String rawResponse =
+          _response?.replaceAll(RegExp('\\"').pattern, '"') ?? _document;
+
+      widget.config.logger.log(message: rawResponse, name: 'RawResponse');
+
+      final Submit3DSAuthorizationResponse response =
+          Submit3DSAuthorizationResponse.fromJson(
+        jsonDecode(rawResponse) as Map<String, dynamic>,
+      );
+
+      widget.config.logger.log(message: response.toString(), name: 'Response');
+      widget.onFinished(response);
+    } catch (e, st) {
+      widget.config.logger.log(
+        message: 'Failed parse 3ds response',
+        name: 'Response',
+        error: e,
+        stackTrace: st,
+      );
+
+      widget.onFinished(null);
+    }
   }
 }
