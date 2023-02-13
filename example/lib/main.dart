@@ -3,8 +3,9 @@
 import 'dart:async';
 import 'dart:math' as math;
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Route;
 import 'package:tinkoff_acquiring/tinkoff_acquiring.dart';
+import 'package:tinkoff_acquiring/tinkoff_acquiring_utils.dart';
 import 'package:tinkoff_acquiring_flutter/tinkoff_acquiring_flutter.dart';
 
 void main() {
@@ -45,7 +46,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   ValueNotifier<bool> threeDs = ValueNotifier<bool>(false);
-  ValueNotifier<bool> threeDsV2 = ValueNotifier<bool>(false);
+  ValueNotifier<bool> threeDsV2Frictionless = ValueNotifier<bool>(false);
+  ValueNotifier<bool> threeDsV2Challenge = ValueNotifier<bool>(false);
   ValueNotifier<String?> status = ValueNotifier<String?>('');
   ValueNotifier<String?> cardType = ValueNotifier<String?>('');
 
@@ -66,7 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     value: value,
                     onChanged: (bool v) {
                       if (v) {
-                        threeDsV2.value = false;
+                        threeDsV2Challenge.value = false;
+                        threeDsV2Frictionless.value = false;
                       }
 
                       threeDs.value = v;
@@ -78,17 +81,38 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const Text('3DS V2'),
+                const Text('3DS V2 Frictionless'),
                 ValueListenableBuilder<bool>(
-                  valueListenable: threeDsV2,
+                  valueListenable: threeDsV2Frictionless,
                   builder: (BuildContext context, bool value, _) => Switch(
                     value: value,
                     onChanged: (bool v) {
                       if (v) {
                         threeDs.value = false;
+                        threeDsV2Challenge.value = false;
                       }
 
-                      threeDsV2.value = v;
+                      threeDsV2Frictionless.value = v;
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                const Text('3DS V2 Challenge'),
+                ValueListenableBuilder<bool>(
+                  valueListenable: threeDsV2Challenge,
+                  builder: (BuildContext context, bool value, _) => Switch(
+                    value: value,
+                    onChanged: (bool v) {
+                      if (v) {
+                        threeDs.value = false;
+                        threeDsV2Frictionless.value = false;
+                      }
+
+                      threeDsV2Challenge.value = v;
                     },
                   ),
                 ),
@@ -138,9 +162,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  int? lastPaymentId;
+
   void reset() {
     status.value = '';
     cardType.value = '';
+    lastPaymentId = null;
   }
 
   bool checkError(AcquiringResponse response) {
@@ -159,21 +186,22 @@ details: ${response.details}
 
   Future<void> cancle() async {
     final CancelResponse res = await acquiring
-        .cancel(CancelRequest(paymentId: 1191852757, amount: 1500000));
+        .cancel(CancelRequest(paymentId: lastPaymentId ?? 0, amount: amount));
 
     if (checkError(res)) return;
   }
 
-  Future<void> state() async {
-    final GetStateResponse res =
-        await acquiring.getState(GetStateRequest(paymentId: 995090973));
+  Future<void> state([int? paymentId]) async {
+    final GetStateResponse res = await acquiring
+        .getState(GetStateRequest(paymentId: paymentId ?? lastPaymentId ?? 0));
 
     if (checkError(res)) return;
   }
 
   Future<void> charge() async {
-    final ChargeResponse res = await acquiring
-        .charge(ChargeRequest(paymentId: 995090973, rebillId: 1642583003390));
+    final ChargeResponse res = await acquiring.charge(
+      ChargeRequest(paymentId: lastPaymentId ?? 0, rebillId: 1642583003390),
+    );
 
     if (checkError(res)) return;
   }
@@ -185,8 +213,10 @@ details: ${response.details}
 
     // Список тестовых карт
     // Вы можете использовать любой срок действия для тестовой карт
-    //
-    // 3ds 1 & 2
+    // 3ds 1
+    // 1. Успешная оплата: 5586200071492158 / 1225 / 123
+    // 2. Ошибка оплаты, Недостаточно средств: 5586200071499591 / 1225 / 123
+    // 3ds 2
     // 1. Ошибка оплаты, Ошибка при списании: 2201382000000021 / 1225 / 123
     // 2. Ошибка оплаты, Недостаточно средств: 2201382000000831 / 1225 / 123
     // 3. Успешная оплата, 3ds2 Frictionless Flow: 2201382000000013 / 1225 / 123
@@ -202,12 +232,19 @@ details: ${response.details}
     if (threeDs.value) {
       cardType.value = '3ds v1';
       cardData = CardData(
-        pan: '2201382000000013',
+        pan: '5586200071492158',
         expDate: '1225',
         cvv: '123',
       ).encode(publicKey);
-    } else if (threeDsV2.value) {
-      cardType.value = '3ds v2';
+    } else if (threeDsV2Frictionless.value) {
+      cardType.value = '3ds v2 Frictionless';
+      cardData = CardData(
+        pan: '2201382000000013',
+        expDate: '1224',
+        cvv: '123',
+      ).encode(publicKey);
+    } else if (threeDsV2Challenge.value) {
+      cardType.value = '3ds v2 Challenge';
       cardData = CardData(
         pan: '2201382000000047',
         expDate: '1224',
@@ -236,6 +273,8 @@ details: ${response.details}
     );
 
     if (checkError(init)) return;
+
+    lastPaymentId = int.tryParse(init.paymentId!);
 
     final Check3DSVersionResponse check3DSVersion =
         await acquiring.check3DSVersion(
@@ -268,10 +307,12 @@ details: ${response.details}
         paymentId: int.parse(init.paymentId!),
         cardData: cardData,
         data: await data.future,
+        ip: await getIpAddress(),
       ),
     );
 
     if (checkError(fa)) return;
+    lastPaymentId = int.tryParse(fa.paymentId!);
 
     final Completer<Submit3DSAuthorizationResponse?> webView =
         Completer<Submit3DSAuthorizationResponse?>();
@@ -304,10 +345,16 @@ details: ${response.details}
       webView.complete(null);
     }
 
-    status.value = await webView.future.then<String>((_) async {
+    status.value = await webView.future
+        .then<String>((Submit3DSAuthorizationResponse? s) async {
+      lastPaymentId =
+          int.tryParse(s?.paymentId ?? fa.paymentId ?? init.paymentId!);
+
       final GetStateResponse getState = await acquiring.getState(
         GetStateRequest(
-          paymentId: int.parse(init.paymentId!),
+          paymentId: int.parse(
+            s?.paymentId ?? fa.paymentId ?? init.paymentId!,
+          ),
         ),
       );
 

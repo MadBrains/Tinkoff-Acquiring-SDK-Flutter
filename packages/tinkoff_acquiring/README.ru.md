@@ -19,8 +19,8 @@ Acquiring SDK позволяет интегрировать [Интернет-Э
 Для подключения добавьте в файл Pubspec зависимости:
 ```yaml
 dependencies:
-  tinkoff_acquiring: ^3.0.9
-  tinkoff_acquiring_flutter: ^3.0.9
+  tinkoff_acquiring: ^3.0.10
+  tinkoff_acquiring_flutter: ^3.0.10
 ```
 
 ## Подготовка к работе
