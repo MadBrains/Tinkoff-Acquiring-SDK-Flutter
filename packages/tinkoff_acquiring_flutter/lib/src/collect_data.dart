@@ -94,25 +94,32 @@ class _WebViewCollect extends StatefulWidget {
   State<_WebViewCollect> createState() => _WebViewCollectState();
 
   String get termUrl =>
-      config.url(WebViewMethods.submit3DSAuthorizationV2).toString();
+      config.apiUrl(WebViewMethods.submit3DSAuthorizationV2).toString();
 
   String get notificationsUrl =>
-      config.url(WebViewMethods.complete3DSMethodv2).toString();
+      config.apiUrl(WebViewMethods.complete3DSMethodv2).toString();
 
   String get createCollectData {
     final Map<String, String> params = <String, String>{
-      WebViewKeys.threeDSServerTransId: serverTransId,
       WebViewKeys.threeDSMethodNotificationURL: notificationsUrl,
+      WebViewKeys.threeDSServerTransId: serverTransId,
     };
 
-    return base64WithoutPadding(
+    config.logger.log(
+      message: params.toString(),
+      name: 'CollectData',
+    );
+
+    final String base = base64WithoutPadding(
       Uint8List.fromList(jsonEncode(params).codeUnits),
     ).trim();
+
+    return Uri.encodeFull(base);
   }
 
   String get collect => '''
       <html>
-        <body onload="document.f.submit();">
+        <body onload="document.form.submit();">
           <form name="payForm" action="$threeDsMethodUrl" method="POST">
             <input type="hidden" name="threeDSMethodData" value="$createCollectData"/>
           </form>
@@ -130,9 +137,12 @@ class _WebViewCollectState extends State<_WebViewCollect> {
     ..setJavaScriptMode(JavaScriptMode.unrestricted)
     ..setNavigationDelegate(
       NavigationDelegate(
-        // initialUrl: '',
-        // gestureNavigationEnabled: true,
+        onPageStarted: (String url) async {
+          await _logNavigationDelegate('onPageStarted', url);
+        },
         onPageFinished: (String url) async {
+          await _logNavigationDelegate('onPageFinished', url);
+
           if (url == widget.notificationsUrl) {
             final double screenHeight = MediaQuery.of(context).size.height *
                 MediaQuery.of(context).devicePixelRatio;
@@ -159,6 +169,17 @@ class _WebViewCollectState extends State<_WebViewCollect> {
   Widget build(BuildContext context) {
     return WebViewWidget(
       controller: _controller,
+    );
+  }
+
+  Future<void> _logNavigationDelegate(String name, String url) async {
+    final String _document = await _controller.runJavaScriptReturningResult(
+      'document.documentElement.outerHTML',
+    ) as String;
+
+    widget.config.logger.log(
+      message: '$name: $url\n$_document\n',
+      name: 'CollectData',
     );
   }
 }

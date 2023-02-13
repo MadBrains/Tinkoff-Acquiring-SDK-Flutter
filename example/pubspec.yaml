@@ -6,12 +6,12 @@ publish_to: none
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-
 dependencies:
   flutter:
     sdk: flutter
-  tinkoff_acquiring: ^3.0.9
-  tinkoff_acquiring_flutter: ^3.0.9
+
+  tinkoff_acquiring: ^3.0.10
+  tinkoff_acquiring_flutter: ^3.0.10
 
 dependency_overrides:
   tinkoff_acquiring:

@@ -1,3 +1,7 @@
+# 3.0.10
+
+* Fixing the 3DSv2 Challenge Flow Passage
+
 # 3.0.9
 
 * Fix paymentId type in OrderPayments

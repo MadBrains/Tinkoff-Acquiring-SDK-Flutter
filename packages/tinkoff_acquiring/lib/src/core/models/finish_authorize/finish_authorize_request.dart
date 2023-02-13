@@ -75,24 +75,24 @@ part 'finish_authorize_request.g.dart';
 ///
 /// Для 3DS второй версии в параметрах DATA необходимо передовать следующие параметры:
 ///
-/// | Наименование | Тип | Обязательность | deviceChannel | Описание |
-/// |--------------|-----|----------------|---------------|----------|
-/// | threeDSCompInd | String | Да | 02 - BRW | Идентификатор выполнения 3DS Method. 'Y' - выполнение метода успешно завершено, 'N' - выполнение метода завершено неуспешно или метод не выполнялся |
-/// | javaEnabled |String | Нет | 02 - BRW | Поддерживает ли браузер пользователя Java: true/false. По умолчанию значение "false" |
-/// | language | String | Да | 02 - BRW | Язык браузера по формату IETF BCP47. |
-/// | colorDepth | String | Нет | 02 - BRW | Глубина цвета в битах. Допустимые значения: 1/4/8/15/16/24/32/48 |
-/// | timezone | String | Да | 02 - BRW | Time-zone пользователя. Пример: UTC +5 hours: -300 |
-/// | screen_height | String | Да | 02 - BRW | Высота экрана в пикселях |
-/// | screen_width | String | Да | 02 - BRW | Ширина экрана в пикселях |
-/// | cresCallbackUrl | String | Да | 02 - BRW | URL который будет использоваться для получения результата(CRES) после завершения Challenge Flow(аутентификаци с дополнительным переходом на страницу ACS) |
-/// | sdkAppID | String | Да | 01 – APP | Уникальный идентификатор приложения 3DS Requestor, который формируется 3DS SDK при каждой установке или обновлении приложения |
-/// | sdkEncData | String | Да | 01 – APP | Данные, собранные SDK. JWE объект, полученный от 3DS SDK, должен быть дополнительно закодирован в base64 строку. |
-/// | sdkEphemPubKey | String | Да | 01 – APP | Компонент public key пары ephemeral key, сгенерированный 3DS SDK. JWE объект, полученный от 3DS SDK, должен быть дополнительно закодирован в base64 строку |
-/// | sdkMaxTimeout | String | Да | 01 – APP | Максимальное количество времени (в минутах). Значение должно быть больше либо равно 5 символов. |
-/// | sdkReferenceNumber | String | Да | 01 – APP | Поставщик и версия 3DS SDK |
-/// | sdkTransID | String | Да | 01 – APP | Уникальный идентификатор транзакции, назначенный 3DS SDK для идентификации одной транзакции |
-/// | sdkInterface | String | Да | 01 – APP | Список поддерживаемых интерфейсов SDK. Поддерживаемые значения: 01 = Native, 02 = HTML, 03 = Both |
-/// | sdkUiType | String | Да | 01 – APP | Список поддерживаемых типов UI. Значения для каждого интерфейса: Native UI = 01–04, HTML UI = 01–05. Поддерживаемые значения: 01 = Text, 02 = Single Select, 03 = Multi Select, 04 = OOB, 05 = HTML Other (valid only for HTML UI). Пример значения: "01,02,03,04,05" |
+/// | Наименование        | Тип    | Обязательность | deviceChannel | Описание |
+/// |---------------------|--------|----------------|---------------|----------|
+/// | threeDSCompInd      | String | Да             | 02 - BRW      | Идентификатор выполнения 3DS Method. 'Y' - выполнение метода успешно завершено, 'N' - выполнение метода завершено неуспешно или метод не выполнялся |
+/// | javaEnabled         | String | Нет            | 02 - BRW      | Поддерживает ли браузер пользователя Java: true/false. По умолчанию значение "false" |
+/// | language            | String | Да             | 02 - BRW      | Язык браузера по формату IETF BCP47. |
+/// | colorDepth          | String | Нет            | 02 - BRW      | Глубина цвета в битах. Допустимые значения: 1/4/8/15/16/24/32/48 |
+/// | timezone            | String | Да             | 02 - BRW      | Time-zone пользователя. Пример: UTC +5 hours: -300 |
+/// | screen_height       | String | Да             | 02 - BRW      | Высота экрана в пикселях |
+/// | screen_width        | String | Да             | 02 - BRW      | Ширина экрана в пикселях |
+/// | cresCallbackUrl     | String | Да             | 02 - BRW      | URL который будет использоваться для получения результата(CRES) после завершения Challenge Flow(аутентификаци с дополнительным переходом на страницу ACS) |
+/// | sdkAppID            | String | Да             | 01 – APP      | Уникальный идентификатор приложения 3DS Requestor, который формируется 3DS SDK при каждой установке или обновлении приложения |
+/// | sdkEncData          | String | Да             | 01 – APP      | Данные, собранные SDK. JWE объект, полученный от 3DS SDK, должен быть дополнительно закодирован в base64 строку. |
+/// | sdkEphemPubKey      | String | Да             | 01 – APP      | Компонент public key пары ephemeral key, сгенерированный 3DS SDK. JWE объект, полученный от 3DS SDK, должен быть дополнительно закодирован в base64 строку |
+/// | sdkMaxTimeout       | String | Да             | 01 – APP      | Максимальное количество времени (в минутах). Значение должно быть больше либо равно 5 символов. |
+/// | sdkReferenceNumber  | String | Да             | 01 – APP      | Поставщик и версия 3DS SDK |
+/// | sdkTransID          | String | Да             | 01 – APP      | Уникальный идентификатор транзакции, назначенный 3DS SDK для идентификации одной транзакции |
+/// | sdkInterface        | String | Да             | 01 – APP      | Список поддерживаемых интерфейсов SDK. Поддерживаемые значения: 01 = Native, 02 = HTML, 03 = Both |
+/// | sdkUiType           | String | Да             | 01 – APP      | Список поддерживаемых типов UI. Значения для каждого интерфейса: Native UI = 01–04, HTML UI = 01–05. Поддерживаемые значения: 01 = Text, 02 = Single Select, 03 = Multi Select, 04 = OOB, 05 = HTML Other (valid only for HTML UI). Пример значения: "01,02,03,04,05" |
 ///
 /// Для 3DS Version 2 в HttpHeaders запроса обязательно должны присутсвовать заголовки: “User-Agent” и “Accept”.
 @JsonSerializable(includeIfNull: false)
@@ -119,6 +119,18 @@ class FinishAuthorizeRequest extends AcquiringRequest {
 
   @override
   String get apiMethod => ApiMethods.finishAuthorize;
+
+  @override
+  Map<String, String> get headers => <String, String>{
+        ...super.headers,
+        // TODO take out the mock
+        if (is3DsVersionV2)
+          'Accept': 'text/plain,application/json;q=0.9,*/*;q=0.8',
+        // TODO take out the mock
+        if (is3DsVersionV2)
+          'User-Agent':
+              'Mozilla/5.0 (iPhone; CPU iPhone OS 16_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Mobile/15E148 Safari/604.1'
+      };
 
   @override
   Map<String, dynamic> toJson() => _$FinishAuthorizeRequestToJson(this);
@@ -195,6 +207,10 @@ class FinishAuthorizeRequest extends AcquiringRequest {
     infoEmail.validateEmail(JsonKeys.infoEmail, checkNull: sendEmail == true);
     ip.validateIp(JsonKeys.ip);
   }
+
+  /// Проверка запроса на наличие 3DsV2
+  @JsonKey(ignore: true)
+  bool get is3DsVersionV2 => data != null && ip != null;
 
   /// Зашифрованные данные карты. См. класс [PaymentSource].
   ///
