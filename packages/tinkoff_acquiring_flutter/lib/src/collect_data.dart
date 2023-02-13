@@ -114,11 +114,6 @@ class _WebViewCollect extends StatefulWidget {
       Uint8List.fromList(jsonEncode(params).codeUnits),
     ).trim();
 
-    config.logger.log(
-      message: base,
-      name: 'CollectData',
-    );
-
     return Uri.encodeFull(base);
   }
 

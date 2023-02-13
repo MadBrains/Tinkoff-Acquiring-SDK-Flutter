@@ -88,11 +88,6 @@ class WebView3DS extends StatefulWidget {
       Uint8List.fromList(jsonEncode(params).codeUnits),
     ).trim();
 
-    config.logger.log(
-      message: base,
-      name: 'WebView3DS',
-    );
-
     return Uri.encodeFull(base);
   }
 
@@ -192,7 +187,7 @@ class _WebView3DSState extends State<WebView3DS> {
       final String rawResponse =
           _response?.replaceAll(RegExp('\\"').pattern, '"') ?? _document;
 
-      widget.config.logger.log(message: rawResponse, name: 'RawResponse');
+      widget.config.logger.log(message: rawResponse, name: 'WebView3DS');
 
       final Submit3DSAuthorizationResponse response =
           Submit3DSAuthorizationResponse.fromJson(
@@ -204,7 +199,7 @@ class _WebView3DSState extends State<WebView3DS> {
     } catch (e, st) {
       widget.config.logger.log(
         message: 'Failed parse 3ds response',
-        name: 'Response',
+        name: 'WebView3DS',
         error: e,
         stackTrace: st,
       );
