@@ -1,5 +1,5 @@
-<a href="https://madbrains.ru/?utm_source=gthb"><img src="https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/blob/docs/banner.png"/></a>
-<img align="left" src="https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/blob/docs/info.png" width="480" height="360"/></a>
+<a href="https://madbrains.ru/?utm_source=gthb"><img src="https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/blob/main/docs/banner.png"/></a>
+<img align="left" src="https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/blob/main/docs/info.png" width="480" height="360"/></a>
 
 <p><h1 align="left">Tinkoff Acquiring SDK</h1></p>
 
@@ -8,12 +8,12 @@
 
 <p><h4> We solve problems of brand presence on mobile devices, specializing in development of mobile applications and services in the b2c segment.</h4>
 <a href="https://madbrains.ru/?utm_source=gthb">
-<img src="https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/blob/docs/get_started_stroke.png" width="249" height="45"></a>
+<img src="https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/blob/main/docs/get_started_stroke.png" width="249" height="45"></a>
 </p>
 
 <p><h5>Subscribe for the latest updates:</h5>
 <a href="https://github.com/MadBrains" >
-<img src="https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/blob/docs/follow_us_stroke.png" width="138" height="26"></a></p>
+<img src="https://github.com/MadBrains/Tinkoff-Acquiring-SDK-Flutter/blob/main/docs/follow_us_stroke.png" width="138" height="26"></a></p>
 </br>
 
 
