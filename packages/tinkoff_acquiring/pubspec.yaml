@@ -14,7 +14,7 @@ dependencies:
   crypton: ^2.1.0
   http: ^1.0.0
   meta: ^1.9.1
-  json_annotation: ^4.5.0
+  json_annotation: ^4.8.1
 
 dev_dependencies:
   test: ^1.21.3

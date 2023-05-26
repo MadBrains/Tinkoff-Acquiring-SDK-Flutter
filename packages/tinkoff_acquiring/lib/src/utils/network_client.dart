@@ -34,7 +34,10 @@ class NetworkClient {
         isDebugMode: _config.isDebugMode,
       );
 
-      proxyHeaders = <String, String>{...?config.globalHeaders, ...?setting?.headers};
+      proxyHeaders = <String, String>{
+        ...?config.globalHeaders,
+        ...?setting?.headers
+      };
 
       url = config.url(
         config.proxyPath + (setting?.methodPath ?? request.apiMethodPath),
@@ -157,7 +160,8 @@ class SignToken {
     final Map<String, dynamic> temp = request.toJson()
       ..addAll(<String, dynamic>{
         JsonKeys.terminalKey: terminalKey,
-        if (password != null && password.isNotEmpty) JsonKeys.password: password,
+        if (password != null && password.isNotEmpty)
+          JsonKeys.password: password,
       });
     final List<String> sortedKeys = List<String>.from(temp.keys)..sort();
     final StringBuffer buffer = StringBuffer();
