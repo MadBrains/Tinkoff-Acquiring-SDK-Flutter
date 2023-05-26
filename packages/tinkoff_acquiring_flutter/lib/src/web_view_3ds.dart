@@ -55,7 +55,7 @@ class WebView3DS extends StatefulWidget {
   final void Function(Submit3DSAuthorizationResponse?) onFinished;
 
   /// Загрузка 3-D Secure
-  final void Function(bool) onLoad;
+  final void Function({required bool isLoading}) onLoad;
 
   String get _termUrl => config
       .apiUrl(
@@ -134,7 +134,7 @@ class _WebView3DSState extends State<WebView3DS> {
           await _logNavigationDelegate('onPageStarted', url);
 
           if (url == widget._termUrl) {
-            widget.onLoad(true);
+            widget.onLoad(isLoading: true);
           }
         },
         onPageFinished: (String url) async {
@@ -151,7 +151,7 @@ class _WebView3DSState extends State<WebView3DS> {
           if (url == widget._termUrl) {
             await _response();
           } else {
-            widget.onLoad(false);
+            widget.onLoad(isLoading: false);
           }
         },
       ),

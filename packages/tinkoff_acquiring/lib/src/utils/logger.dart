@@ -1,7 +1,7 @@
 import 'dart:developer' as dev;
 
 /// Интерфейс базового логгера
-abstract class BaseLogger {
+abstract interface class BaseLogger {
   /// Конструктор базового логгера
   const BaseLogger();
 

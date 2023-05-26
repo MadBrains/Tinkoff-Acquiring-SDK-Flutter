@@ -24,7 +24,6 @@ final TinkoffAcquiring acquiring = TinkoffAcquiring(
   TinkoffAcquiringConfig.credential(
     terminalKey: terminalKey,
     password: password,
-    isDebugMode: true,
   ),
 );
 
@@ -330,8 +329,8 @@ details: ${response.details}
               paReq: fa.paReq,
               acsTransId: fa.acsTransId,
               version: check3DSVersion.version,
-              onLoad: (bool v) {
-                debugPrint('WebView load: $v');
+              onLoad: ({required bool isLoading}) {
+                debugPrint('WebView load: $isLoading');
               },
               onFinished: (Submit3DSAuthorizationResponse? v) {
                 Navigator.of(context).pop();

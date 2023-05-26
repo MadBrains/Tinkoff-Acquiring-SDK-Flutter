@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
-abstract class WebViewKeys {
+abstract final class WebViewKeys {
   static const String threeDSServerTransId = 'threeDSServerTransID';
   static const String threeDSMethodNotificationURL =
       'threeDSMethodNotificationURL';
@@ -16,7 +16,7 @@ abstract class WebViewKeys {
   static const String cresCallbackUrl = 'cresCallbackUrl';
 }
 
-abstract class WebViewSettings {
+abstract final class WebViewSettings {
   static const String messageType = 'CReq';
   static const String challengeWindowSize = '05';
   static const List<String> cancelActions = <String>[
@@ -25,7 +25,7 @@ abstract class WebViewSettings {
   ];
 }
 
-abstract class WebViewMethods {
+abstract final class WebViewMethods {
   static const String submit3DSAuthorization = 'Submit3DSAuthorization';
   static const String submit3DSAuthorizationV2 = 'Submit3DSAuthorizationV2';
   static const String complete3DSMethodv2 = 'Complete3DSMethodv2';

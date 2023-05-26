@@ -13,7 +13,7 @@ import 'crypto_utils.dart';
 /// {@endtemplate}
 class NetworkClient {
   /// {@macro network_client}
-  NetworkClient(this._config);
+  const NetworkClient(this._config);
 
   /// {@macro tinkoff_acquiring_config}
   final TinkoffAcquiringConfig _config;
@@ -31,13 +31,10 @@ class NetworkClient {
     if (config is TinkoffAcquiringConfigProxy) {
       final ProxyRequest? setting = config.mapping?.call(
         request,
-        _config.isDebugMode,
+        isDebugMode: _config.isDebugMode,
       );
 
-      proxyHeaders = <String, String>{
-        ...?config.globalHeaders,
-        ...?setting?.headers
-      };
+      proxyHeaders = <String, String>{...?config.globalHeaders, ...?setting?.headers};
 
       url = config.url(
         config.proxyPath + (setting?.methodPath ?? request.apiMethodPath),
@@ -114,30 +111,33 @@ class NetworkClient {
   ) {
     final Map<String, dynamic> temp = request.toJson();
 
-    if (config is TinkoffAcquiringConfigCredential) {
-      final String token = SignToken.generate(
-        terminalKey: config.terminalKey,
-        password: config.password,
-        request: request,
-      );
+    switch (config) {
+      case TinkoffAcquiringConfigCredential():
+        final String token = SignToken.generate(
+          terminalKey: config.terminalKey,
+          password: config.password,
+          request: request,
+        );
 
-      final Map<String, dynamic> _request = temp
-        ..addAll(<String, dynamic>{
-          JsonKeys.terminalKey: config.terminalKey,
-          JsonKeys.token: token,
-        });
+        final Map<String, dynamic> _request = temp
+          ..addAll(
+            <String, dynamic>{
+              JsonKeys.terminalKey: config.terminalKey,
+              JsonKeys.token: token,
+            },
+          );
 
-      return _request;
+        return _request;
+      case TinkoffAcquiringConfigToken():
+        return temp
+          ..addAll(
+            <String, dynamic>{
+              JsonKeys.terminalKey: config.terminalKey,
+            },
+          );
+      case TinkoffAcquiringConfigProxy():
+        return temp;
     }
-
-    if (config is TinkoffAcquiringConfigToken) {
-      return temp
-        ..addAll(<String, dynamic>{
-          JsonKeys.terminalKey: config.terminalKey,
-        });
-    }
-
-    return temp;
   }
 }
 
@@ -157,8 +157,7 @@ class SignToken {
     final Map<String, dynamic> temp = request.toJson()
       ..addAll(<String, dynamic>{
         JsonKeys.terminalKey: terminalKey,
-        if (password != null && password.isNotEmpty)
-          JsonKeys.password: password,
+        if (password != null && password.isNotEmpty) JsonKeys.password: password,
       });
     final List<String> sortedKeys = List<String>.from(temp.keys)..sort();
     final StringBuffer buffer = StringBuffer();
