@@ -6,14 +6,14 @@ import 'models/base/base.dart';
 /// Позволяет изменять путь и загаловок запроса.
 /// {@endtemplate}
 typedef ProxyMapping = ProxyRequest? Function(
-  AcquiringRequest request,
-  bool isDebugMode,
-);
+  AcquiringRequest request, {
+  required bool isDebugMode,
+});
 
 /// {@template tinkoff_acquiring_config}
 /// Класс позволяет конфигурировать SDK.
 /// {@endtemplate}
-abstract class TinkoffAcquiringConfig {
+sealed class TinkoffAcquiringConfig {
   /// Создает экземпляр класса для конфигурирования SDK, через `terminalKey` и `password`.
   ///
   /// Если не передать `password`, то SDK будет работать в режиме passwordless.

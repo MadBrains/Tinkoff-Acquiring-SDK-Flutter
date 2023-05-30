@@ -1,3 +1,8 @@
+# 3.0.11
+
+* Bumped Flutter to 3.10.2, Dart to 3
+* Upgraded dependencies
+
 # 3.0.10
 
 * Fixing the 3DSv2 Challenge Flow Passage

@@ -209,7 +209,7 @@ class FinishAuthorizeRequest extends AcquiringRequest {
   }
 
   /// Проверка запроса на наличие 3DsV2
-  @JsonKey(ignore: true)
+  @JsonKey(includeToJson: false, includeFromJson: false)
   bool get is3DsVersionV2 => data != null && ip != null;
 
   /// Зашифрованные данные карты. См. класс [PaymentSource].

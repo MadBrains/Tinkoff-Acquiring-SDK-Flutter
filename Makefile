@@ -11,7 +11,7 @@ FVM_FLUTTER = $(FVM) flutter
 FVM_DART = $(FVM) dart
 
 init:
-	$(FVM) use 3.3.5 --force; $(FVM_DART) pub global activate pana;
+	$(FVM) use 3.10.2 --force; $(FVM_DART) pub global activate pana;
 
 version:
 	$(FVM_FLUTTER) --version; $(FVM_DART) --version;
@@ -36,7 +36,7 @@ clean:
 	$(foreach v, $(PACKAGES_PATH), cd $(v); $(FVM_FLUTTER) clean; cd ../..;)
 
 fix:
-	$(foreach v, $(PACKAGES_PATH), cd $(v); $(FVM_FLUTTER) format .; cd ../..;)
+	$(foreach v, $(PACKAGES_PATH), cd $(v); $(FVM_DART) format .; cd ../..;)
 
 analyze:
 	$(foreach v, $(PACKAGES_PATH), cd $(v); $(FVM_FLUTTER) analyze . --fatal-infos; cd ../..;)

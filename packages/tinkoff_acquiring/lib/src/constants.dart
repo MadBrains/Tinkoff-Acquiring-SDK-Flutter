@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs
 
-abstract class JsonKeys {
+abstract final class JsonKeys {
   static const String terminalKey = 'TerminalKey';
   static const String customerKey = 'CustomerKey';
   static const String checkType = 'CheckType';
@@ -144,7 +144,7 @@ abstract class JsonKeys {
   static const String timestamp = 'Timestamp';
 }
 
-abstract class NetworkSettings {
+abstract final class NetworkSettings {
   static const String domainDebug = 'rest-api-test.tinkoff.ru';
   static const String domainRelease = 'securepay.tinkoff.ru';
   static const String apiPath = '/';
@@ -160,7 +160,7 @@ abstract class NetworkSettings {
   };
 }
 
-abstract class ApiMethods {
+abstract final class ApiMethods {
   static const String init = 'Init';
   static const String finishAuthorize = 'FinishAuthorize';
   static const String confirm = 'Confirm';
@@ -189,7 +189,7 @@ abstract class ApiMethods {
   static const String getAddCardState = 'GetAddCardState';
 }
 
-abstract class Ignore {
+abstract final class Ignore {
   static const Set<String> ignoredFields = <String>{
     JsonKeys.data,
     JsonKeys.receipt,
@@ -198,7 +198,7 @@ abstract class Ignore {
   };
 }
 
-abstract class CardSettings {
+abstract final class CardSettings {
   static const List<int> defaultRangers = <int>[16];
   static const List<int> unknownRangers = <int>[13, 14, 15, 16, 17, 18, 19];
   static const List<int> maestroRangers = <int>[13, 14, 15, 16, 17, 18, 19];
