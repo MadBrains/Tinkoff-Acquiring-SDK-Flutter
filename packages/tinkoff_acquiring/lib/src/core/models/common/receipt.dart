@@ -124,8 +124,12 @@ class Receipt extends BaseRequest {
     clientInfo?.validate();
 
     assert(email != null || phone != null);
-    email.validateEmail(JsonKeys.email);
-    phone.validatePhone(JsonKeys.phone);
+    if (email != null) {
+      email.validateEmail(JsonKeys.email);
+    }
+    if (phone != null) {
+      phone.validatePhone(JsonKeys.phone);
+    }
   }
 
   /// Электронная почта покупателя
