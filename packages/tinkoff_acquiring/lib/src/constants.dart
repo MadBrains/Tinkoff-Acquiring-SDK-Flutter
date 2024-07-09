@@ -145,7 +145,7 @@ abstract class JsonKeys {
 }
 
 abstract class NetworkSettings {
-  static const String domainDebug = 'rest-api-test.tinkoff.ru';
+  static const String domainDebug = 'securepay.tinkoff.ru';
   static const String domainRelease = 'securepay.tinkoff.ru';
   static const String apiPath = '/';
   static const String apiVersion2 = 'v2';
